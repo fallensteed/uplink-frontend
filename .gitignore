@@ -5,11 +5,16 @@
 /.pnp
 .pnp.js
 
+# Optional eslint cache
+.eslintcache
+
 # testing
 /coverage
 
 # production
 /build
+package-lock.json
+
 
 # misc
 .DS_Store
