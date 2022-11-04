@@ -1,19 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
+import "@fontsource/noto-sans";
+import "@fontsource/roboto";
+import "@fontsource/space-mono";
+import "@fontsource/spartan";
+import { router } from "./navigation/pages";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>,
 );
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
