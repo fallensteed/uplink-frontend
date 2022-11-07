@@ -36,6 +36,7 @@
         "@typescript-eslint/no-explicit-any": "off"
     },
     "parserOptions": {
+        "project": "tsconfig.json",
         "ecmaVersion": 6,
         "sourceType": "module",
         "ecmaFeatures": {
