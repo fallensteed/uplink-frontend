@@ -1,11 +1,10 @@
-import { RuxClassificationMarking } from "@astrouxds/react";
-import { Box, Typography } from "@mui/material";
-import ClassificationBar from "../common/classification/ClassificationBar";
+import { Box } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
+import ClassificationBar from "../common/classification/ClassificationBar";
 import { socket } from "../common/config/socket";
+import Footer from "../common/footer/Footer";
 import Navigation from "../navigation/Navigation";
-import Footer from '../common/footer/Footer';
 
 const Root: FC = () => {
     const [isConnected, setIsConnected] = useState(socket.connected);

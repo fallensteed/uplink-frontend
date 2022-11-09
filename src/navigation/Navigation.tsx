@@ -10,12 +10,13 @@ import {
     ListItemIcon,
     ListItemText,
     Toolbar,
-    Typography,
+    Typography
 } from "@mui/material";
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { routeList } from "./pages";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface NavigationProps {}
 
 const drawerWidth = 240;
@@ -49,7 +50,7 @@ const Navigation: FC<NavigationProps> = (props: NavigationProps) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: "Space Mono" }} >
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: "Space Mono" }}>
                         UPLINK
                     </Typography>
                 </Toolbar>

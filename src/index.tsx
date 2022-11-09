@@ -2,11 +2,11 @@ import "@fontsource/noto-sans";
 import "@fontsource/roboto";
 import "@fontsource/space-mono";
 import "@fontsource/spartan";
-import { router } from "./navigation/pages";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import "./index.css";
+import { router } from "./navigation/pages";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
