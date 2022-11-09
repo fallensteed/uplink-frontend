@@ -12,16 +12,18 @@ import {
     Toolbar,
     Typography,
 } from "@mui/material";
-import { FC, useState } from "react";
+import ClassificationBar from "common/classification/ClassificationBar";
+import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "routes/Root";
+import UserDisplay from "./components/UserDisplay";
 import { routeList } from "./pages";
-
-interface NavigationProps {}
 
 const drawerWidth = 240;
 
-const Navigation: FC<NavigationProps> = (props: NavigationProps) => {
+const Navigation: FC = () => {
     const navigate = useNavigate();
+    const user = useContext(UserContext);
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     const openDrawer = () => {
@@ -38,7 +40,8 @@ const Navigation: FC<NavigationProps> = (props: NavigationProps) => {
 
     return (
         <>
-            <AppBar component="nav" sx={{ mt: "22px" }}>
+            <AppBar component="nav" sx={{ backgroundColor: "#00263A"}}>
+                <ClassificationBar />
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -49,9 +52,10 @@ const Navigation: FC<NavigationProps> = (props: NavigationProps) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: "Space Mono" }} >
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: "Space Mono" }}>
                         UPLINK
                     </Typography>
+                    <UserDisplay />
                 </Toolbar>
             </AppBar>
             <Box component="nav">
