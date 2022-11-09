@@ -1,14 +1,33 @@
-import { RuxClassificationMarking } from "@astrouxds/react";
-import { Box, Typography } from "@mui/material";
-import ClassificationBar from "../common/classification/ClassificationBar";
-import { FC, useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Box } from "@mui/material";
+import { createContext, FC, useEffect, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { User, user_self } from "../common/api/user/user.api";
 import { socket } from "../common/config/socket";
+import Footer from "../common/footer/Footer";
 import Navigation from "../navigation/Navigation";
-import Footer from '../common/footer/Footer';
+
+export const UserContext = createContext<User | null>(null);
 
 const Root: FC = () => {
     const [isConnected, setIsConnected] = useState(socket.connected);
+    const [user, setUser] = useState<User | null>(null);
+    const [error, setError] = useState<boolean>(false);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const selfRegistration = async () => {
+        const response = await user_self();
+        if (response.data) {
+            setUser(response.data);
+        } else {
+            setError(true);
+        }
+    };
+
+    useEffect(() => {
+        if (location.pathname === "/") navigate("/home");
+    }, [location]);
 
     useEffect(() => {
         socket.on("connect", () => {
@@ -25,12 +44,26 @@ const Root: FC = () => {
         };
     }, []);
 
+    useEffect(() => {
+        selfRegistration();
+    }, []);
+
     return (
         <Box id="main" sx={{ height: "100%", width: "100%", backgroundColor: "#425563" }}>
-            <ClassificationBar />
-            <Navigation />
-            <Box sx={{ height: 64 }} />
-            <Outlet />
+            <UserContext.Provider value={user}>
+                <Navigation />
+                <Box
+                    sx={{
+                        pt: "86px",
+                        height: "calc(100% - 86px)",
+                        width: "100%",
+                        overflowY: "auto",
+                        overflowX: "hidden",
+                    }}
+                >
+                    <Outlet />
+                </Box>
+            </UserContext.Provider>
             <Footer connectionStatus={isConnected} />
         </Box>
     );

@@ -9,7 +9,7 @@ const Footer: FC<FooterProps> = (props: FooterProps) => {
     return (
         <Box
             sx={{
-                position: "absolute",
+                position: "fixed",
                 bottom: 0,
                 left: 0,
                 width: "100%",
@@ -22,9 +22,7 @@ const Footer: FC<FooterProps> = (props: FooterProps) => {
             }}
         >
             <Typography variant="body2">Created by Supra Coders for the USSF &copy; 2022</Typography>
-            <Typography variant="body2">
-                Status: {props.connectionStatus ? "Connected" : "Disconnected"}{" "}
-            </Typography>
+            <Typography variant="body2">Status: {props.connectionStatus ? "Connected" : "Disconnected"} </Typography>
             <Typography variant="body2">UPLINK v0.0.1</Typography>
         </Box>
     );
