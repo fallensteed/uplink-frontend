@@ -196,6 +196,151 @@ const ISTForm: FC = () => {
                             </label>
                             <label style={item}>
                                 <Typography>Security Clearance</Typography>
+                                <select style={input} name="SecClearance">
+                                    <option value="Secret">Secret</option>
+                                    <option value="Top Secret">Top Secret</option>
+                                </select>
+                            </label>
+                        </Box>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                lexDirection: "row",
+                            }}
+                        >
+                            <label style={item}>
+                                <Typography>Official Email</Typography>
+                                <input type="text" style={input} name="OfficialEmail" />
+                            </label>
+                            <label style={item}>
+                                <Typography>Personal Email</Typography>
+                                <input type="text" style={input} name="PersonalEmail" />
+                            </label>
+                            <label style={item}>
+                                <Typography>Commercial Phone</Typography>
+                                <input type="text" style={input} name="ComPhone" />
+                            </label>
+                            <label style={item}>
+                                <Typography>DSN Phone</Typography>
+                                <input type="text" style={input} name="DSNPhone" />
+                            </label>
+                            <label style={item}>
+                                <Typography>Date of Birth</Typography>
+                                <input type="text" style={input} name="DOB" />
+                            </label>
+                        </Box>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                lexDirection: "row",
+                            }}
+                        >
+                            <label style={item}>
+                                <Typography>Gender</Typography>
+                                <select style={input} name="Gender">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </label>
+                            <label style={item}>
+                                <Typography>Race</Typography>
+                                <select style={input} name="Race">
+                                    <option value="White">White</option>
+                                    <option value="Black">Black</option>
+                                    <option value="Asain">Asain</option>
+                                </select>
+                            </label>
+                            <label style={item}>
+                                <Typography>Ethnicity</Typography>
+                                <select style={input} name="Ethnicity">
+                                    <option value="Hispanic">Hispanic or Latino</option>
+                                    <option value="Not Hispanic">Not Hispanic or Latino</option>
+                                </select>
+                            </label>
+                            <label style={item}>
+                                <Typography>DOD ID</Typography>
+                                <input type="text" style={input} name="DODID" />
+                            </label>
+                            <label style={item}>
+                                <Typography>Social Security Number</Typography>
+                                <input type="text" style={input} name="SSN" />
+                            </label>
+                        </Box>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                lexDirection: "row",
+                            }}
+                        >
+                            <label style={item}>
+                                <Typography>Street Address</Typography>
+                                <input type="text" style={input} name="Street" />
+                            </label>
+                            <label style={item}>
+                                <Typography>City</Typography>
+                                <input type="text" style={input} name="City" />
+                            </label>
+                            <label style={item}>
+                                <Typography>State</Typography>
+                                <select style={input} name="State">
+                                    <option value="CO">CO</option>
+                                    <option value="CA">CA</option>
+                                    <option value="TX">TX</option>
+                                </select>
+                            </label>
+                            <label style={item}>
+                                <Typography>Zip Code</Typography>
+                                <input type="text" style={input} name="ZipCode" />
+                            </label>
+                            <label style={item}>
+                                <Typography>Country</Typography>
+                                <select style={input} name="Country">
+                                    <option value="USA">United States</option>
+                                    <option value="Germany">Germany</option>
+                                    <option value="Japan">Japan</option>
+                                </select>
+                            </label>
+                            <label style={item}>
+                                <Typography>Married Mil-to-Mil?</Typography>
+                                <select style={input} name="Married">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </label>
+                            <label style={item}>
+                                <Typography>If yes, full name of spouse</Typography>
+                                <input type="text" style={input} name="SpouseName" />
+                            </label>
+                        </Box>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                lexDirection: "row",
+                            }}
+                        >
+                            <label style={item}>
+                                <Typography>Current Unit/Det Name</Typography>
+                                <input type="text" style={input} name="UnitName" />
+                            </label>
+                            <label style={item}>
+                                <Typography>Unit/Det Location</Typography>
+                                <input type="text" style={input} name="UnitLocation" />
+                            </label>
+                            <label style={item}>
+                                <Typography>Current Commander</Typography>
+                                <input type="text" style={input} name="Commander" />
+                            </label>
+                            <label style={item}>
+                                <Typography>Commander Com Phone</Typography>
+                                <input type="text" style={input} name="CommanderComPhone" />
+                            </label>
+                            <label style={item}>
+                                <Typography>Commander DSN Phone</Typography>
+                                <input type="text" style={input} name="CommanderDSNPhone" />
+                            </label>
+                            <label style={item}>
+                                <Typography>Commander Email</Typography>
+                                <input type="text" style={input} name="CommanderEmail" />
                             </label>
                         </Box>
                     </form>
