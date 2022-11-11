@@ -40,7 +40,7 @@ const Navigation: FC = () => {
 
     return (
         <>
-            <AppBar component="nav" sx={{ backgroundColor: "#00263A"}}>
+            <AppBar component="nav" color="appbar">
                 <ClassificationBar />
                 <Toolbar>
                     <IconButton

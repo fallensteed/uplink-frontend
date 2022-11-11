@@ -1,6 +1,5 @@
 import { API_URL } from "../../../config/api";
 
-
 export interface User {
     _id: string;
     p1Username: string;
@@ -32,6 +31,6 @@ export interface SensitiveInformation {
 export const USER_URL = `${API_URL}/common/user`;
 
 export const user_self = async (): Promise<any> => {
-    const response = await fetch(`${USER_URL}/self`, { method: "POST" })
-    return response.json()
-}
+    const response = await fetch(`${USER_URL}/self`, { method: "POST" });
+    return response.json();
+};

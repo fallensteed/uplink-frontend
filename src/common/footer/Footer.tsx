@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { useTheme } from "@mui/material";
 import { FC } from "react";
 
 interface FooterProps {
@@ -6,6 +7,7 @@ interface FooterProps {
 }
 
 const Footer: FC<FooterProps> = (props: FooterProps) => {
+    const theme = useTheme();
     return (
         <Box
             sx={{
@@ -14,11 +16,11 @@ const Footer: FC<FooterProps> = (props: FooterProps) => {
                 left: 0,
                 width: "100%",
                 height: 24,
-                backgroundColor: "#00263A",
-                color: "#fff",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
+                backgroundColor: theme.palette.appbar.main,
+                color: theme.palette.common.white,
             }}
         >
             <Typography variant="body2">Created by Supra Coders for the USSF &copy; 2022</Typography>

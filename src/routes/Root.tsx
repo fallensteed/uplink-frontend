@@ -1,4 +1,6 @@
+import { ThemeProvider } from "@mui/material/styles";
 import { Box } from "@mui/material";
+import theme from "config/theme";
 import { createContext, FC, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { User, user_self } from "../common/api/user/user.api";
@@ -49,23 +51,25 @@ const Root: FC = () => {
     }, []);
 
     return (
-        <Box id="main" sx={{ height: "100%", width: "100%", backgroundColor: "#425563" }}>
-            <UserContext.Provider value={user}>
-                <Navigation />
-                <Box
-                    sx={{
-                        pt: "86px",
-                        height: "calc(100% - 86px)",
-                        width: "100%",
-                        overflowY: "auto",
-                        overflowX: "hidden",
-                    }}
-                >
-                    <Outlet />
-                </Box>
-            </UserContext.Provider>
-            <Footer connectionStatus={isConnected} />
-        </Box>
+        <ThemeProvider theme={theme}>
+            <Box id="main" sx={{ height: "100%", width: "100%", backgroundColor: "#425563" }}>
+                <UserContext.Provider value={user}>
+                    <Navigation />
+                    <Box
+                        sx={{
+                            pt: "86px",
+                            height: "calc(100% - 86px)",
+                            width: "100%",
+                            overflowY: "auto",
+                            overflowX: "hidden",
+                        }}
+                    >
+                        <Outlet />
+                    </Box>
+                </UserContext.Provider>
+                <Footer connectionStatus={isConnected} />
+            </Box>
+        </ThemeProvider>
     );
 };
 

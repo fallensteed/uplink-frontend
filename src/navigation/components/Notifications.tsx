@@ -20,7 +20,7 @@ const Notifications: FC<NotificationsProps> = (props: NotificationsProps) => {
                             variant="dot"
                             badgeContent={count}
                             max={9}
-                            color="error"
+                            color="accent"
                             sx={{ textAlign: "left", position: "absolute", top: 8, right: 8 }}
                         />
                         <NotificationsIcon color="primary" />

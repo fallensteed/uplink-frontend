@@ -1,5 +1,5 @@
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import { Badge, IconButton, Tooltip } from "@mui/material";
 import { FC } from "react";
 
@@ -20,7 +20,7 @@ const Messages: FC<MessagesProps> = (props: MessagesProps) => {
                             variant="dot"
                             badgeContent={count}
                             max={9}
-                            color="error"
+                            color="accent"
                             sx={{ textAlign: "left", position: "absolute", top: 8, right: 6 }}
                         />
                         <ChatBubbleIcon color="primary" />
