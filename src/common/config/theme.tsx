@@ -1,3 +1,5 @@
+import { PaletteMode } from "@mui/material";
+
 const fontFamily = [
     "Noto Sans",
     "Roboto",
@@ -18,6 +20,3 @@ const fontFamily = [
     '"Segoe UI Emoji"',
     '"Segoe UI Symbol"',
 ].join(",");
-
-export { };
-

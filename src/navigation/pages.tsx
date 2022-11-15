@@ -3,45 +3,55 @@ import NetworkCheckIcon from "@mui/icons-material/NetworkCheck";
 import { ReactElement } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../routes/ErrorPage/ErrorPage";
-import ISTForm from "../routes/ISTForm/ISTForm";
+import Home from "../routes/Home/Home";
 import PingTest from "../routes/PingTest/PingText";
 import Root from "../routes/Root";
+
+interface NavList {
+    name: string;
+    shortName: string;
+    path: string;
+    element: ReactElement;
+    icon?: ReactElement;
+    displayInNavBar: boolean;
+}
+
+export const routeList: NavList[] = [
+    {
+        name: "Home",
+        shortName: "Home",
+        path: "/home",
+        element: <Home />,
+        icon: <HomeIcon />,
+        displayInNavBar: true,
+    },
+    {
+        name: "Interservice Transfers",
+        shortName: "IST",
+        path: "/ist",
+        element: <Home />,
+        displayInNavBar: true,
+    },
+    {
+        name: "Ping Test",
+        shortName: "Ping Test",
+        path: "/pingTest",
+        element: <PingTest />,
+        icon: <NetworkCheckIcon />,
+        displayInNavBar: true,
+    },
+];
+
+const routerChildren = routeList.map((route) => {
+    const { name, shortName, icon, displayInNavBar, ...childRoute } = route;
+    return childRoute;
+});
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <Root />,
         errorElement: <ErrorPage />,
-        children: [
-            { path: "/pingTest", element: <PingTest /> },
-            { path: "/ist", element: <ISTForm /> },
-        ],
+        children: routerChildren,
     },
 ]);
-
-export const routeList: NavList[] = [
-    {
-        name: "Home",
-        shortName: "Home",
-        path: "/",
-        icon: <HomeIcon />,
-    },
-    {
-        name: "Interservice Transfers",
-        shortName: "IST",
-        path: "/ist",
-    },
-    {
-        name: "Ping Test",
-        shortName: "Ping Test",
-        path: "/pingTest",
-        icon: <NetworkCheckIcon />,
-    },
-];
-
-interface NavList {
-    name: string;
-    shortName: string;
-    path: string;
-    icon?: ReactElement;
-}
