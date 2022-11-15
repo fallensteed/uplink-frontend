@@ -1,16 +1,20 @@
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import PushPinIcon from "@mui/icons-material/PushPin";
-import { Avatar, Box, Button, IconButton, Paper, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Button, Paper, TextField } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import SpriteIcon from "navigation/components/SpriteIcon";
-import { FC } from "react";
+import { FC, useState } from "react";
+import { mockCommunityList } from "./api/community/community.mock";
+import { Post } from "./api/post/post.api";
+import { mockPost1, mockPost2, mockPost3, mockPost4 } from "./api/post/post.mock";
 import FrontPagePost from "./components/FrontPagePost";
+
+const mockPosts = [mockPost1, mockPost2, mockPost3, mockPost4];
 
 const Uplink: FC = () => {
     const theme = useTheme();
+    const [posts, setPosts] = useState<Post[]>(mockPosts);
     return (
         <Box>
             <Paper sx={{ display: "flex", alignItems: "center", mb: theme.spacing(2) }}>
@@ -37,15 +41,9 @@ const Uplink: FC = () => {
                     Pinned
                 </Button>
             </Paper>
-            <FrontPagePost />
-            <FrontPagePost />
-            <FrontPagePost />
-            <FrontPagePost />
-            <FrontPagePost />
-            <FrontPagePost />
-            <FrontPagePost />
-            <FrontPagePost />
-            <FrontPagePost />
+            {posts.map((post) => (
+                <FrontPagePost post={post} key={post._id} />
+            ))}
         </Box>
     );
 };

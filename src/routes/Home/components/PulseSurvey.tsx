@@ -5,7 +5,7 @@ import { FC } from "react";
 const PulseSurvey: FC = () => {
     const theme = useTheme();
     return (
-        <Paper sx={{ width: "100%", height: "auto", mb: 3 }}>
+        <Paper sx={{ width: "100%", height: "auto", mb: theme.spacing(2) }}>
             <Typography variant="h5" sx={{ ml: 1, mt: 1 }}>
                 USSF Pulse
             </Typography>
@@ -19,10 +19,11 @@ const PulseSurvey: FC = () => {
                     borderRadius: theme.spacing(1),
                 }}
             >
-                <Typography variant="h6" sx={{ mb: theme.spacing(1) }}>
-                    Survey Text Goes here
+                <Typography variant="body1" sx={{ m: theme.spacing(1) }}>
+                    If you were offered a chance to work remotely full-time, would you take it?
                 </Typography>
                 <Rating name="pulse" defaultValue={0} size="large" />
+                <Typography variant="body2">1 = Not at all, 5 = Absolutely</Typography>
             </Box>
         </Paper>
     );
