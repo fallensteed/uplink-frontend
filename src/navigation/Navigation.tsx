@@ -10,7 +10,7 @@ import {
     ListItemIcon,
     ListItemText,
     Toolbar,
-    Typography,
+    Typography
 } from "@mui/material";
 import ClassificationBar from "common/classification/ClassificationBar";
 import { FC, useContext, useState } from "react";

@@ -1,5 +1,5 @@
-import { socket } from "../../common/config/socket";
 import { FC, useEffect, useState } from "react";
+import { socket } from "../../common/config/socket";
 
 const PingTest: FC = () => {
     const [lastPing, setLastPing] = useState<null | string>(null);
