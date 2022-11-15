@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { FC } from "react";
+import React, { FC } from "react";
 
 const item = {
     margin: "10px",
@@ -57,6 +57,22 @@ const ISTForm: FC = () => {
     let CommanderDSNPhone;
     let commanderEmail;
 
+    function changeFirstName(e: React.ChangeEvent<HTMLInputElement>) {
+        firstName = e.target.value;
+    }
+
+    function changeMiddleName(e: React.ChangeEvent<HTMLInputElement>) {
+        middleName = e.target.value;
+    }
+
+    function changeLastName(e: React.ChangeEvent<HTMLInputElement>) {
+        lastName = e.target.value;
+    }
+
+    function changeGrade(e: React.ChangeEvent<HTMLSelectElement>) {
+        grade = e.target.value;
+    }
+
     return (
         <>
             <Box
@@ -86,7 +102,7 @@ const ISTForm: FC = () => {
                             </label>
                             <label style={item}>
                                 <Typography>Middle Name</Typography>
-                                <input type="text" style={input} name="MiddleName" onChange={changeLastName} />
+                                <input type="text" style={input} name="MiddleName" onChange={changeMiddleName} />
                             </label>
                             <label style={item}>
                                 <Typography>Last Name</Typography>
@@ -107,7 +123,7 @@ const ISTForm: FC = () => {
                             </label>
                             <label style={item}>
                                 <Typography>Service</Typography>
-                                <select style={input} name="Service" onChange={changeService}>
+                                <select style={input} name="Service">
                                     <option value="Air Force">Air Force</option>
                                     <option value="Navy">Navy</option>
                                     <option value="Marines">Marines</option>
@@ -124,7 +140,7 @@ const ISTForm: FC = () => {
                         >
                             <label style={item}>
                                 <Typography>Rank</Typography>
-                                <select style={input} name="Rank" onChange={changeRank}>
+                                <select style={input} name="Rank">
                                     <option value="Airman Basic">Airman Basic</option>
                                     <option value="Airman">Airman</option>
                                     <option value="Airman 1st Class">Airman 1st Class</option>
@@ -134,15 +150,15 @@ const ISTForm: FC = () => {
                             </label>
                             <label style={item}>
                                 <Typography>Date of Rank</Typography>
-                                <input type="text" style={input} name="DoR" onChange={changeDateOfRank} />
+                                <input type="text" style={input} name="DoR" />
                             </label>
                             <label style={item}>
                                 <Typography>Total Active Federal Military Service Date</Typography>
-                                <input type="text" style={input} name="TAFMSD" onChange={changeTAFMSD} />
+                                <input type="text" style={input} name="TAFMSD" />
                             </label>
                             <label style={item}>
                                 <Typography>Active Duty Service Commitment Date</Typography>
-                                <input type="text" style={input} name="ADSCD" onChange={changeADSCD} />
+                                <input type="text" style={input} name="ADSCD" />
                             </label>
                         </Box>
                         <Box
@@ -153,27 +169,22 @@ const ISTForm: FC = () => {
                         >
                             <label style={item}>
                                 <Typography>Total Actice Federal Commissioned Service Date</Typography>
-                                <input type="text" style={input} name="TAFCSD" onChange={changeTAFCSD} />
+                                <input type="text" style={input} name="TAFCSD" />
                             </label>
                             <label style={item}>
                                 <Typography>Source of Commission</Typography>
-                                <input
-                                    type="text"
-                                    style={input}
-                                    name="CommissionSource"
-                                    onChange={changeSourceOfCommission}
-                                />
+                                <input type="text" style={input} name="CommissionSource" />
                             </label>
                             <label style={item}>
                                 <Typography>Does your current job relate to a USSF Job</Typography>
-                                <select style={input} name="RelatedJob" onChange={changeRelatedJob}>
+                                <select style={input} name="RelatedJob">
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </select>
                             </label>
                             <label style={item}>
                                 <Typography>If no, write job code and description</Typography>
-                                <input type="text" style={input} name="NotRelatedJob" onChange={changeNotRelatedJob} />
+                                <input type="text" style={input} name="NotRelatedJob" />
                             </label>
                         </Box>
                         <Box
@@ -184,11 +195,11 @@ const ISTForm: FC = () => {
                         >
                             <label style={item}>
                                 <Typography>Current Job Title</Typography>
-                                <input type="text" style={input} name="JobTitle" onChange={changeJobTitle} />
+                                <input type="text" style={input} name="JobTitle" />
                             </label>
                             <label style={item}>
                                 <Typography>1st Choice USSSF Job</Typography>
-                                <select style={input} name="1stChoice" onChange={changeJobOne}>
+                                <select style={input} name="1stChoice">
                                     <option value="Geospatial Intelligence">
                                         (USSF, 5I1) - Geospatial Intelligence
                                     </option>
@@ -198,7 +209,7 @@ const ISTForm: FC = () => {
                             </label>
                             <label style={item}>
                                 <Typography>2nd Choice USSSF Job</Typography>
-                                <select style={input} name="2ndChoice" onChange={changeJobTwo}>
+                                <select style={input} name="2ndChoice">
                                     <option value="Geospatial Intelligence">
                                         (USSF, 5I1) - Geospatial Intelligence
                                     </option>
@@ -208,7 +219,7 @@ const ISTForm: FC = () => {
                             </label>
                             <label style={item}>
                                 <Typography>3rd Choice USSSF Job</Typography>
-                                <select style={input} name="3rdChoice" onChange={changeJobThree}>
+                                <select style={input} name="3rdChoice">
                                     <option value="Geospatial Intelligence">
                                         (USSF, 5I1) - Geospatial Intelligence
                                     </option>
@@ -225,11 +236,11 @@ const ISTForm: FC = () => {
                         >
                             <label style={item}>
                                 <Typography>Previous Career Field</Typography>
-                                <input type="text" style={input} name="Previous" onChange={changePreviousCareer} />
+                                <input type="text" style={input} name="Previous" />
                             </label>
                             <label style={item}>
                                 <Typography>Highest Education Level</Typography>
-                                <select style={input} name="HighestEd" onChange={changeHighestEd}>
+                                <select style={input} name="HighestEd">
                                     <option value="High School">High School</option>
                                     <option value="Some College">Some College</option>
                                     <option value="Bachelors">Bachelors</option>
@@ -239,15 +250,15 @@ const ISTForm: FC = () => {
                             </label>
                             <label style={item}>
                                 <Typography>Degree Name</Typography>
-                                <input type="text" style={input} name="DegreeName" onChange={changeDegree} />
+                                <input type="text" style={input} name="DegreeName" />
                             </label>
                             <label style={item}>
                                 <Typography>Highest Level of Professianl Military Education</Typography>
-                                <input type="text" style={input} name="PME" onChange={changePME} />
+                                <input type="text" style={input} name="PME" />
                             </label>
                             <label style={item}>
                                 <Typography>Security Clearance</Typography>
-                                <select style={input} name="SecClearance" onChange={changeSecurityClearance}>
+                                <select style={input} name="SecClearance">
                                     <option value="Secret">Secret</option>
                                     <option value="Top Secret">Top Secret</option>
                                 </select>
@@ -261,23 +272,23 @@ const ISTForm: FC = () => {
                         >
                             <label style={item}>
                                 <Typography>Official Email</Typography>
-                                <input type="text" style={input} name="OfficialEmail" onChange={changeOfficialEmail} />
+                                <input type="text" style={input} name="OfficialEmail" />
                             </label>
                             <label style={item}>
                                 <Typography>Personal Email</Typography>
-                                <input type="text" style={input} name="PersonalEmail" onChange={changePersonalEmail} />
+                                <input type="text" style={input} name="PersonalEmail" />
                             </label>
                             <label style={item}>
                                 <Typography>Commercial Phone</Typography>
-                                <input type="text" style={input} name="ComPhone" onChange={changeComPhone} />
+                                <input type="text" style={input} name="ComPhone" />
                             </label>
                             <label style={item}>
                                 <Typography>DSN Phone</Typography>
-                                <input type="text" style={input} name="DSNPhone" onChange={changeDSNPhone} />
+                                <input type="text" style={input} name="DSNPhone" />
                             </label>
                             <label style={item}>
                                 <Typography>Date of Birth</Typography>
-                                <input type="text" style={input} name="DOB" onChange={changeDOB} />
+                                <input type="text" style={input} name="DOB" />
                             </label>
                         </Box>
                         <Box
@@ -288,14 +299,14 @@ const ISTForm: FC = () => {
                         >
                             <label style={item}>
                                 <Typography>Gender</Typography>
-                                <select style={input} name="Gender" onChange={changeGender}>
+                                <select style={input} name="Gender">
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
                             </label>
                             <label style={item}>
                                 <Typography>Race</Typography>
-                                <select style={input} name="Race" onChange={changeRace}>
+                                <select style={input} name="Race">
                                     <option value="White">White</option>
                                     <option value="Black">Black</option>
                                     <option value="Asain">Asain</option>
@@ -303,18 +314,18 @@ const ISTForm: FC = () => {
                             </label>
                             <label style={item}>
                                 <Typography>Ethnicity</Typography>
-                                <select style={input} name="Ethnicity" onChange={changeEthnicity}>
+                                <select style={input} name="Ethnicity">
                                     <option value="Hispanic">Hispanic or Latino</option>
                                     <option value="Not Hispanic">Not Hispanic or Latino</option>
                                 </select>
                             </label>
                             <label style={item}>
                                 <Typography>DOD ID</Typography>
-                                <input type="text" style={input} name="DODID" onChange={changeDODID} />
+                                <input type="text" style={input} name="DODID" />
                             </label>
                             <label style={item}>
                                 <Typography>Social Security Number</Typography>
-                                <input type="text" style={input} name="SSN" onChange={changeSSN} />
+                                <input type="text" style={input} name="SSN" />
                             </label>
                         </Box>
                         <Box
@@ -325,15 +336,15 @@ const ISTForm: FC = () => {
                         >
                             <label style={item}>
                                 <Typography>Street Address</Typography>
-                                <input type="text" style={input} name="Street" onChange={changeStreet} />
+                                <input type="text" style={input} name="Street" />
                             </label>
                             <label style={item}>
                                 <Typography>City</Typography>
-                                <input type="text" style={input} name="City" onChange={changeCity} />
+                                <input type="text" style={input} name="City" />
                             </label>
                             <label style={item}>
                                 <Typography>State</Typography>
-                                <select style={input} name="State" onChange={changeState}>
+                                <select style={input} name="State">
                                     <option value="CO">CO</option>
                                     <option value="CA">CA</option>
                                     <option value="TX">TX</option>
@@ -341,11 +352,11 @@ const ISTForm: FC = () => {
                             </label>
                             <label style={item}>
                                 <Typography>Zip Code</Typography>
-                                <input type="text" style={input} name="ZipCode" onChange={changeZip} />
+                                <input type="text" style={input} name="ZipCode" />
                             </label>
                             <label style={item}>
                                 <Typography>Country</Typography>
-                                <select style={input} name="Country" onChange={changeCountry}>
+                                <select style={input} name="Country">
                                     <option value="USA">United States</option>
                                     <option value="Germany">Germany</option>
                                     <option value="Japan">Japan</option>
@@ -353,14 +364,14 @@ const ISTForm: FC = () => {
                             </label>
                             <label style={item}>
                                 <Typography>Married Mil-to-Mil?</Typography>
-                                <select style={input} name="Married" onChange={changeMarried}>
+                                <select style={input} name="Married">
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </select>
                             </label>
                             <label style={item}>
                                 <Typography>If yes, full name of spouse</Typography>
-                                <input type="text" style={input} name="SpouseName" onChange={changeSpouse} />
+                                <input type="text" style={input} name="SpouseName" />
                             </label>
                         </Box>
                         <Box
@@ -371,42 +382,27 @@ const ISTForm: FC = () => {
                         >
                             <label style={item}>
                                 <Typography>Current Unit/Det Name</Typography>
-                                <input type="text" style={input} name="UnitName" onChange={changeUnitName} />
+                                <input type="text" style={input} name="UnitName" />
                             </label>
                             <label style={item}>
                                 <Typography>Unit/Det Location</Typography>
-                                <input type="text" style={input} name="UnitLocation" onChange={changeUnitLocation} />
+                                <input type="text" style={input} name="UnitLocation" />
                             </label>
                             <label style={item}>
                                 <Typography>Current Commander</Typography>
-                                <input type="text" style={input} name="Commander" onChange={changeCommander} />
+                                <input type="text" style={input} name="Commander" />
                             </label>
                             <label style={item}>
                                 <Typography>Commander Com Phone</Typography>
-                                <input
-                                    type="text"
-                                    style={input}
-                                    name="CommanderComPhone"
-                                    onChange={changeCommanderComPhone}
-                                />
+                                <input type="text" style={input} name="CommanderComPhone" />
                             </label>
                             <label style={item}>
                                 <Typography>Commander DSN Phone</Typography>
-                                <input
-                                    type="text"
-                                    style={input}
-                                    name="CommanderDSNPhone"
-                                    onChange={changeCommanderDSNPhone}
-                                />
+                                <input type="text" style={input} name="CommanderDSNPhone" />
                             </label>
                             <label style={item}>
                                 <Typography>Commander Email</Typography>
-                                <input
-                                    type="text"
-                                    style={input}
-                                    name="CommanderEmail"
-                                    onChange={changeCommanderEmail}
-                                />
+                                <input type="text" style={input} name="CommanderEmail" />
                             </label>
                         </Box>
                     </form>
