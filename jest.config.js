@@ -24,13 +24,7 @@ module.exports = {
     testTimeout: 30000,
     transform: {
         "^.+\\.(t|j)sx?$": ["babel-jest"],
-        "^.+\\.css$": "<rootDir>/.jest/cssTransform.js",
-        "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)": "<rootDir>/.jest/fileTransform.js",
     },
-    transformIgnorePatterns: [
-        "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$",
-        "^.+\\.module\\.(css|sass|scss)$",
-    ],
     verbose: true,
-    watchPlugins: ["jest-watch-typeahead/filename", "jest-watch-typeahead/testname"],
+    testPathIgnorePatterns: ['/node_modules/', '/public/'],
 };

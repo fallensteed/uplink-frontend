@@ -72,7 +72,7 @@ export const post_postOne = async (data: Post): Promise<any> => {
     return response.json();
 };
 
-export const post_patchById = async (data: Post): Promise<any> => {
+export const post_patchById = async (data: any): Promise<any> => {
     const response = await fetch(`${UPLINK_POST_URL}/`, {
         method: "PATCH",
         body: JSON.stringify(data),
