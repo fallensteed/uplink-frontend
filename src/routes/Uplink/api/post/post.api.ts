@@ -1,4 +1,4 @@
-import { API_URL } from "config/api";
+import { API_URL } from "../../../../config/api";
 
 export interface Post {
     _id: string;
@@ -81,6 +81,7 @@ export const post_patchById = async (data: any): Promise<any> => {
             "Cache-Control": "no-store, no-cache, must-revalidate",
         },
     });
+    return response.json();
 };
 
 export const post_deleteById = async (id: string): Promise<any> => {
@@ -92,4 +93,5 @@ export const post_deleteById = async (id: string): Promise<any> => {
             "Cache-Control": "no-store, no-cache, must-revalidate",
         },
     });
+    return response.json();
 };
