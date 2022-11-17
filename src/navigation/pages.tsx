@@ -4,6 +4,7 @@ import { ReactElement } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../routes/ErrorPage/ErrorPage";
 import Home from "../routes/Home/Home";
+import IST from "../routes/ISTForm/ISTForm";
 import PingTest from "../routes/PingTest/PingText";
 import Root from "../routes/Root";
 
@@ -29,7 +30,7 @@ export const routeList: NavList[] = [
         name: "Interservice Transfers",
         shortName: "IST",
         path: "/ist",
-        element: <Home />,
+        element: <IST />,
         displayInNavBar: true,
     },
     {
