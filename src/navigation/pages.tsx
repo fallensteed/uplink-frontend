@@ -9,6 +9,7 @@ import ViewPost from "routes/Uplink/pages/ViewPost/ViewPost";
 import ViewUser from "routes/Uplink/pages/ViewUser/ViewUser";
 import ErrorPage from "../routes/ErrorPage/ErrorPage";
 import Home from "../routes/Home/Home";
+import IST from "../routes/ISTForm/ISTForm";
 import PingTest from "../routes/PingTest/PingText";
 import Root from "../routes/Root";
 import ViewCommunity from "../routes/Uplink/pages/ViewCommunity/ViewCommunity";
