@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { User } from "common/api/user/user.api";
 import { API_URL } from "../../../../config/api";
+import { Community } from "../community/community.api";
 
 export interface Post {
     _id: string;
@@ -16,7 +19,26 @@ export interface Post {
     editHistory?: PostEditHistory[];
     userCreated: string;
     userCreatedNotifications: boolean;
-    createdAt?: string;
+    createdAt: string;
+}
+
+export interface PostPopulated {
+    _id: string;
+    title: string;
+    detail?: string;
+    link?: string;
+    imageSrc?: string;
+    tags?: string[];
+    community: Community;
+    draft: boolean;
+    miniLink: string;
+    upVotes?: string[];
+    downVotes?: string[];
+    comments?: string[];
+    editHistory?: PostEditHistory[];
+    userCreated: User;
+    userCreatedNotifications: boolean;
+    createdAt: string;
 }
 
 export interface PostEditHistory {

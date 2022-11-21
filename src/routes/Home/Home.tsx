@@ -1,12 +1,12 @@
-import { Box, Container, List, ListItem, ListItemButton, ListItemText, Paper, Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Grid from "@mui/material/Unstable_Grid2";
-import { FC } from "react";
+import React, { FC } from "react";
 import Uplink from "routes/Uplink/Uplink";
+import Favorites from "./components/Favorites";
+import PulseSurvey from "./components/PulseSurvey";
 import ReadingList from "./components/ReadingList";
 import TopCommunities from "./components/TopCommunities";
-import PulseSurvey from './components/PulseSurvey';
-import Favorites from './components/Favorites';
 
 const Home: FC = () => {
     const theme = useTheme();

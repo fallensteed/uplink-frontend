@@ -9,14 +9,14 @@ import { useTheme } from "@mui/material/styles";
 import { removeHttp } from "common/functions/links";
 import { FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { PostPopulated } from "../api/post/post.api";
-import { formatCountComments, formatCountVotes, getTimeSincePost } from "../functions/posts";
+import { PostPopulated } from "routes/Uplink/api/post/post.api";
+import { formatCountComments, formatCountVotes, getTimeSincePost } from "routes/Uplink/functions/posts";
 
-interface FrontPagePostProps {
+interface PostContainerProps {
     post: PostPopulated;
 }
 
-const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
+const PostContainer: FC<PostContainerProps> = (props: PostContainerProps) => {
     const { post } = props;
     const theme = useTheme();
     const navigate = useNavigate();
@@ -44,24 +44,12 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                 sx={{
                     flexGrow: 1,
                     backgroundColor: theme.palette.backgroundLight.main,
-                    minHeight: "100%",
                     borderRadius: "0 4px 4px 0",
                     p: theme.spacing(1),
                     display: "flex",
                     flexDirection: "row",
-                    cursor: "pointer",
-                }}
-                onClick={() => {
-                    return navigate(`/c/${post.community.link}/p/${post.miniLink}`);
                 }}
             >
-                {post.imageSrc ? (
-                    <Box
-                        component="img"
-                        src={post.imageSrc}
-                        sx={{ maxHeight: "112px", maxWidth: "112px", m: theme.spacing(0.5) }}
-                    />
-                ) : null}
                 <Box
                     sx={{
                         m: theme.spacing(0.5),
@@ -72,24 +60,6 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                         justifyContent: "space-between",
                     }}
                 >
-                    <Box>
-                        <Typography
-                            variant="h6"
-                            sx={{
-                                display: "inline-block",
-                                mr: theme.spacing(1),
-                                color: "#000",
-                                textDecoration: "none",
-                            }}
-                        >
-                            {post.title}
-                        </Typography>
-                        {post.link ? (
-                            <Typography component="a" href={post.link} target="_blank">
-                                {removeHttp(post.link)}
-                            </Typography>
-                        ) : null}
-                    </Box>
                     <Box sx={{ width: "100%" }}>
                         <Box
                             sx={{
@@ -99,23 +69,65 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                                 justifyContent: "space-between",
                             }}
                         >
-                            <Typography
-                                variant="body2"
-                                component={Link}
-                                to={`../c/${post.community.link}`}
-                                sx={{ color: "#000" }}
-                            >
-                                c/{post.community.link}
-                            </Typography>
-                            <Typography
-                                variant="body2"
-                                component={Link}
-                                to={`../u/${post.userCreated.uplinkUsername}`}
-                                sx={{ color: "#000" }}
-                            >
-                                Posted by u/{post.userCreated.uplinkUsername}
-                            </Typography>
+                            <Box sx={{ display: "flex" }}>
+                                <Typography
+                                    variant="body2"
+                                    component={Link}
+                                    to={`../c/${post.community.link}`}
+                                    sx={{
+                                        color: "#000",
+                                        fontWeight: "bold",
+                                        mr: theme.spacing(2),
+                                        textDecoration: "none",
+                                    }}
+                                >
+                                    c/{post.community.link}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: "#000" }}>
+                                    Posted by{" "}
+                                    <Link to={`../u/${post.userCreated.uplinkUsername}`}>
+                                        u/{post.userCreated.uplinkUsername}
+                                    </Link>
+                                </Typography>
+                            </Box>
                             <Typography variant="body2">{getTimeSincePost(post.createdAt)}</Typography>
+                        </Box>
+                        <Box sx={{ mt: theme.spacing(2) }}>
+                            <Typography
+                                variant="h6"
+                                sx={{
+                                    display: "inline-block",
+                                    mr: theme.spacing(1),
+                                    color: "#000",
+                                    textDecoration: "none",
+                                }}
+                            >
+                                {post.title}
+                            </Typography>
+                        </Box>
+                        {post.imageSrc ? (
+                            <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+                                <Box
+                                    component="img"
+                                    src={post.imageSrc}
+                                    sx={{
+                                        maxHeight: "800px",
+                                        maxWidth: "100%",
+                                        m: theme.spacing(0.5),
+                                        display: "block",
+                                    }}
+                                />
+                            </Box>
+                        ) : null}
+                        {post.link ? (
+                            <Typography variant="body1" component="a" href={post.link} target="_blank">
+                                {removeHttp(post.link)}
+                            </Typography>
+                        ) : null}
+                        <Box>
+                            <Typography variant="body1" sx={{ m: theme.spacing(2) }}>
+                                {post.detail}
+                            </Typography>
                         </Box>
                         <Box>
                             <Button size="small" sx={{ mr: theme.spacing(1) }} startIcon={<CommentIcon />}>
@@ -138,4 +150,4 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
     );
 };
 
-export default FrontPagePost;
+export default PostContainer;

@@ -15,6 +15,40 @@ const theme = createTheme({
         },
         backgroundLight: { main: "#DBE2E9" },
     },
+    components: {
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "#fff",
+                },
+            },
+        },
+        MuiFormControl: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "#fff",
+                    borderRadius: "4px 4px 0px 0px",
+                },
+            },
+        },
+        MuiMenuItem: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "#fff",
+                    "&.hover": {
+                        backgroundColor: "#000",
+                    },
+                },
+            },
+        },
+        MuiList: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "#fff",
+                },
+            },
+        },
+    },
 });
 
 declare module "@mui/material/styles" {

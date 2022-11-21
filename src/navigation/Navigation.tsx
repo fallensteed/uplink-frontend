@@ -10,7 +10,7 @@ import {
     ListItemIcon,
     ListItemText,
     Toolbar,
-    Typography
+    Typography,
 } from "@mui/material";
 import ClassificationBar from "common/classification/ClassificationBar";
 import { FC, useContext, useState } from "react";
@@ -61,14 +61,16 @@ const Navigation: FC = () => {
             <Box component="nav">
                 <Drawer variant="temporary" open={drawerOpen} onClose={closeDrawer} ModalProps={{ keepMounted: true }}>
                     <List>
-                        {routeList.map((route) => (
-                            <ListItem key={route.shortName} disablePadding>
-                                <ListItemButton onClick={() => navigateTo(route.path)}>
-                                    <ListItemIcon>{route.icon}</ListItemIcon>
-                                    <ListItemText primary={route.shortName} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
+                        {routeList
+                            .filter((route) => route.displayInNavBar === true)
+                            .map((route) => (
+                                <ListItem key={route.shortName} disablePadding>
+                                    <ListItemButton onClick={() => navigateTo(route.path)}>
+                                        <ListItemIcon>{route.icon}</ListItemIcon>
+                                        <ListItemText primary={route.shortName} />
+                                    </ListItemButton>
+                                </ListItem>
+                            ))}
                     </List>
                 </Drawer>
             </Box>

@@ -1,7 +1,12 @@
-import { mockPatchResponseSuccess, mockDeleteResponseSuccess } from "../../../../common/api/responses/responses.mock";
-import { community_getAll, community_getById, community_postOne, community_patchById, community_deleteById } from "./community.api";
+import { mockDeleteResponseSuccess, mockPatchResponseSuccess } from "../../../../common/api/responses/responses.mock";
+import {
+    community_deleteById,
+    community_getAll,
+    community_getByIdOrLink,
+    community_patchById,
+    community_postOne,
+} from "./community.api";
 import { mockCommunity1, mockCommunity1Update, mockCommunity2 } from "./community.mock";
-
 
 beforeEach(() => {
     fetchMock.resetMocks();
@@ -15,7 +20,7 @@ test("community_getAll()", async () => {
 
 test("community_getById()", async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockCommunity1 }));
-    const result = await community_getById(mockCommunity1._id);
+    const result = await community_getByIdOrLink(mockCommunity1._id);
     expect(result).toStrictEqual({ data: mockCommunity1 });
 });
 

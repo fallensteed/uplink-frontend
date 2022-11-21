@@ -1,3 +1,24 @@
+export const formatCountVotes = (upVotes: number, downVotes: number) => {
+    return upVotes - downVotes;
+};
+
+export const formatCountComments = (count: number) => {
+    if (count === 0) {
+        return null;
+    } else {
+        return `${count} `;
+    }
+};
+
+export const getTimeSincePost = (createdAt: string) => {
+    const [count, type] = convertToTimePast(createdAt as string);
+    if (count > 1) {
+        return `${count} ${type}s ago`;
+    } else {
+        return `${count} ${type} ago`;
+    }
+};
+
 export const convertToTimePast = (dateStr: string): [number, string] => {
     const date = new Date(dateStr);
     const currentDate = new Date();
