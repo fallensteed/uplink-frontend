@@ -34,7 +34,7 @@ const Favorites: FC = () => {
             </Typography>
             <Grid container spacing={2}>
                 <Grid xs={6}>
-                    <List dense>
+                    <List dense sx={{ background: "none" }}>
                         {mockFavoriteCommunities.map((community) => (
                             <ListItem
                                 key={community}
@@ -57,7 +57,7 @@ const Favorites: FC = () => {
                     </List>
                 </Grid>
                 <Grid xs={6}>
-                    <List dense>
+                    <List dense sx={{ background: "none" }}>
                         {mockFavoriteLinks.map((link) => (
                             <ListItem
                                 key={link}

@@ -1,5 +1,5 @@
-import { ThemeProvider } from "@mui/material/styles";
 import { Box } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
 import theme from "config/theme";
 import { createContext, FC, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -52,7 +52,7 @@ const Root: FC = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Box id="main" sx={{ height: "100%", width: "100%", backgroundColor: "#425563" }}>
+            <Box id="main" sx={{ minHeight: "100%", width: "100%", backgroundColor: theme.palette.background.default }}>
                 <UserContext.Provider value={user}>
                     <Navigation />
                     <Box
@@ -60,8 +60,7 @@ const Root: FC = () => {
                             pt: "86px",
                             height: "calc(100% - 86px)",
                             width: "100%",
-                            overflowY: "auto",
-                            overflowX: "hidden",
+                            pb: theme.spacing(4),
                         }}
                     >
                         <Outlet />

@@ -13,7 +13,7 @@ export const mockPost1: Post = {
     editHistory: [],
     userCreated: "u/mockUser",
     userCreatedNotifications: true,
-    createdAt: "2022-01-01T00:00:00.000Z"
+    createdAt: "2022-01-01T00:00:00.000Z",
 };
 
 export const mockPost2: Post = {
@@ -32,6 +32,7 @@ export const mockPost2: Post = {
     editHistory: [],
     userCreated: "u/mockUser",
     userCreatedNotifications: true,
+    createdAt: "2022-01-01T00:00:00.000Z",
 };
 
 export const mockPost3: Post = {
@@ -50,6 +51,7 @@ export const mockPost3: Post = {
     editHistory: [],
     userCreated: "u/mockUser",
     userCreatedNotifications: true,
+    createdAt: "2022-01-01T00:00:00.000Z",
 };
 
 export const mockPost4: Post = {
@@ -68,8 +70,8 @@ export const mockPost4: Post = {
     editHistory: [],
     userCreated: "u/mockUser",
     userCreatedNotifications: true,
+    createdAt: "2022-01-01T00:00:00.000Z",
 };
-
 
 export const mockPost1Update = {
     _id: "636d57d4d81b345a5f0d2def",
