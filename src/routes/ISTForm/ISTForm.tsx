@@ -1,6 +1,7 @@
-import { Button, CircularProgress, Step, StepLabel, Stepper, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Container, Paper, Step, StepLabel, Stepper, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { Form, Formik } from "formik";
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import formInitialValues from "./FormModel/formInitialValues";
 import istFormModel from "./FormModel/istFormModel";
 import ContactForm from "./Forms/ContactForm";
@@ -30,6 +31,7 @@ function _renderStepContent(step: any) {
 }
 
 const ISTForm: FC = () => {
+    const theme = useTheme();
     const [activeStep, setActiveStep] = useState(0);
     const isLastStep = activeStep === steps.length - 1;
 
@@ -60,46 +62,67 @@ const ISTForm: FC = () => {
     }
 
     return (
-        <React.Fragment>
+        <Container maxWidth="lg">
             <Typography component="h1" variant="h4" align="center">
                 IST Application
             </Typography>
-            <Stepper activeStep={activeStep}>
-                {steps.map((label) => (
-                    <Step key={label}>
-                        <StepLabel>{label}</StepLabel>
-                    </Step>
-                ))}
-            </Stepper>
-            <React.Fragment>
-                {activeStep === steps.length ? (
-                    <Typography>You completed all the steps</Typography>
-                ) : (
-                    <Formik initialValues={formInitialValues} onSubmit={_handleSubmit}>
-                        {({ isSubmitting }) => (
-                            <Form id={formId}>
-                                {_renderStepContent(activeStep)}
+            <Paper
+                sx={{
+                    backgroundColor: theme.palette.backgroundLight.main,
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                    alignItems: "flex-start",
+                    p: theme.spacing(2),
+                    m: theme.spacing(3),
+                }}
+            >
+                <Box sx={{ width: 250 }}>
+                    <Stepper activeStep={activeStep} orientation="vertical">
+                        {steps.map((label) => (
+                            <Step key={label}>
+                                <StepLabel>{label}</StepLabel>
+                            </Step>
+                        ))}
+                    </Stepper>
+                </Box>
+                <Box>
+                    {activeStep === steps.length ? (
+                        <Typography>You completed all the steps</Typography>
+                    ) : (
+                        <Formik initialValues={formInitialValues} onSubmit={_handleSubmit}>
+                            {({ isSubmitting }) => (
+                                <Form id={formId}>
+                                    {_renderStepContent(activeStep)}
 
-                                <div>
-                                    {activeStep !== 0 && <Button onClick={_handleBack}>Back</Button>}
-                                    <div>
-                                        <Button
-                                            disabled={isSubmitting}
-                                            type="submit"
-                                            variant="contained"
-                                            color="primary"
-                                        >
-                                            {isLastStep ? "Place order" : "Next"}
-                                        </Button>
-                                        {isSubmitting && <CircularProgress size={24} />}
-                                    </div>
-                                </div>
-                            </Form>
-                        )}
-                    </Formik>
-                )}
-            </React.Fragment>
-        </React.Fragment>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            p: theme.spacing(2),
+                                            width: "100%",
+                                        }}
+                                    >
+                                        {activeStep !== 0 && <Button onClick={_handleBack}>Back</Button>}
+                                        <Box>
+                                            <Button
+                                                disabled={isSubmitting}
+                                                type="submit"
+                                                variant="contained"
+                                                color="primary"
+                                            >
+                                                {isLastStep ? "Place order" : "Next"}
+                                            </Button>
+                                            {isSubmitting && <CircularProgress size={24} />}
+                                        </Box>
+                                    </Box>
+                                </Form>
+                            )}
+                        </Formik>
+                    )}
+                </Box>
+            </Paper>
+        </Container>
     );
 };
 
