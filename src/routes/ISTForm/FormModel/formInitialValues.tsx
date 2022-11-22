@@ -12,6 +12,14 @@ const {
         dsnPhone,
         officialEmail,
         personalEmail,
+        relatedJob,
+        relatedJobCode,
+        jobCode,
+        currentJobTitle,
+        previousJobTitle,
+        highestEducation,
+        degreeName,
+        highestPME,
     },
 } = istFormModel;
 

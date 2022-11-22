@@ -1,42 +1,72 @@
-import { Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
-import React from "react";
+import {
+    Container,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+    TextField,
+    Typography
+} from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import { useState } from "react";
 
 export default function PersonalForm(props: any) {
     const {
-        formField: { firstName, middleName, lastName, dateOfBirth, gender, race, ethnicity },
+        formField: { firstName, middleName, lastName, dateOfBirth, race, ethnicity },
     } = props;
+
+    const [gender, setGender] = useState("");
+
+    const handleChangeGender = (event: SelectChangeEvent<string>) => {
+        setGender(event.target.value);
+    };
     return (
-        <React.Fragment>
-            <Typography variant="h6">Personal Data</Typography>
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                    <TextField name={firstName.name} label={firstName.label} />
+        <Container>
+            <Typography variant="h6" align="center">
+                Personal Data
+            </Typography>
+            <Grid container spacing={2}>
+                <Grid xs={12} md={6}>
+                    <TextField name={firstName.name} label={firstName.label} required fullWidth />
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField name={middleName.name} label={middleName.label} />
+                <Grid xs={12} md={6}>
+                    <TextField name={middleName.name} label={middleName.label} fullWidth />
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField name={lastName.name} label={lastName.label} />
+                <Grid xs={12} md={6}>
+                    <TextField name={lastName.name} label={lastName.label} required fullWidth variant="filled" />
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField name={dateOfBirth.name} label={dateOfBirth.label} />
+                <Grid xs={12} md={6}>
+                    <TextField name={dateOfBirth.name} label={dateOfBirth.label} required fullWidth />
                 </Grid>
-                <InputLabel id="demo-select-small">Gender</InputLabel>
-                <Select labelId="demo-select-small" id="demo-select-small" value={gender} label="Gender">
-                    <MenuItem value="male">Male</MenuItem>
-                    <MenuItem value="female">Female</MenuItem>
-                </Select>
-                <InputLabel>Race</InputLabel>
-                <Select value={race} label="Race">
-                    <MenuItem value="white">White</MenuItem>
-                    <MenuItem value="black">Black</MenuItem>
-                </Select>
-                <InputLabel>Ethinicity</InputLabel>
-                <Select value={ethnicity} label="Ethnicity">
-                    <MenuItem value="hispanic">Hispanic or Latino</MenuItem>
-                    <MenuItem value="notHispanic">Not Hispanic or Latino</MenuItem>
-                </Select>
+                <Grid xs={12} md={6}>
+                    <FormControl required fullWidth>
+                        <InputLabel id="demo-select-small">Gender</InputLabel>
+                        <Select labelId="demo-select-small" value={gender} label="Gender" onChange={handleChangeGender}>
+                            <MenuItem value="male">Male</MenuItem>
+                            <MenuItem value="female">Female</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Grid>
+                <Grid xs={12} md={6}>
+                    <FormControl required fullWidth variant="filled">
+                        <InputLabel id="demo-simple-select-label">Race</InputLabel>
+                        <Select labelId="demo-simple-select-label" value={race} label="Race">
+                            <MenuItem value="white">White</MenuItem>
+                            <MenuItem value="black">Black</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Grid>
+                <Grid xs={12}>
+                    <FormControl required fullWidth>
+                        <InputLabel>Ethinicity</InputLabel>
+                        <Select value={ethnicity} label="Ethnicity">
+                            <MenuItem value="hispanic">Hispanic or Latino</MenuItem>
+                            <MenuItem value="notHispanic">Not Hispanic or Latino</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Grid>
             </Grid>
-        </React.Fragment>
+        </Container>
     );
 }
