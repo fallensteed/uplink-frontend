@@ -3,7 +3,12 @@ export default {
     formField: {
         firstName: {
             name: "firstName",
+<<<<<<< HEAD
             label: "First Name",
+=======
+            label: "First Name*",
+            requiredErrorMsg: "First name is required",
+>>>>>>> 0aee9511e44d794a251793675d83164886af6679
         },
         middleName: {
             name: "middleName",
@@ -11,6 +16,7 @@ export default {
         },
         lastName: {
             name: "lastName",
+<<<<<<< HEAD
             label: "Last Name",
         },
         dateOfBirth: {
@@ -28,6 +34,30 @@ export default {
         ethnicity: {
             name: "ethnicity",
             label: "Ethnicity",
+=======
+            label: "Last Name*",
+            requiredErrorMsg: "Last name is required",
+        },
+        dateOfBirth: {
+            name: "dateOfBirth",
+            label: "Date Of Birth*",
+            requiredErrorMsg: "Date of Birth is required",
+        },
+        gender: {
+            name: "gender",
+            label: "Gender*",
+            requiredErrorMsg: "Gender is required",
+        },
+        race: {
+            name: "race",
+            label: "Race*",
+            requiredErrorMsg: "Race is required",
+        },
+        ethnicity: {
+            name: "ethnicity",
+            label: "Ethnicity*",
+            requiredErrorMsg: "Ethnicity is required",
+>>>>>>> 0aee9511e44d794a251793675d83164886af6679
         },
         comPhone: {
             name: "comPhone",
@@ -47,6 +77,7 @@ export default {
             name: "personalEmail",
             label: "Personal Email",
         },
+<<<<<<< HEAD
         relatedJob: {
             name: "relatedJob",
             label: "Is your current job related to a USSF job?*",
@@ -82,5 +113,7 @@ export default {
             name: "highestPME",
             label: "Highest Profressional Military Education",
         },
+=======
+>>>>>>> 0aee9511e44d794a251793675d83164886af6679
     },
 };
