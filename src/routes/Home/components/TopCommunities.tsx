@@ -44,7 +44,7 @@ const TopCommunities: FC = () => {
             </Typography>
             <Grid container spacing={2}>
                 <Grid xs={6}>
-                    <List dense>
+                    <List dense sx={{ background: "none" }}>
                         {mockCommunities
                             .filter((community, index) => index <= 4)
                             .map((community) => (
@@ -53,7 +53,7 @@ const TopCommunities: FC = () => {
                     </List>
                 </Grid>
                 <Grid xs={6}>
-                    <List dense>
+                    <List dense sx={{ background: "none" }}>
                         {mockCommunities
                             .filter((community, index) => index > 4)
                             .map((community) => (

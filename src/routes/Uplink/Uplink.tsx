@@ -7,16 +7,12 @@ import SpriteIcon from "navigation/components/SpriteIcon";
 import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PostPopulated, post_getAll } from "./api/post/post.api";
-import { mockPost1, mockPost2, mockPost3, mockPost4 } from "./api/post/post.mock";
 import PostList from "./components/PostList";
-
-const mockPosts = [mockPost1, mockPost2, mockPost3, mockPost4];
 
 const Uplink: FC = () => {
     const theme = useTheme();
 
     const [posts, setPosts] = useState<PostPopulated[] | null>(null);
-    const [newPostOpen, setNewPostOpen] = useState(false);
 
     const getPosts = async () => {
         const response = await post_getAll();

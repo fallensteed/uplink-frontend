@@ -14,10 +14,11 @@ import { formatCountComments, formatCountVotes, getTimeSincePost } from "routes/
 
 interface PostContainerProps {
     post: PostPopulated;
+    commentCount: number;
 }
 
 const PostContainer: FC<PostContainerProps> = (props: PostContainerProps) => {
-    const { post } = props;
+    const { post, commentCount } = props;
     const theme = useTheme();
     const navigate = useNavigate();
 
@@ -131,7 +132,7 @@ const PostContainer: FC<PostContainerProps> = (props: PostContainerProps) => {
                         </Box>
                         <Box>
                             <Button size="small" sx={{ mr: theme.spacing(1) }} startIcon={<CommentIcon />}>
-                                {formatCountComments(post.comments?.length || 0)}Comments
+                                {formatCountComments(commentCount)}Comments
                             </Button>
                             <Button size="small" sx={{ mr: theme.spacing(1) }} startIcon={<ShareIcon />}>
                                 Share

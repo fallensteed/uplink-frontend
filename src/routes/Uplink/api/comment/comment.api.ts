@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { API_URL } from "../../../../config/api";
 
 export interface Comment {

@@ -38,7 +38,7 @@ export const convertToTimePast = (dateStr: string): [number, string] => {
         currentDate.getMinutes(),
         currentDate.getSeconds(),
     );
-    const diffTime = utcCurrentDate - utcDate;
+    const diffTime = Math.abs(utcCurrentDate - utcDate);
     const diffYears = diffTime / 31556926000;
     const diffMonths = diffTime / 5259600000;
     const diffDays = diffTime / 86400000;

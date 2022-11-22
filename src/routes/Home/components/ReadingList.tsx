@@ -13,13 +13,13 @@ const mockReadingList = [
 const ReadingList: FC = () => {
     const theme = useTheme();
     return (
-        <Paper sx={{ width: "100%", height: "auto", mb: theme.spacing(2)}}>
+        <Paper sx={{ width: "100%", height: "auto", mb: theme.spacing(2) }}>
             <Typography variant="h5" sx={{ ml: 1, mt: 1 }}>
                 CSO Reading List
             </Typography>
             <Grid container spacing={2}>
                 <Grid xs={6}>
-                    <List dense>
+                    <List dense sx={{ background: "none" }}>
                         {mockReadingList
                             .filter((title, index) => index <= 1)
                             .map((title) => (
@@ -46,7 +46,7 @@ const ReadingList: FC = () => {
                     </List>
                 </Grid>
                 <Grid xs={6}>
-                    <List dense>
+                    <List dense sx={{ background: "none" }}>
                         {mockReadingList
                             .filter((title, index) => index > 1)
                             .map((title) => (
