@@ -2,14 +2,13 @@ import HomeIcon from "@mui/icons-material/Home";
 import NetworkCheckIcon from "@mui/icons-material/NetworkCheck";
 import { ReactElement } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import ISTForm from "routes/ISTForm/ISTForm";
-import NewPost from "routes/Uplink/components/NewPost";
-import ViewPost from "routes/Uplink/components/ViewPost/ViewPost";
 import ErrorPage from "../routes/ErrorPage/ErrorPage";
 import Home from "../routes/Home/Home";
-import IST from "../routes/ISTForm/ISTForm";
+import ISTForm from "../routes/ISTForm/ISTForm";
 import PingTest from "../routes/PingTest/PingText";
 import Root from "../routes/Root";
+import NewPost from "../routes/Uplink/components/NewPost";
+import ViewPost from "../routes/Uplink/components/ViewPost/ViewPost";
 
 interface NavList {
     name: string;
@@ -30,16 +29,6 @@ export const routeList: NavList[] = [
         displayInNavBar: true,
     },
     {
-<<<<<<< HEAD
-        name: "Interservice Transfers",
-        shortName: "IST",
-        path: "/ist",
-        element: <IST />,
-        displayInNavBar: true,
-    },
-    {
-=======
->>>>>>> 03c7c81592dceb44bf98079c14af36d4005d35d3
         name: "Ping Test",
         shortName: "Ping Test",
         path: "/pingTest",
