@@ -1,4 +1,4 @@
-import { API_URL } from "config/api";
+import { API_URL } from "../../../../config/api";
 
 export interface Community {
     _id: string;
@@ -32,8 +32,19 @@ export const community_getAll = async (): Promise<any> => {
     return response.json();
 };
 
-export const community_getById = async (id: string): Promise<any> => {
-    const response = await fetch(`${UPLINK_COMMUNITY_URL}/${id}`, {
+export const community_getAllByUserId = async (id: string): Promise<any> => {
+    const response = await fetch(`${UPLINK_COMMUNITY_URL}/u/${id}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+    });
+    return response.json();
+};
+
+export const community_getByIdOrLink = async (text: string): Promise<any> => {
+    const response = await fetch(`${UPLINK_COMMUNITY_URL}/${text}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -64,6 +75,7 @@ export const community_patchById = async (data: Community): Promise<any> => {
             "Cache-Control": "no-store, no-cache, must-revalidate",
         },
     });
+    return response.json();
 };
 
 export const community_deleteById = async (id: string): Promise<any> => {
@@ -75,4 +87,5 @@ export const community_deleteById = async (id: string): Promise<any> => {
             "Cache-Control": "no-store, no-cache, must-revalidate",
         },
     });
+    return response.json();
 };

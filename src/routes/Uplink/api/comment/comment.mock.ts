@@ -1,4 +1,4 @@
-import { mockUser1, mockUser2 } from "common/api/user/user.mock";
+import { mockUser1, mockUser2 } from "../../../../common/api/user/user.mock";
 import { mockPost1 } from "../post/post.mock";
 import { Comment } from "./comment.api";
 
