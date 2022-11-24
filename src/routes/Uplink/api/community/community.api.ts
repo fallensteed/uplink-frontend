@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { User } from "../../../../common/api/user/user.api";
 import { API_URL } from "../../../../config/api";
+import { PostPopulated } from "../post/post.api";
 
 export interface Community {
     _id: string;
@@ -13,10 +16,24 @@ export interface Community {
     createdAt?: Date;
 }
 
+export interface CommunityPopulated {
+    _id: string;
+    name: string;
+    about?: string;
+    link: string;
+    public: boolean;
+    members?: User[];
+    moderators: User[];
+    rules?: CommunityRule[];
+    pinnedPosts?: PostPopulated[];
+    createdAt?: Date;
+}
+
 export interface CommunityRule {
     name: string;
     detail: string;
     order: number;
+    [key: string]: any;
 }
 
 export const UPLINK_COMMUNITY_URL = `${API_URL}/uplink/community`;

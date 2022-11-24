@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { API_URL } from "../../../config/api";
 
 export interface User {
@@ -32,5 +33,10 @@ export const USER_URL = `${API_URL}/common/user`;
 
 export const user_self = async (): Promise<any> => {
     const response = await fetch(`${USER_URL}/self`, { method: "POST" });
+    return response.json();
+};
+
+export const user_getByUsername = async (username: string): Promise<any> => {
+    const response = await fetch(`${USER_URL}/${username}`);
     return response.json();
 };

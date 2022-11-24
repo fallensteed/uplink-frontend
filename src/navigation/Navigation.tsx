@@ -12,19 +12,22 @@ import {
     Toolbar,
     Typography,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import ClassificationBar from "common/classification/ClassificationBar";
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "routes/Root";
+import { Community, community_getAllByUserId } from "../routes/Uplink/api/community/community.api";
+import UplinkNavButton from "./components/UplinkNavButton";
 import UserDisplay from "./components/UserDisplay";
 import { routeList } from "./pages";
 
-const drawerWidth = 240;
-
 const Navigation: FC = () => {
+    const theme = useTheme();
     const navigate = useNavigate();
     const user = useContext(UserContext);
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [communities, setCommunities] = useState<Community[] | null>(null);
 
     const openDrawer = () => {
         setDrawerOpen(true);
@@ -37,6 +40,15 @@ const Navigation: FC = () => {
         closeDrawer();
         navigate(path);
     };
+
+    const getCommunityList = async (userId: string) => {
+        const response = await community_getAllByUserId(userId);
+        if (response.data) setCommunities(response.data);
+    };
+
+    useEffect(() => {
+        if (user) getCommunityList(user._id);
+    }, [user]);
 
     return (
         <>
@@ -52,14 +64,22 @@ const Navigation: FC = () => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: "Space Mono" }}>
+                    <Typography variant="h6" component="div" sx={{ fontFamily: "Space Mono", mr: theme.spacing(2) }}>
                         UPLINK
                     </Typography>
+                    <UplinkNavButton communities={communities} />
+                    <Box sx={{ flexGrow: 1 }} />
                     <UserDisplay />
                 </Toolbar>
             </AppBar>
             <Box component="nav">
-                <Drawer variant="temporary" open={drawerOpen} onClose={closeDrawer} ModalProps={{ keepMounted: true }}>
+                <Drawer
+                    variant="temporary"
+                    open={drawerOpen}
+                    onClose={closeDrawer}
+                    ModalProps={{ keepMounted: true }}
+                    sx={{ width: 240 }}
+                >
                     <List>
                         {routeList
                             .filter((route) => route.displayInNavBar === true)

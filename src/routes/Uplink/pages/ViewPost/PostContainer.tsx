@@ -8,7 +8,7 @@ import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { removeHttp } from "common/functions/links";
 import { FC } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PostPopulated } from "routes/Uplink/api/post/post.api";
 import { formatCountComments, formatCountVotes, getTimeSincePost } from "routes/Uplink/functions/posts";
 
@@ -20,7 +20,6 @@ interface PostContainerProps {
 const PostContainer: FC<PostContainerProps> = (props: PostContainerProps) => {
     const { post, commentCount } = props;
     const theme = useTheme();
-    const navigate = useNavigate();
 
     return (
         <Paper sx={{ display: "flex", flexDirection: "row", mb: theme.spacing(1) }}>
@@ -76,19 +75,29 @@ const PostContainer: FC<PostContainerProps> = (props: PostContainerProps) => {
                                     component={Link}
                                     to={`../c/${post.community.link}`}
                                     sx={{
-                                        color: "#000",
+                                        textDecoration: "none",
+                                        color: theme.palette.text.primary,
+                                        "&:hover": { textDecoration: "underline" },
                                         fontWeight: "bold",
                                         mr: theme.spacing(2),
-                                        textDecoration: "none",
                                     }}
                                 >
                                     c/{post.community.link}
                                 </Typography>
-                                <Typography variant="body2" sx={{ color: "#000" }}>
+                                <Typography variant="body2">
                                     Posted by{" "}
-                                    <Link to={`../u/${post.userCreated.uplinkUsername}`}>
+                                    <Typography
+                                        variant="body2"
+                                        component={Link}
+                                        sx={{
+                                            textDecoration: "none",
+                                            color: theme.palette.text.primary,
+                                            "&:hover": { textDecoration: "underline" },
+                                        }}
+                                        to={`../u/${post.userCreated.uplinkUsername}`}
+                                    >
                                         u/{post.userCreated.uplinkUsername}
-                                    </Link>
+                                    </Typography>
                                 </Typography>
                             </Box>
                             <Typography variant="body2">{getTimeSincePost(post.createdAt)}</Typography>
@@ -112,8 +121,9 @@ const PostContainer: FC<PostContainerProps> = (props: PostContainerProps) => {
                                     component="img"
                                     src={post.imageSrc}
                                     sx={{
-                                        maxHeight: "800px",
+                                        maxHeight: "600px",
                                         maxWidth: "100%",
+                                        objectFit: "contain",
                                         m: theme.spacing(0.5),
                                         display: "block",
                                     }}

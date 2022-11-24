@@ -11,7 +11,7 @@ import TopCommunities from "./components/TopCommunities";
 const Home: FC = () => {
     const theme = useTheme();
     return (
-        <Container maxWidth="lg" sx={{ mt: 4, height: "calc(100% - 32px)" }}>
+        <Container maxWidth="lg" sx={{ mt: theme.spacing(4), height: "calc(100% - 32px)" }}>
             <Grid container spacing={2} sx={{ height: "100%" }}>
                 <Grid md={7} xs={12} sx={{ height: "100%" }}>
                     <Uplink />

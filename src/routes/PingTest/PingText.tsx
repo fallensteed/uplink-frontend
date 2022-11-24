@@ -15,7 +15,6 @@ const PingTest: FC = () => {
     }, []);
 
     const sendPing = () => {
-        console.log("emitting ping");
         socket.emit("ping", "hello there");
     };
 

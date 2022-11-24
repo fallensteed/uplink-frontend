@@ -71,8 +71,19 @@ export const post_getByMiniLink = async (miniLink: string): Promise<any> => {
     return response.json();
 };
 
-export const post_getAllByCommunity = async (communityId: string): Promise<any> => {
-    const response = await fetch(`${UPLINK_POST_URL}/c/${communityId}`, {
+export const post_getAllByCommunity = async (communityLink: string): Promise<any> => {
+    const response = await fetch(`${UPLINK_POST_URL}/c/${communityLink}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+    });
+    return response.json();
+};
+
+export const post_getAllByUser = async (username: string): Promise<any> => {
+    const response = await fetch(`${UPLINK_POST_URL}/u/${username}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
