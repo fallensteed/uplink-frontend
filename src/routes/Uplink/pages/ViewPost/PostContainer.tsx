@@ -10,7 +10,8 @@ import { removeHttp } from "common/functions/links";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { PostPopulated } from "routes/Uplink/api/post/post.api";
-import { formatCountComments, formatCountVotes, getTimeSincePost } from "routes/Uplink/functions/posts";
+import { formatCountComments, formatCountVotes } from "routes/Uplink/functions/posts";
+import moment from 'moment';
 
 interface PostContainerProps {
     post: PostPopulated;
@@ -100,7 +101,7 @@ const PostContainer: FC<PostContainerProps> = (props: PostContainerProps) => {
                                     </Typography>
                                 </Typography>
                             </Box>
-                            <Typography variant="body2">{getTimeSincePost(post.createdAt)}</Typography>
+                            <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
                         </Box>
                         <Box sx={{ mt: theme.spacing(2) }}>
                             <Typography

@@ -4,11 +4,12 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Avatar, Box, Button, IconButton, TextField, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import SpriteIcon from "common/components/SpriteIcon";
+import moment from "moment";
 import { FC, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "routes/Root";
 import { Comment, comment_postOne } from "routes/Uplink/api/comment/comment.api";
-import { formatCountVotes, getTimeSincePost } from "routes/Uplink/functions/posts";
+import { formatCountVotes } from "routes/Uplink/functions/posts";
 
 interface CommentSectionProps {
     comment: Comment;
@@ -66,7 +67,7 @@ const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => 
                     u/{user?.uplinkUsername}
                 </Typography>
                 <Typography variant="body2" sx={{ ml: theme.spacing(2), fontStyle: "italic" }}>
-                    {getTimeSincePost(comment.createdAt as string)}
+                    {moment(comment.createdAt).fromNow()}
                 </Typography>
             </Box>
             <Typography>{comment.text}</Typography>

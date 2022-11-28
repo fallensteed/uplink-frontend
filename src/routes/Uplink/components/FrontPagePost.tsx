@@ -7,10 +7,11 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { removeHttp } from "common/functions/links";
+import moment from "moment";
 import { FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { PostPopulated } from "../api/post/post.api";
-import { formatCountComments, formatCountVotes, getTimeSincePost } from "../functions/posts";
+import { formatCountComments, formatCountVotes } from "../functions/posts";
 
 interface FrontPagePostProps {
     post: PostPopulated;
@@ -127,7 +128,7 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                                     u/{post.userCreated.uplinkUsername}
                                 </Typography>
                             </Typography>
-                            <Typography variant="body2">{getTimeSincePost(post.createdAt)}</Typography>
+                            <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
                         </Box>
                         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                             <Button

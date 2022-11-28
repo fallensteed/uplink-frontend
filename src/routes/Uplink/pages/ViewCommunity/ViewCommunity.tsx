@@ -41,6 +41,10 @@ const ViewCommunity: FC = () => {
         }
     }, [communityLink]);
 
+    const handleUnFollow = async () => {
+        return null
+    }
+
     return community ? (
         <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
             <Box component="img" src={backgroundImage} sx={{ height: 175, width: "100%", objectFit: "cover" }} />
@@ -74,7 +78,7 @@ const ViewCommunity: FC = () => {
                     }}
                 >
                     <Button size="small" variant="contained" color="secondary">
-                        Join
+                        {community.members?.filter((member) => member._id === user?._id).length ? "Following" : "Join"}
                     </Button>
                 </Box>
             </Box>
