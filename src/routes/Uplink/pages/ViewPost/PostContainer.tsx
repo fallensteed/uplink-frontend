@@ -7,11 +7,11 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { removeHttp } from "common/functions/links";
+import moment from "moment";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { PostPopulated } from "routes/Uplink/api/post/post.api";
 import { formatCountComments, formatCountVotes } from "routes/Uplink/functions/posts";
-import moment from 'moment';
 
 interface PostContainerProps {
     post: PostPopulated;
@@ -137,7 +137,7 @@ const PostContainer: FC<PostContainerProps> = (props: PostContainerProps) => {
                             </Typography>
                         ) : null}
                         <Box>
-                            <Typography variant="body1" sx={{ m: theme.spacing(2) }}>
+                            <Typography variant="body1" sx={{ m: theme.spacing(2), whiteSpace: "pre-line" }}>
                                 {post.detail}
                             </Typography>
                         </Box>

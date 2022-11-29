@@ -10,7 +10,11 @@ import { Link, useParams } from "react-router-dom";
 import PostList from "routes/Uplink/components/PostList";
 import backgroundImage from "../../../../common/images/background_1.png";
 import { UserContext } from "../../../Root";
-import { CommunityPopulated, community_getByIdOrLink } from "../../api/community/community.api";
+import {
+    CommunityPopulated,
+    community_adjustMembership,
+    community_getByIdOrLink,
+} from "../../api/community/community.api";
 import { PostPopulated, post_getAllByCommunity } from "../../api/post/post.api";
 import CommunityAbout from "./CommunityAbout";
 import CommunityMods from "./CommunityMods";
@@ -23,6 +27,7 @@ const ViewCommunity: FC = () => {
 
     const [posts, setPosts] = useState<PostPopulated[] | null>(null);
     const [community, setCommunity] = useState<CommunityPopulated | null>(null);
+    const [buttonText, setButtonText] = useState<string>("Joined");
 
     const getCommunityPosts = async (link: string) => {
         const response = await post_getAllByCommunity(link);
@@ -41,9 +46,30 @@ const ViewCommunity: FC = () => {
         }
     }, [communityLink]);
 
-    const handleUnFollow = async () => {
-        return null
-    }
+    const handleLeaveCommunity = async () => {
+        const response = await community_adjustMembership(
+            community?._id as string,
+            user?._id as string,
+            "members",
+            "remove",
+        );
+        if (response.data) getCommunity(community?._id as string);
+    };
+
+    const handleJoinCommunity = async () => {
+        const response = await community_adjustMembership(
+            community?._id as string,
+            user?._id as string,
+            "members",
+            "add",
+        );
+        if (response.data) getCommunity(community?._id as string);
+    };
+
+    const handleButtonText = (text?: string) => {
+        if (text) return setButtonText(text);
+        return setButtonText("Joined");
+    };
 
     return community ? (
         <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
@@ -77,9 +103,29 @@ const ViewCommunity: FC = () => {
                         mr: theme.spacing(2),
                     }}
                 >
-                    <Button size="small" variant="contained" color="secondary">
-                        {community.members?.filter((member) => member._id === user?._id).length ? "Following" : "Join"}
-                    </Button>
+                    {community.members?.filter((member) => member._id === user?._id).length ? (
+                        <Button
+                            size="small"
+                            variant="outlined"
+                            color="secondary"
+                            onClick={handleLeaveCommunity}
+                            onMouseOver={() => handleButtonText("Leave")}
+                            onMouseOut={() => handleButtonText()}
+                            sx={{ width: 100 }}
+                        >
+                            {buttonText}
+                        </Button>
+                    ) : (
+                        <Button
+                            size="small"
+                            variant="contained"
+                            color="secondary"
+                            onClick={handleJoinCommunity}
+                            sx={{ width: 100 }}
+                        >
+                            Join
+                        </Button>
+                    )}
                 </Box>
             </Box>
             <Container maxWidth="lg" sx={{ mt: 4, height: "calc(100% - 32px)" }}>

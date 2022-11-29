@@ -106,3 +106,26 @@ export const community_deleteById = async (id: string): Promise<any> => {
     });
     return response.json();
 };
+
+export const community_adjustMembership = async (
+    communityId: string,
+    userId: string,
+    list: "members" | "moderators",
+    action: "add" | "remove",
+) => {
+    const info = {
+        _id: communityId,
+        user: userId,
+        list: list,
+        action: action,
+    };
+    const response = await fetch(`${UPLINK_COMMUNITY_URL}/membership`, {
+        method: "PATCH",
+        body: JSON.stringify(info),
+        headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+    });
+    return response.json();
+};

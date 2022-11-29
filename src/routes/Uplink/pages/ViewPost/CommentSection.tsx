@@ -70,7 +70,7 @@ const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => 
                     {moment(comment.createdAt).fromNow()}
                 </Typography>
             </Box>
-            <Typography>{comment.text}</Typography>
+            <Typography sx={{ whiteSpace: "pre-line" }}>{comment.text}</Typography>
             <Box>
                 <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                     <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", mr: theme.spacing(1) }}>
