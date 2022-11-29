@@ -4,8 +4,14 @@ import { Form, Formik } from "formik";
 import { FC, useState } from "react";
 import formInitialValues from "./FormModel/formInitialValues";
 import istFormModel from "./FormModel/istFormModel";
+import AddressForm from "./Forms/AddressForm";
 import ContactForm from "./Forms/ContactForm";
+import ExperienceForm from "./Forms/experienceForm";
 import PersonalForm from "./Forms/PersonalForm";
+import SecurityForm from "./Forms/SecurityForm";
+import SpouseForm from "./Forms/SpouseForm";
+import UnitForm from "./Forms/UnitForm";
+import USSFForm from "./Forms/USSFForm";
 
 const steps = [
     "Personal Data",
@@ -22,9 +28,21 @@ const { formId, formField } = istFormModel;
 function _renderStepContent(step: any) {
     switch (step) {
         case 0:
-            return <PersonalForm formField={formField} />;
+            return <PersonalForm />;
         case 1:
             return <ContactForm />;
+        case 2:
+            return <ExperienceForm />;
+        case 3:
+            return <AddressForm />;
+        case 4:
+            return <SecurityForm />;
+        case 5:
+            return <USSFForm />;
+        case 6:
+            return <SpouseForm />;
+        case 7:
+            return <UnitForm />;
         default:
             return <Typography>Not Found</Typography>;
     }
@@ -86,7 +104,7 @@ const ISTForm: FC = () => {
                         ))}
                     </Stepper>
                 </Box>
-                <Box>
+                <Box sx={{ width: 1000 }}>
                     {activeStep === steps.length ? (
                         <Typography>You completed all the steps</Typography>
                     ) : (
@@ -111,7 +129,7 @@ const ISTForm: FC = () => {
                                                 variant="contained"
                                                 color="primary"
                                             >
-                                                {isLastStep ? "Place order" : "Next"}
+                                                {isLastStep ? "Submit" : "Next"}
                                             </Button>
                                             {isSubmitting && <CircularProgress size={24} />}
                                         </Box>
