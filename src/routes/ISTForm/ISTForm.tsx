@@ -59,7 +59,6 @@ const ISTForm: FC = () => {
 
     async function _submitForm(values: any, actions: any) {
         await _sleep(1000);
-        alert(JSON.stringify(values, null, 2));
         actions.setSubmitting(false);
 
         setActiveStep(activeStep + 1);
