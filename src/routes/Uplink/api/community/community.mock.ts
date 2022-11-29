@@ -1,6 +1,5 @@
 import { Community } from "./community.api";
 
-
 export const mockCommunity1: Community = {
     _id: "636d597aa8f7c2408f4f6b26",
     name: "Test Community 1",
@@ -91,4 +90,4 @@ export const mockCommunityList = [
         _id: "63726966b26a5b782c01ea00",
         link: "c/SpaceForceMemes",
     },
-]
+];

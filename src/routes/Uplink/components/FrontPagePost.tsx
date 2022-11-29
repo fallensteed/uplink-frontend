@@ -7,10 +7,11 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { removeHttp } from "common/functions/links";
+import moment from "moment";
 import { FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { PostPopulated } from "../api/post/post.api";
-import { formatCountComments, formatCountVotes, getTimeSincePost } from "../functions/posts";
+import { formatCountComments, formatCountVotes } from "../functions/posts";
 
 interface FrontPagePostProps {
     post: PostPopulated;
@@ -49,17 +50,13 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                     p: theme.spacing(1),
                     display: "flex",
                     flexDirection: "row",
-                    cursor: "pointer",
-                }}
-                onClick={() => {
-                    return navigate(`/c/${post.community.link}/p/${post.miniLink}`);
                 }}
             >
                 {post.imageSrc ? (
                     <Box
                         component="img"
                         src={post.imageSrc}
-                        sx={{ maxHeight: "112px", maxWidth: "112px", m: theme.spacing(0.5) }}
+                        sx={{ maxHeight: "112px", maxWidth: "112px", objectFit: "contain", m: theme.spacing(0.5) }}
                     />
                 ) : null}
                 <Box
@@ -72,7 +69,12 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                         justifyContent: "space-between",
                     }}
                 >
-                    <Box>
+                    <Box
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => {
+                            return navigate(`/c/${post.community.link}/p/${post.miniLink}`);
+                        }}
+                    >
                         <Typography
                             variant="h6"
                             sx={{
@@ -84,13 +86,13 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                         >
                             {post.title}
                         </Typography>
+                    </Box>
+                    <Box sx={{ width: "100%" }}>
                         {post.link ? (
                             <Typography component="a" href={post.link} target="_blank">
                                 {removeHttp(post.link)}
                             </Typography>
                         ) : null}
-                    </Box>
-                    <Box sx={{ width: "100%" }}>
                         <Box
                             sx={{
                                 width: "100%",
@@ -103,22 +105,39 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                                 variant="body2"
                                 component={Link}
                                 to={`../c/${post.community.link}`}
-                                sx={{ color: "#000" }}
+                                sx={{
+                                    textDecoration: "none",
+                                    color: theme.palette.text.primary,
+                                    "&:hover": { textDecoration: "underline" },
+                                }}
                             >
                                 c/{post.community.link}
                             </Typography>
-                            <Typography
-                                variant="body2"
-                                component={Link}
-                                to={`../u/${post.userCreated.uplinkUsername}`}
-                                sx={{ color: "#000" }}
-                            >
-                                Posted by u/{post.userCreated.uplinkUsername}
+                            <Typography variant="body2">
+                                Posted by{" "}
+                                <Typography
+                                    variant="body2"
+                                    component={Link}
+                                    to={`../u/${post.userCreated.uplinkUsername}`}
+                                    sx={{
+                                        textDecoration: "none",
+                                        color: theme.palette.text.primary,
+                                        "&:hover": { textDecoration: "underline" },
+                                    }}
+                                >
+                                    u/{post.userCreated.uplinkUsername}
+                                </Typography>
                             </Typography>
-                            <Typography variant="body2">{getTimeSincePost(post.createdAt)}</Typography>
+                            <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
                         </Box>
-                        <Box>
-                            <Button size="small" sx={{ mr: theme.spacing(1) }} startIcon={<CommentIcon />}>
+                        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                            <Button
+                                size="small"
+                                sx={{ mr: theme.spacing(1) }}
+                                startIcon={<CommentIcon />}
+                                component={Link}
+                                to={`/c/${post.community.link}/p/${post.miniLink}#comments`}
+                            >
                                 {formatCountComments(post.comments?.length || 0)}Comments
                             </Button>
                             <Button size="small" sx={{ mr: theme.spacing(1) }} startIcon={<ShareIcon />}>

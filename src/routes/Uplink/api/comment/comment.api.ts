@@ -10,11 +10,12 @@ export interface Comment {
     upVotes?: string[];
     downVotes?: string[];
     editHistory?: CommentEditHistory[];
+    createdAt?: string;
 }
 
 export interface CommentEditHistory {
     text: string;
-    updatedAt: Date;
+    updatedAt: string;
 }
 
 export const UPLINK_COMMENT_URL = `${API_URL}/uplink/comment`;

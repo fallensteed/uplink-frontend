@@ -1,6 +1,5 @@
 import { User } from "./user.api";
 
-
 export const mockUser1: User = {
     _id: "604013826726407dcc527ece",
     p1Username: "jdoe",

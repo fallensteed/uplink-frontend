@@ -3,14 +3,16 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import PushPinIcon from "@mui/icons-material/PushPin";
 import { Avatar, Box, Button, Card, CardContent, CircularProgress, Paper, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import SpriteIcon from "navigation/components/SpriteIcon";
-import { FC, useEffect, useState } from "react";
+import SpriteIcon from "common/components/SpriteIcon";
+import { FC, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../Root";
 import { PostPopulated, post_getAll } from "./api/post/post.api";
 import PostList from "./components/PostList";
 
 const Uplink: FC = () => {
     const theme = useTheme();
+    const user = useContext(UserContext);
 
     const [posts, setPosts] = useState<PostPopulated[] | null>(null);
 
@@ -27,7 +29,7 @@ const Uplink: FC = () => {
         <Box>
             <Paper sx={{ display: "flex", alignItems: "center", mb: theme.spacing(2) }}>
                 <Avatar sx={{ backgroundColor: "white", height: 32, width: 32, ml: 1 }}>
-                    <SpriteIcon />
+                    <SpriteIcon seed={`${user?.uplinkUsername}`} size={24} />
                 </Avatar>
                 <Button
                     fullWidth

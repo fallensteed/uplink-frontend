@@ -8,12 +8,11 @@ import SpaceForce36 from "../../../common/images/SpaceForce_36x36.png";
 const mockCommunities = mockCommunityList;
 
 interface CommunityListItemProps {
-    _id: string;
     link: string;
 }
 
 const CommunityListItem: FC<CommunityListItemProps> = (props: CommunityListItemProps) => {
-    const { _id, link } = props;
+    const { link } = props;
     const theme = useTheme();
     return (
         <ListItem
@@ -48,7 +47,7 @@ const TopCommunities: FC = () => {
                         {mockCommunities
                             .filter((community, index) => index <= 4)
                             .map((community) => (
-                                <CommunityListItem key={community._id} _id={community._id} link={community.link} />
+                                <CommunityListItem key={community._id} link={community.link} />
                             ))}
                     </List>
                 </Grid>
@@ -57,7 +56,7 @@ const TopCommunities: FC = () => {
                         {mockCommunities
                             .filter((community, index) => index > 4)
                             .map((community) => (
-                                <CommunityListItem key={community._id} _id={community._id} link={community.link} />
+                                <CommunityListItem key={community._id} link={community.link} />
                             ))}
                     </List>
                 </Grid>

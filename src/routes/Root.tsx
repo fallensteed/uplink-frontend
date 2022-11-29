@@ -13,7 +13,6 @@ export const UserContext = createContext<User | null>(null);
 const Root: FC = () => {
     const [isConnected, setIsConnected] = useState(socket.connected);
     const [user, setUser] = useState<User | null>(null);
-    const [error, setError] = useState<boolean>(false);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -22,8 +21,6 @@ const Root: FC = () => {
         const response = await user_self();
         if (response.data) {
             setUser(response.data);
-        } else {
-            setError(true);
         }
     };
 

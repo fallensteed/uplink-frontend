@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { User } from "../../../../common/api/user/user.api";
 import { API_URL } from "../../../../config/api";
+import { PostPopulated } from "../post/post.api";
 
 export interface Community {
     _id: string;
@@ -13,10 +16,24 @@ export interface Community {
     createdAt?: Date;
 }
 
+export interface CommunityPopulated {
+    _id: string;
+    name: string;
+    about?: string;
+    link: string;
+    public: boolean;
+    members?: User[];
+    moderators: User[];
+    rules?: CommunityRule[];
+    pinnedPosts?: PostPopulated[];
+    createdAt?: Date;
+}
+
 export interface CommunityRule {
     name: string;
     detail: string;
     order: number;
+    [key: string]: any;
 }
 
 export const UPLINK_COMMUNITY_URL = `${API_URL}/uplink/community`;
@@ -82,6 +99,29 @@ export const community_deleteById = async (id: string): Promise<any> => {
     const response = await fetch(`${UPLINK_COMMUNITY_URL}/`, {
         method: "DELETE",
         body: JSON.stringify({ _id: id }),
+        headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+    });
+    return response.json();
+};
+
+export const community_adjustMembership = async (
+    communityId: string,
+    userId: string,
+    list: "members" | "moderators",
+    action: "add" | "remove",
+) => {
+    const info = {
+        _id: communityId,
+        user: userId,
+        list: list,
+        action: action,
+    };
+    const response = await fetch(`${UPLINK_COMMUNITY_URL}/membership`, {
+        method: "PATCH",
+        body: JSON.stringify(info),
         headers: {
             "Content-Type": "application/json",
             "Cache-Control": "no-store, no-cache, must-revalidate",
