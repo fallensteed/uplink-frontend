@@ -13,6 +13,7 @@ import {
     MenuList,
 } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
+import { NavList } from "navigation/pages";
 import { FC, MouseEvent, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import SpriteIcon from "../../common/components/SpriteIcon";
@@ -21,10 +22,11 @@ import { Community } from "../../routes/Uplink/api/community/community.api";
 interface UplinkNavButtonProps {
     communities: Community[] | null;
     following?: string[] | null;
+    apps: NavList[];
 }
 
 const UplinkNavButton: FC<UplinkNavButtonProps> = (props: UplinkNavButtonProps) => {
-    const { communities, following } = props;
+    const { communities, following, apps } = props;
     const theme = useTheme();
     const location = useLocation();
     const navigate = useNavigate();
@@ -76,6 +78,25 @@ const UplinkNavButton: FC<UplinkNavButtonProps> = (props: UplinkNavButtonProps) 
                         <SpriteIcon seed={pathname.slice(3)} size={12} />
                     </Avatar>{" "}
                     {pathname.slice(1)}
+                </>
+            );
+        } else if (pathname.includes("/a")) {
+            const app = apps.filter((app) => app.path === pathname);
+            return (
+                <>
+                    {app[0].icon ? (
+                        <Avatar
+                            sx={{
+                                height: 16,
+                                width: 16,
+                                mr: theme.spacing(1),
+                                backgroundColor: theme.palette.common.white,
+                            }}
+                        >
+                            {app[0].icon}
+                        </Avatar>
+                    ) : null}
+                    {app[0].name}
                 </>
             );
         } else {
@@ -160,8 +181,8 @@ const UplinkNavButton: FC<UplinkNavButtonProps> = (props: UplinkNavButtonProps) 
                             )}
                         </ul>
                     </li>
-                    <Divider sx={{ m: theme.spacing(1) }} />
-                    <li>
+                    <Divider sx={{ ml: 1, mr: 1 }} />
+                    <li style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}>
                         <ul>
                             <ListSubheader sx={{ lineHeight: 2, background: theme.palette.common.white }}>
                                 Following
@@ -186,6 +207,32 @@ const UplinkNavButton: FC<UplinkNavButtonProps> = (props: UplinkNavButtonProps) 
                                             <SpriteIcon seed={user} size={12} />
                                         </Avatar>
                                         u/{user}
+                                    </MenuItem>
+                                ))
+                            ) : (
+                                <MenuItem disabled>
+                                    <ListItemText>You haven&apos;t followed any users yet!</ListItemText>
+                                </MenuItem>
+                            )}
+                        </ul>
+                    </li>
+                    <Divider sx={{ ml: 1, mr: 1 }} />
+                    <li style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}>
+                        <ul>
+                            <ListSubheader sx={{ lineHeight: 2, background: theme.palette.common.white }}>
+                                Apps
+                            </ListSubheader>
+                            {apps ? (
+                                apps?.map((app) => (
+                                    <MenuItem
+                                        key={app.shortName}
+                                        onClick={() => {
+                                            navigate(app.path);
+                                            handleCloseMenu();
+                                        }}
+                                    >
+                                        <ListItemIcon>{app.icon}</ListItemIcon>
+                                        {app.name}
                                     </MenuItem>
                                 ))
                             ) : (

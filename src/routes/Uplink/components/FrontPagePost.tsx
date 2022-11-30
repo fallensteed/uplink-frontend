@@ -29,7 +29,7 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    width: "54px",
+                    minWidth: "54px",
                     minHeight: "100px",
                 }}
             >
@@ -49,7 +49,9 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                     borderRadius: "0 4px 4px 0",
                     p: theme.spacing(1),
                     display: "flex",
-                    flexDirection: "row",
+                    flexDirection: { xs: "column", lg: "row" },
+                    textAlign: { xs: "center", lg: "left" },
+                    alignItems: "center",
                 }}
             >
                 {post.imageSrc ? (
@@ -78,10 +80,15 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                         <Typography
                             variant="h6"
                             sx={{
-                                display: "inline-block",
                                 mr: theme.spacing(1),
                                 color: "#000",
                                 textDecoration: "none",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                display: "-webkit-box",
+                                WebkitLineClamp: 2,
+                                WebkitBoxOrient: "vertical",
+                                wordBreak: "break-word",
                             }}
                         >
                             {post.title}
@@ -97,7 +104,7 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                             sx={{
                                 width: "100%",
                                 display: "flex",
-                                flexDirection: "row",
+                                flexDirection: { xs: "column", sm: "row" },
                                 justifyContent: "space-between",
                             }}
                         >
@@ -130,7 +137,9 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                             </Typography>
                             <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
                         </Box>
-                        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                        <Box
+                            sx={{ display: "flex", justifyContent: { xs: "center", md: "flex-end" }, flexWrap: "wrap" }}
+                        >
                             <Button
                                 size="small"
                                 sx={{ mr: theme.spacing(1) }}

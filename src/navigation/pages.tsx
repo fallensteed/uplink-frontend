@@ -13,7 +13,7 @@ import PingTest from "../routes/PingTest/PingText";
 import Root from "../routes/Root";
 import ViewCommunity from "../routes/Uplink/pages/ViewCommunity/ViewCommunity";
 
-interface NavList {
+export interface NavList {
     name: string;
     shortName: string;
     path: string;
@@ -29,12 +29,12 @@ export const routeList: NavList[] = [
         path: "/home",
         element: <Home />,
         icon: <HomeIcon />,
-        displayInNavBar: true,
+        displayInNavBar: false,
     },
     {
         name: "Ping Test",
         shortName: "Ping Test",
-        path: "/pingTest",
+        path: "/a/pingTest",
         element: <PingTest />,
         icon: <NetworkCheckIcon />,
         displayInNavBar: true,
@@ -42,7 +42,7 @@ export const routeList: NavList[] = [
     {
         name: "IST App",
         shortName: "IST App",
-        path: "/ist",
+        path: "/a/ist",
         element: <ISTForm />,
         displayInNavBar: true,
     },
