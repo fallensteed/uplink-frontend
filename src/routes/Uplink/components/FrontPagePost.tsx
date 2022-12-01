@@ -1,46 +1,53 @@
 import CommentIcon from "@mui/icons-material/Comment";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import ReportIcon from "@mui/icons-material/Report";
 import ShareIcon from "@mui/icons-material/Share";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
+import { Box, Button, Paper, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { removeHttp } from "common/functions/links";
 import moment from "moment";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { User } from "../../../common/api/user/user.api";
+import { UserContext } from "../../Root";
 import { PostPopulated } from "../api/post/post.api";
-import { formatCountComments, formatCountVotes } from "../functions/posts";
+import { formatCountComments, formatCountVotes, updateVotes } from "../functions/posts";
+import PostVoting from "./PostVoting";
 
 interface FrontPagePostProps {
     post: PostPopulated;
+    getPosts: () => Promise<void>;
 }
 
 const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
-    const { post } = props;
+    const { post, getPosts } = props;
+    const user = useContext(UserContext) as User;
     const theme = useTheme();
     const navigate = useNavigate();
 
+    const handleChangeVote = async (change: "upVote" | "downVote" | "noVote") => {
+        const response = await updateVotes(
+            post._id,
+            post.upVotes as string[],
+            post.downVotes as string[],
+            user._id,
+            change,
+        );
+        if (response === "success") getPosts();
+    };
+
+    const userUpVoted = post.upVotes?.includes(user._id) as boolean;
+    const userDownVoted = post.downVotes?.includes(user._id) as boolean;
+    const voteCount = formatCountVotes(post.upVotes?.length || 0, post.downVotes?.length || 0);
+
     return (
         <Paper sx={{ display: "flex", flexDirection: "row", mb: theme.spacing(1) }}>
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    minWidth: "54px",
-                    minHeight: "100px",
-                }}
-            >
-                <IconButton size="small">
-                    <KeyboardArrowUpIcon />
-                </IconButton>
-                <Typography>{formatCountVotes(post.upVotes?.length || 0, post.downVotes?.length || 0)}</Typography>
-                <IconButton size="small">
-                    <KeyboardArrowDownIcon />
-                </IconButton>
-            </Box>
+            <PostVoting
+                handleChangeVote={(change) => handleChangeVote(change)}
+                voteCount={voteCount}
+                userUpVoted={userUpVoted}
+                userDownVoted={userDownVoted}
+            />
             <Box
                 sx={{
                     flexGrow: 1,
@@ -58,7 +65,7 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                     <Box
                         component="img"
                         src={post.imageSrc}
-                        sx={{ maxHeight: "112px", maxWidth: "112px", objectFit: "contain", m: theme.spacing(0.5) }}
+                        sx={{ height: "112px", width: "112px", objectFit: "cover", m: theme.spacing(0.5) }}
                     />
                 ) : null}
                 <Box
@@ -147,7 +154,7 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                                 component={Link}
                                 to={`/c/${post.community.link}/p/${post.miniLink}#comments`}
                             >
-                                {formatCountComments(post.comments?.length || 0)}Comments
+                                {formatCountComments(post.commentCount || 0)}
                             </Button>
                             <Button size="small" sx={{ mr: theme.spacing(1) }} startIcon={<ShareIcon />}>
                                 Share

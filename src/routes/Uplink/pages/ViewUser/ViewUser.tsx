@@ -30,8 +30,8 @@ const ViewUser: FC = () => {
     const [moderator, setModerator] = useState<Community[] | null>(null);
     const [member, setMember] = useState<Community[] | null>(null);
 
-    const getUserPosts = async (username: string) => {
-        const response = await post_getAllByUser(username);
+    const getUserPosts = async () => {
+        const response = await post_getAllByUser(uplinkUsername as string);
         if (response.data) setPosts(response.data);
     };
 
@@ -53,7 +53,7 @@ const ViewUser: FC = () => {
     useEffect(() => {
         if (uplinkUsername) {
             getSelectedUser(uplinkUsername);
-            getUserPosts(uplinkUsername);
+            getUserPosts();
             getUserModerator(uplinkUsername);
             getUserMember(uplinkUsername);
         }
@@ -104,7 +104,7 @@ const ViewUser: FC = () => {
                                 </Button>
                             </Paper>
                             {posts ? (
-                                <PostList posts={posts} />
+                                <PostList posts={posts} getPosts={getUserPosts} />
                             ) : (
                                 <Card>
                                     <CardContent

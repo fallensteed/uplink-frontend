@@ -20,19 +20,16 @@ const ViewPost: FC = () => {
 
     const [post, setPost] = useState<PostPopulated | null>(null);
     const [comments, setComments] = useState<Comment[]>([]);
-    const [commentCount, setCommentCount] = useState<number>(0);
 
-    const getPost = async (link: string) => {
-        const response = await post_getByMiniLink(link);
+    const getPost = async () => {
+        const response = await post_getByMiniLink(miniLink as string);
         if (response.data) setPost(response.data);
-        if (response.commentCount) setCommentCount(response.commentCount);
     };
 
     const getComments = async () => {
         const response = await comment_getAllByPost(post?._id as string);
         if (response.data) {
             setComments(response.data);
-            setCommentCount(response.data.length);
         }
     };
 
@@ -44,12 +41,12 @@ const ViewPost: FC = () => {
         newComment["user"] = user?._id as string;
         const response = await comment_postOne(newComment);
         if (response.data && response.data._id) {
-            getPost(miniLink as string);
+            getPost();
         }
     };
 
     useEffect(() => {
-        if (miniLink) getPost(miniLink);
+        if (miniLink) getPost();
     }, [miniLink]);
 
     useEffect(() => {
@@ -72,7 +69,7 @@ const ViewPost: FC = () => {
                 </Fab>
             </Box>
             <Container maxWidth="md">
-                <PostContainer post={post} commentCount={commentCount} />
+                <PostContainer post={post} getPost={getPost} />
                 <AddComment handleAddComment={handleAddComment} />
                 <CommentContainer comments={comments} getComments={getComments} />
             </Container>

@@ -99,6 +99,10 @@ const UplinkNavButton: FC<UplinkNavButtonProps> = (props: UplinkNavButtonProps) 
                     {app[0].name}
                 </>
             );
+        } else if (pathname.includes("/submit")) {
+            return <>Create New Post</>;
+        } else if (pathname.includes("/new-community")) {
+            return <>Create New Community</>;
         } else {
             return pathname.slice(1);
         }

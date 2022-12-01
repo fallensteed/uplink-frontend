@@ -30,7 +30,7 @@ const NewPost: FC = () => {
     const { communityLink } = useParams();
     const navigate = useNavigate();
     const [community, setCommunity] = useState<Community | null>(null);
-    const [communityId, setCommunityId] = useState<string | null>(null);
+    const [communityId, setCommunityId] = useState<string>("");
     const [memberCommunities, setMemberCommunities] = useState<Community[] | null>(null);
     const [snackBarMessage, setSnackBarMessage] = useState<string>("");
     const [snackBarOpen, setSnackBarOpen] = useState<boolean>(false);
@@ -43,7 +43,10 @@ const NewPost: FC = () => {
 
     const getCommunityData = async (link: string) => {
         const response = await community_getByIdOrLink(link);
-        if (response.data) setCommunity(response.data as Community);
+        if (response.data) {
+            setCommunity(response.data as Community);
+            setCommunityId(response.data._id);
+        }
     };
 
     const getMemberCommunities = async () => {
@@ -117,7 +120,7 @@ const NewPost: FC = () => {
                             <Select
                                 labelId="community-select-label"
                                 id="community-select"
-                                value={"" || (communityId as string)}
+                                value={communityId as string}
                                 onChange={handleCommunityChange}
                             >
                                 {memberCommunities ? (
