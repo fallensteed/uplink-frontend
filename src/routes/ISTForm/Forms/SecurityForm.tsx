@@ -24,6 +24,31 @@ export default function PersonalForm() {
     const [dodId, setDodID] = useState("");
     const [socialSecurityNumber, setSocialSecurityNumber] = useState("");
 
+    const handleMenuItems = () => {
+        let switchNumber = 0;
+        if (service === "airForce") {
+            switchNumber = 1;
+        } else if (service === "navy") {
+            switchNumber = 2;
+        }
+        switch (switchNumber) {
+            case 1:
+                return (
+                    <>
+                        <MenuItem value="airmanBasic">Airman Basic</MenuItem>
+                        <MenuItem value="airman">Airman</MenuItem>
+                    </>
+                );
+            case 2:
+                return (
+                    <>
+                        <MenuItem value="seamanRecruit">Seaman Recruit</MenuItem>
+                        <MenuItem value="seamanApprentice">Seaman Apprentice</MenuItem>
+                    </>
+                );
+        }
+    };
+
     const handleChangeGrade = (e: SelectChangeEvent<string>) => {
         setGrade(e.target.value);
     };
@@ -96,8 +121,7 @@ export default function PersonalForm() {
                     <FormControl required fullWidth variant="filled">
                         <InputLabel id="demo-select-small">Rank</InputLabel>
                         <Select labelId="demo-select-small" value={rank} onChange={handleChangeRank}>
-                            <MenuItem value="airmanBasic">Airman Basic</MenuItem>
-                            <MenuItem value="airman">Airman</MenuItem>
+                            {handleMenuItems()}
                         </Select>
                     </FormControl>
                 </Grid>

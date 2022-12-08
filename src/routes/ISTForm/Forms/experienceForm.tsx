@@ -63,13 +63,13 @@ export default function ExperienceForm() {
                     <FormControl required fullWidth variant="filled">
                         <InputLabel id="demo-select-small">Is your current job related to a USSF Job? </InputLabel>
                         <Select labelId="demo-select-small" value={relatedJob} onChange={handleChangeRelatedJob}>
-                            <MenuItem value="male">Yes</MenuItem>
-                            <MenuItem value="female">No</MenuItem>
+                            <MenuItem value="yes">Yes</MenuItem>
+                            <MenuItem value="no">No</MenuItem>
                         </Select>
                     </FormControl>
                 </Grid>
                 <Grid xs={12} md={6}>
-                    <FormControl fullWidth variant="filled">
+                    <FormControl fullWidth variant="filled" required={relatedJob === "yes"}>
                         <InputLabel id="demo-simple-select-label">If yes, select your job code</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
@@ -77,8 +77,8 @@ export default function ExperienceForm() {
                             label="Ethnicity"
                             onChange={handleChangeRelatedJobCode}
                         >
-                            <MenuItem value="hispanic">3c5876</MenuItem>
-                            <MenuItem value="notHispanic">3i743</MenuItem>
+                            <MenuItem value="3d0x2">3d0x2</MenuItem>
+                            <MenuItem value="3d0x1">3d0x1</MenuItem>
                         </Select>
                     </FormControl>
                 </Grid>
@@ -90,6 +90,7 @@ export default function ExperienceForm() {
                         fullWidth
                         variant="filled"
                         onChange={handleChangeJobCode}
+                        required={relatedJob === "no"}
                     />
                 </Grid>
                 <Grid xs={12} md={6}>
@@ -122,8 +123,8 @@ export default function ExperienceForm() {
                             label="Highest Education Level"
                             onChange={handleChangeEducationLevel}
                         >
-                            <MenuItem value="hispanic">High School Diploma</MenuItem>
-                            <MenuItem value="notHispanic">Some College</MenuItem>
+                            <MenuItem value="highSchoolDiploma">High School Diploma</MenuItem>
+                            <MenuItem value="someCollege">Some College</MenuItem>
                         </Select>
                     </FormControl>
                 </Grid>
@@ -135,6 +136,7 @@ export default function ExperienceForm() {
                         fullWidth
                         variant="filled"
                         onChange={handleChangeDegreeName}
+                        required={educationLevel !== "highSchoolDiploma"}
                     />
                 </Grid>
                 <Grid xs={12} md={6}>

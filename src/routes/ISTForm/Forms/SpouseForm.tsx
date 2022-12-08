@@ -48,7 +48,7 @@ export default function PersonalForm() {
                     </FormControl>
                 </Grid>
                 <Grid xs={12} md={6}>
-                    <FormControl fullWidth variant="filled">
+                    <FormControl fullWidth variant="filled" required={militarySpouse === "yes"}>
                         <InputLabel id="demo-select-small">If yes, is your spouse also applying to the USSF</InputLabel>
                         <Select labelId="demo-select-small" value={spouseApply} onChange={handleChangeSpouseApply}>
                             <MenuItem value="yes">Yes</MenuItem>
@@ -64,6 +64,7 @@ export default function PersonalForm() {
                         fullWidth
                         variant="filled"
                         onChange={handleChangeSpouseName}
+                        required={spouseApply === "yes"}
                     />
                 </Grid>
             </Grid>
