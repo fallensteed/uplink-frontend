@@ -227,18 +227,20 @@ const UplinkNavButton: FC<UplinkNavButtonProps> = (props: UplinkNavButtonProps) 
                                 Apps
                             </ListSubheader>
                             {apps ? (
-                                apps?.map((app) => (
-                                    <MenuItem
-                                        key={app.shortName}
-                                        onClick={() => {
-                                            navigate(app.path);
-                                            handleCloseMenu();
-                                        }}
-                                    >
-                                        <ListItemIcon>{app.icon}</ListItemIcon>
-                                        {app.name}
-                                    </MenuItem>
-                                ))
+                                apps
+                                    ?.filter((route) => route.displayInNavBar === true)
+                                    .map((app) => (
+                                        <MenuItem
+                                            key={app.shortName}
+                                            onClick={() => {
+                                                navigate(app.path);
+                                                handleCloseMenu();
+                                            }}
+                                        >
+                                            <ListItemIcon>{app.icon}</ListItemIcon>
+                                            {app.name}
+                                        </MenuItem>
+                                    ))
                             ) : (
                                 <MenuItem disabled>
                                     <ListItemText>You haven&apos;t followed any users yet!</ListItemText>

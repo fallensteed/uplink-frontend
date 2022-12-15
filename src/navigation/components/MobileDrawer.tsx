@@ -137,19 +137,21 @@ const MobileDrawer: FC<MobileDrawerProps> = (props: MobileDrawerProps) => {
                             Apps
                         </ListSubheader>
                         {apps ? (
-                            apps?.map((app) => (
-                                <ListItem key={app.shortName} disablePadding dense>
-                                    <ListItemButton
-                                        onClick={() => {
-                                            navigate(app.path);
-                                            handleDrawerClose();
-                                        }}
-                                    >
-                                        <ListItemIcon>{app.icon}</ListItemIcon>
-                                        <ListItemText>{app.name}</ListItemText>
-                                    </ListItemButton>
-                                </ListItem>
-                            ))
+                            apps
+                                ?.filter((route) => route.displayInNavBar === true)
+                                .map((app) => (
+                                    <ListItem key={app.shortName} disablePadding dense>
+                                        <ListItemButton
+                                            onClick={() => {
+                                                navigate(app.path);
+                                                handleDrawerClose();
+                                            }}
+                                        >
+                                            <ListItemIcon>{app.icon}</ListItemIcon>
+                                            <ListItemText>{app.name}</ListItemText>
+                                        </ListItemButton>
+                                    </ListItem>
+                                ))
                         ) : (
                             <ListItem dense disablePadding>
                                 <ListItemButton disabled>

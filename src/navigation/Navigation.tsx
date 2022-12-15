@@ -53,14 +53,16 @@ const Navigation: FC = () => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ fontFamily: "Space Mono", mr: theme.spacing(2) }}>
+                    <Typography
+                        variant="h1"
+                        component="div"
+                        sx={{ mr: theme.spacing(2), cursor: "pointer" }}
+                        onClick={() => navigateTo("/home")}
+                    >
                         UPLINK
                     </Typography>
                     <Box sx={{ display: { xs: "none", sm: "flex" }, flexGrow: 1, alignItems: "center" }}>
-                        <UplinkNavButton
-                            communities={communities}
-                            apps={routeList.filter((route) => route.displayInNavBar === true)}
-                        />
+                        <UplinkNavButton communities={communities} apps={routeList} />
                         <Box sx={{ flexGrow: 1 }} />
                         <UserDisplay />
                     </Box>
@@ -68,7 +70,7 @@ const Navigation: FC = () => {
             </AppBar>
             <MobileDrawer
                 communities={communities}
-                apps={routeList.filter((route) => route.displayInNavBar === true)}
+                apps={routeList}
                 handleDrawerClose={handleDrawerClose}
                 drawerOpen={drawerOpen}
             />

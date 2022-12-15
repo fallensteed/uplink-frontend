@@ -1,0 +1,21 @@
+export type Affiliation = "US Air Force" | "US Space Force";
+export type Grade =
+    | "E-1"
+    | "E-2"
+    | "E-3"
+    | "E-4"
+    | "E-5"
+    | "E-6"
+    | "E-7"
+    | "E-8"
+    | "E-9"
+    | "O-1"
+    | "O-2"
+    | "O-3"
+    | "O-4"
+    | "O-5"
+    | "O-6"
+    | "O-7"
+    | "O-8"
+    | "O-9"
+    | "O-10";

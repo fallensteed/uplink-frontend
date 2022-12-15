@@ -9,7 +9,7 @@ export interface Community {
     about?: string;
     link: string;
     public: boolean;
-    members?: string[];
+    members: string[];
     moderators: string[];
     rules?: CommunityRule[];
     pinnedPosts?: string[];
@@ -22,7 +22,7 @@ export interface CommunityPopulated {
     about?: string;
     link: string;
     public: boolean;
-    members?: User[];
+    members: User[];
     moderators: User[];
     rules?: CommunityRule[];
     pinnedPosts?: PostPopulated[];

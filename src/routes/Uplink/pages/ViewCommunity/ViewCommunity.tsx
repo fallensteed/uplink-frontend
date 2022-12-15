@@ -95,7 +95,7 @@ const ViewCommunity: FC = () => {
                     <SpriteIcon seed={community?.link} size={48} />
                 </Avatar>
                 <Box sx={{ flexGrow: 1 }}>
-                    <Typography variant="h4">{community?.name}</Typography>
+                    <Typography variant="h2">{community?.name}</Typography>
                     <Typography variant="subtitle1">c/{community?.link}</Typography>
                 </Box>
                 <Box
