@@ -1,3 +1,4 @@
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HomeIcon from "@mui/icons-material/Home";
 import NetworkCheckIcon from "@mui/icons-material/NetworkCheck";
 import { ReactElement } from "react";
@@ -12,8 +13,9 @@ import Home from "../routes/Home/Home";
 import PingTest from "../routes/PingTest/PingText";
 import Root from "../routes/Root";
 import ViewCommunity from "../routes/Uplink/pages/ViewCommunity/ViewCommunity";
+import ProfileSettings from "../routes/User/ProfileSettings";
 
-interface NavList {
+export interface NavList {
     name: string;
     shortName: string;
     path: string;
@@ -29,12 +31,12 @@ export const routeList: NavList[] = [
         path: "/home",
         element: <Home />,
         icon: <HomeIcon />,
-        displayInNavBar: true,
+        displayInNavBar: false,
     },
     {
         name: "Ping Test",
         shortName: "Ping Test",
-        path: "/pingTest",
+        path: "/a/pingTest",
         element: <PingTest />,
         icon: <NetworkCheckIcon />,
         displayInNavBar: true,
@@ -42,7 +44,7 @@ export const routeList: NavList[] = [
     {
         name: "IST App",
         shortName: "IST App",
-        path: "/ist",
+        path: "/a/ist",
         element: <ISTForm />,
         displayInNavBar: true,
     },
@@ -86,6 +88,14 @@ export const routeList: NavList[] = [
         shortName: "New Community",
         path: "/new-community",
         element: <NewCommunity />,
+        displayInNavBar: false,
+    },
+    {
+        name: "My Profile & Settings",
+        shortName: "Profile & Settings",
+        path: "/a/my-user",
+        element: <ProfileSettings />,
+        icon: <AccountCircleIcon />,
         displayInNavBar: false,
     },
 ];

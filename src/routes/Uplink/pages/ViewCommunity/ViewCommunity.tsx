@@ -29,8 +29,8 @@ const ViewCommunity: FC = () => {
     const [community, setCommunity] = useState<CommunityPopulated | null>(null);
     const [buttonText, setButtonText] = useState<string>("Joined");
 
-    const getCommunityPosts = async (link: string) => {
-        const response = await post_getAllByCommunity(link);
+    const getCommunityPosts = async () => {
+        const response = await post_getAllByCommunity(communityLink as string);
         if (response.data) setPosts(response.data);
     };
 
@@ -42,7 +42,7 @@ const ViewCommunity: FC = () => {
     useEffect(() => {
         if (communityLink) {
             getCommunity(communityLink);
-            getCommunityPosts(communityLink);
+            getCommunityPosts();
         }
     }, [communityLink]);
 
@@ -95,7 +95,7 @@ const ViewCommunity: FC = () => {
                     <SpriteIcon seed={community?.link} size={48} />
                 </Avatar>
                 <Box sx={{ flexGrow: 1 }}>
-                    <Typography variant="h4">{community?.name}</Typography>
+                    <Typography variant="h2">{community?.name}</Typography>
                     <Typography variant="subtitle1">c/{community?.link}</Typography>
                 </Box>
                 <Box
@@ -170,7 +170,7 @@ const ViewCommunity: FC = () => {
                                 </Button>
                             </Paper>
                             {posts ? (
-                                <PostList posts={posts} />
+                                <PostList posts={posts} getPosts={getCommunityPosts} />
                             ) : (
                                 <Card>
                                     <CardContent

@@ -13,9 +13,9 @@ export interface Post {
     community: string;
     draft: boolean;
     miniLink: string;
-    upVotes?: string[];
-    downVotes?: string[];
-    comments?: string[];
+    upVotes: string[];
+    downVotes: string[];
+    commentCount: number;
     editHistory?: PostEditHistory[];
     userCreated: string;
     userCreatedNotifications: boolean;
@@ -34,7 +34,7 @@ export interface PostPopulated {
     miniLink: string;
     upVotes?: string[];
     downVotes?: string[];
-    comments?: string[];
+    commentCount: number;
     editHistory?: PostEditHistory[];
     userCreated: User;
     userCreatedNotifications: boolean;

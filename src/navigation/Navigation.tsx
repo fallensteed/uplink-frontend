@@ -1,23 +1,12 @@
 import MenuIcon from "@mui/icons-material/Menu";
-import {
-    AppBar,
-    Box,
-    Drawer,
-    IconButton,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    Toolbar,
-    Typography,
-} from "@mui/material";
+import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import ClassificationBar from "common/classification/ClassificationBar";
 import { FC, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "routes/Root";
 import { Community, community_getAllByUserId } from "../routes/Uplink/api/community/community.api";
+import MobileDrawer from "./components/MobileDrawer";
 import UplinkNavButton from "./components/UplinkNavButton";
 import UserDisplay from "./components/UserDisplay";
 import { routeList } from "./pages";
@@ -29,15 +18,15 @@ const Navigation: FC = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [communities, setCommunities] = useState<Community[] | null>(null);
 
-    const openDrawer = () => {
+    const handleDrawerOpen = () => {
         setDrawerOpen(true);
     };
-    const closeDrawer = () => {
+    const handleDrawerClose = () => {
         setDrawerOpen(false);
     };
 
     const navigateTo = (path: string) => {
-        closeDrawer();
+        handleDrawerClose();
         navigate(path);
     };
 
@@ -59,41 +48,32 @@ const Navigation: FC = () => {
                         color="inherit"
                         aria-label="open drawer"
                         edge="start"
-                        onClick={openDrawer}
-                        sx={{ mr: 2 }}
+                        onClick={handleDrawerOpen}
+                        sx={{ mr: 2, display: { xs: "inline-flex", sm: "none" } }}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ fontFamily: "Space Mono", mr: theme.spacing(2) }}>
+                    <Typography
+                        variant="h1"
+                        component="div"
+                        sx={{ mr: theme.spacing(2), cursor: "pointer" }}
+                        onClick={() => navigateTo("/home")}
+                    >
                         UPLINK
                     </Typography>
-                    <UplinkNavButton communities={communities} />
-                    <Box sx={{ flexGrow: 1 }} />
-                    <UserDisplay />
+                    <Box sx={{ display: { xs: "none", sm: "flex" }, flexGrow: 1, alignItems: "center" }}>
+                        <UplinkNavButton communities={communities} apps={routeList} />
+                        <Box sx={{ flexGrow: 1 }} />
+                        <UserDisplay />
+                    </Box>
                 </Toolbar>
             </AppBar>
-            <Box component="nav">
-                <Drawer
-                    variant="temporary"
-                    open={drawerOpen}
-                    onClose={closeDrawer}
-                    ModalProps={{ keepMounted: true }}
-                    sx={{ width: 240 }}
-                >
-                    <List>
-                        {routeList
-                            .filter((route) => route.displayInNavBar === true)
-                            .map((route) => (
-                                <ListItem key={route.shortName} disablePadding>
-                                    <ListItemButton onClick={() => navigateTo(route.path)}>
-                                        <ListItemIcon>{route.icon}</ListItemIcon>
-                                        <ListItemText primary={route.shortName} />
-                                    </ListItemButton>
-                                </ListItem>
-                            ))}
-                    </List>
-                </Drawer>
-            </Box>
+            <MobileDrawer
+                communities={communities}
+                apps={routeList}
+                handleDrawerClose={handleDrawerClose}
+                drawerOpen={drawerOpen}
+            />
         </>
     );
 };

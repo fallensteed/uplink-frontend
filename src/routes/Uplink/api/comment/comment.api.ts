@@ -65,7 +65,7 @@ export const comment_postOne = async (data: Comment): Promise<any> => {
     return response.json();
 };
 
-export const comment_patchById = async (data: Comment): Promise<any> => {
+export const comment_patchById = async (data: any): Promise<any> => {
     const response = await fetch(`${UPLINK_COMMENT_URL}/`, {
         method: "PATCH",
         body: JSON.stringify(data),

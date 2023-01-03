@@ -1,19 +1,7 @@
-import { post_patchById } from "../api/post/post.api";
-
-export const formatCountVotes = (upVotes: number, downVotes: number) => {
-    return upVotes - downVotes;
-};
-
-export const formatCountComments = (count: number) => {
-    if (count === 0) {
-        return "Comments";
-    } else {
-        return `${count} Comment${count > 1 ? "s" : ""}`;
-    }
-};
+import { comment_patchById } from "../api/comment/comment.api";
 
 export const updateVotes = async (
-    postId: string,
+    commentId: string,
     upVotes: string[],
     downVotes: string[],
     newVote: string,
@@ -32,13 +20,13 @@ export const updateVotes = async (
 
     // send all votes
     const data = {
-        _id: postId,
+        _id: commentId,
         upVotes: updatedUpVotes,
         downVotes: updatedDownVotes,
     };
 
     // get database response
-    const response = await post_patchById(data);
+    const response = await comment_patchById(data);
     if (response.data) return "success";
     else return "failed";
 };

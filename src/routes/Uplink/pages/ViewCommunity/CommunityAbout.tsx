@@ -12,7 +12,7 @@ const CommunityAbout: FC<CommunityAboutProps> = (props: CommunityAboutProps) => 
 
     return about ? (
         <Paper sx={{ p: theme.spacing(1), mb: theme.spacing(2) }}>
-            <Typography variant="h6">About this Community</Typography>
+            <Typography variant="h4">About this Community</Typography>
             <Typography variant="body1">{about}</Typography>
         </Paper>
     ) : null;

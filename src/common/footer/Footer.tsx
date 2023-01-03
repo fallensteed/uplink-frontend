@@ -10,12 +10,13 @@ const Footer: FC<FooterProps> = (props: FooterProps) => {
     return (
         <Box
             sx={{
-                position: "fixed",
+                position: { xs: "aboslute", md: "fixed" },
                 bottom: 0,
                 left: 0,
                 width: "100%",
-                height: 24,
+                height: { xs: "auto", md: 24 },
                 display: "flex",
+                flexDirection: { xs: "column", md: "row" },
                 justifyContent: "space-between",
                 alignItems: "center",
                 backgroundColor: theme.palette.appbar.main,
@@ -25,7 +26,9 @@ const Footer: FC<FooterProps> = (props: FooterProps) => {
             <Typography variant="body2" sx={{ ml: theme.spacing(1) }}>
                 Created by Supra Coders for the USSF &copy; 2022
             </Typography>
-            <Typography variant="body2">Status: {props.connectionStatus ? "Connected" : "Disconnected"} </Typography>
+            <Typography variant="body2">
+                Live Services: {props.connectionStatus ? "Connected" : "Disconnected"}{" "}
+            </Typography>
             <Typography variant="body2" sx={{ mr: theme.spacing(1) }}>
                 UPLINK v0.0.1
             </Typography>

@@ -65,7 +65,7 @@ const Uplink: FC = () => {
                 </Button>
             </Paper>
             {posts ? (
-                <PostList posts={posts} />
+                <PostList posts={posts} getPosts={getPosts} />
             ) : (
                 <Card>
                     <CardContent

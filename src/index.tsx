@@ -1,7 +1,3 @@
-import "@fontsource/noto-sans";
-import "@fontsource/roboto";
-import "@fontsource/space-mono";
-import "@fontsource/spartan";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";

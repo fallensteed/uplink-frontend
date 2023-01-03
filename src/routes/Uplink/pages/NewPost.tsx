@@ -1,3 +1,4 @@
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
     Alert,
     AlertColor,
@@ -5,6 +6,7 @@ import {
     Button,
     Checkbox,
     Container,
+    Fab,
     FormControl,
     FormControlLabel,
     InputLabel,
@@ -21,6 +23,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { FC, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "routes/Root";
+import useSnack from "../../../common/components/SnackBar/ProvideSnack";
 import { Community, community_getAllByUserId, community_getByIdOrLink } from "../api/community/community.api";
 import { Post, post_postOne } from "../api/post/post.api";
 
@@ -29,8 +32,9 @@ const NewPost: FC = () => {
     const user = useContext(UserContext);
     const { communityLink } = useParams();
     const navigate = useNavigate();
+    const snack = useSnack();
     const [community, setCommunity] = useState<Community | null>(null);
-    const [communityId, setCommunityId] = useState<string | null>(null);
+    const [communityId, setCommunityId] = useState<string>("");
     const [memberCommunities, setMemberCommunities] = useState<Community[] | null>(null);
     const [snackBarMessage, setSnackBarMessage] = useState<string>("");
     const [snackBarOpen, setSnackBarOpen] = useState<boolean>(false);
@@ -43,7 +47,10 @@ const NewPost: FC = () => {
 
     const getCommunityData = async (link: string) => {
         const response = await community_getByIdOrLink(link);
-        if (response.data) setCommunity(response.data as Community);
+        if (response.data) {
+            setCommunity(response.data as Community);
+            setCommunityId(response.data._id);
+        }
     };
 
     const getMemberCommunities = async () => {
@@ -67,21 +74,15 @@ const NewPost: FC = () => {
 
     const handleSubmitPost = async () => {
         if (!communityId) {
-            setSnackBarMessage("Select a Community");
-            setSnackBarSeverity("error");
-            setSnackBarOpen(true);
+            snack("error", "Select a Community");
             return;
         }
         if (!postTitle) {
-            setSnackBarMessage("Post Title Needed");
-            setSnackBarSeverity("error");
-            setSnackBarOpen(true);
+            snack("error", "Post Title Required");
             return;
         }
         if (!postText) {
-            setSnackBarMessage("Post Text Needed");
-            setSnackBarSeverity("error");
-            setSnackBarOpen(true);
+            snack("error", "Post Text Required");
             return;
         }
         const data: Post = {} as Post;
@@ -107,112 +108,124 @@ const NewPost: FC = () => {
     };
 
     return (
-        <Container maxWidth="md">
-            <Typography variant="h4">Create a Post</Typography>
-            <Paper sx={{ p: theme.spacing(1), mb: theme.spacing(2) }}>
-                <Grid2 container spacing={1}>
-                    <Grid2 xs={12} md={6}>
-                        <FormControl fullWidth variant="filled" size="small">
-                            <InputLabel id="community-select-label">Select a Community</InputLabel>
-                            <Select
-                                labelId="community-select-label"
-                                id="community-select"
-                                value={"" || (communityId as string)}
-                                onChange={handleCommunityChange}
-                            >
-                                {memberCommunities ? (
-                                    memberCommunities.map((comm) => (
-                                        <MenuItem key={comm._id} value={comm._id}>
-                                            c/{comm.link}
-                                        </MenuItem>
-                                    ))
-                                ) : (
-                                    <MenuItem disabled>No Communities Available</MenuItem>
-                                )}
-                            </Select>
-                        </FormControl>
+        <Box sx={{ minHeight: "calc(100% - 16px)", width: "100%", position: "relative", pt: theme.spacing(2) }}>
+            <Box sx={{ position: "absolute", top: theme.spacing(3), left: theme.spacing(3) }}>
+                <Fab variant="extended" color="primary" aria-label="back" onClick={() => navigate(-1)}>
+                    <ArrowBackIcon sx={{ mr: theme.spacing(1) }} />
+                    Back
+                </Fab>
+            </Box>
+            <Container maxWidth="md">
+                <Typography variant="h2" sx={{ mb: theme.spacing(1) }}>
+                    Create a Post
+                </Typography>
+                <Paper sx={{ p: theme.spacing(1), mb: theme.spacing(1) }}>
+                    <Grid2 container spacing={1}>
+                        <Grid2 xs={12} md={6}>
+                            <FormControl fullWidth variant="filled" size="small" required>
+                                <InputLabel id="community-select-label">Select a Community</InputLabel>
+                                <Select
+                                    labelId="community-select-label"
+                                    id="community-select"
+                                    value={communityId as string}
+                                    onChange={handleCommunityChange}
+                                >
+                                    {memberCommunities ? (
+                                        memberCommunities.map((comm) => (
+                                            <MenuItem key={comm._id} value={comm._id}>
+                                                c/{comm.link}
+                                            </MenuItem>
+                                        ))
+                                    ) : (
+                                        <MenuItem disabled>No Communities Available</MenuItem>
+                                    )}
+                                </Select>
+                            </FormControl>
+                        </Grid2>
+                        <Grid2 xs={12} md={6}></Grid2>
                     </Grid2>
-                    <Grid2 xs={12} md={6}></Grid2>
-                </Grid2>
-            </Paper>
-            <Paper sx={{ p: theme.spacing(1) }}>
-                <TextField
-                    label="Title"
-                    variant="filled"
-                    fullWidth
-                    size="small"
-                    margin="dense"
-                    value={postTitle}
-                    onChange={(e) => setPostTitle(e.target.value)}
-                />
-                <TextField
-                    label="Text"
-                    variant="filled"
-                    multiline={true}
-                    minRows={5}
-                    fullWidth
-                    size="small"
-                    margin="dense"
-                    value={postText}
-                    onChange={(e) => setPostText(e.target.value)}
-                />
-                <TextField
-                    label="Link URL (optional)"
-                    variant="filled"
-                    fullWidth
-                    size="small"
-                    margin="dense"
-                    value={postLink}
-                    onChange={(e) => setPostLink(e.target.value)}
-                />
-                <TextField
-                    label="Image URL (optional)"
-                    variant="filled"
-                    fullWidth
-                    size="small"
-                    margin="dense"
-                    value={postImage}
-                    onChange={(e) => setPostImage(e.target.value)}
-                />
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        mt: theme.spacing(2),
-                    }}
-                >
-                    <Box>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    defaultChecked
-                                    value={postNotifications}
-                                    onChange={(e) => setPostNotifications(e.target.checked)}
-                                />
-                            }
-                            label="Send me notifications on comments"
-                        />
+                </Paper>
+                <Paper sx={{ p: theme.spacing(1) }}>
+                    <TextField
+                        required
+                        label="Title"
+                        variant="filled"
+                        fullWidth
+                        size="small"
+                        margin="dense"
+                        value={postTitle}
+                        onChange={(e) => setPostTitle(e.target.value)}
+                    />
+                    <TextField
+                        required
+                        label="Text"
+                        variant="filled"
+                        multiline={true}
+                        minRows={5}
+                        fullWidth
+                        size="small"
+                        margin="dense"
+                        value={postText}
+                        onChange={(e) => setPostText(e.target.value)}
+                    />
+                    <TextField
+                        label="Link URL"
+                        variant="filled"
+                        fullWidth
+                        size="small"
+                        margin="dense"
+                        value={postLink}
+                        onChange={(e) => setPostLink(e.target.value)}
+                    />
+                    <TextField
+                        label="Image URL"
+                        variant="filled"
+                        fullWidth
+                        size="small"
+                        margin="dense"
+                        value={postImage}
+                        onChange={(e) => setPostImage(e.target.value)}
+                    />
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            mt: theme.spacing(2),
+                        }}
+                    >
+                        <Box>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        defaultChecked
+                                        value={postNotifications}
+                                        onChange={(e) => setPostNotifications(e.target.checked)}
+                                    />
+                                }
+                                label="Send me notifications on comments"
+                            />
+                        </Box>
+                        <Box>
+                            <Button variant="outlined" sx={{ mr: theme.spacing(1) }} disabled>
+                                Save Draft
+                            </Button>
+                            <Button variant="contained" onClick={handleSubmitPost}>
+                                Post
+                            </Button>
+                        </Box>
                     </Box>
-                    <Box>
-                        <Button color="error" sx={{ mr: theme.spacing(1) }}>
-                            Cancel
-                        </Button>
-                        <Button variant="outlined" sx={{ mr: theme.spacing(1) }}>
-                            Save Draft
-                        </Button>
-                        <Button variant="contained" onClick={handleSubmitPost}>
-                            Post
-                        </Button>
-                    </Box>
-                </Box>
-            </Paper>
-            <Snackbar open={snackBarOpen} autoHideDuration={6000} onClose={() => setSnackBarOpen(false)}>
-                <Alert onClose={() => setSnackBarOpen(false)} severity={snackBarSeverity}>
-                    {snackBarMessage}
-                </Alert>
-            </Snackbar>
-        </Container>
+                </Paper>
+                <Typography variant="subtitle2" sx={{ mt: theme.spacing(0.5) }}>
+                    * Required
+                </Typography>
+                <Snackbar open={snackBarOpen} autoHideDuration={6000} onClose={() => setSnackBarOpen(false)}>
+                    <Alert onClose={() => setSnackBarOpen(false)} severity={snackBarSeverity}>
+                        {snackBarMessage}
+                    </Alert>
+                </Snackbar>
+            </Container>
+        </Box>
     );
 };
 

@@ -23,7 +23,7 @@ const ReadingList: FC = () => {
     const theme = useTheme();
     return (
         <Paper sx={{ width: "100%", height: "auto", mb: theme.spacing(2) }}>
-            <Typography variant="h5" sx={{ ml: 1, mt: 1 }}>
+            <Typography variant="h4" sx={{ ml: 1, mt: 1 }}>
                 CSO Reading List
             </Typography>
             <Grid container spacing={2}>
