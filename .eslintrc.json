@@ -51,7 +51,7 @@
         "es2021": true,
         "jest": true
     },
-    "ignorePatterns": ["node_modules", "build", "dist", "public"],
+    "ignorePatterns": ["node_modules", "build", "dist", "public", "coverage", "*.js"],
     "overrides": [
         {
             "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],

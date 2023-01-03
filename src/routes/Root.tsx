@@ -8,7 +8,7 @@ import { createContext, FC, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { User, user_self } from "../common/api/user/user.api";
 import { socket } from "../common/config/socket";
-import { ProvideUplinkUser, useUplinkUser } from "../common/context/UplinkUser/UplinkUserContext";
+import { ProvideUplinkUser } from "../common/context/UplinkUser/UplinkUserContext";
 import Footer from "../common/footer/Footer";
 import Navigation from "../navigation/Navigation";
 

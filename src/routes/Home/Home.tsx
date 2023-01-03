@@ -12,7 +12,6 @@ import TopCommunities from "./components/TopCommunities";
 
 const Home: FC = () => {
     const theme = useTheme();
-    const uplinkUser = useUplinkUser();
     const user = useUser();
 
     return !user.isLoading ? (

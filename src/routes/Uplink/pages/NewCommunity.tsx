@@ -245,7 +245,9 @@ const NewCommunity: FC = () => {
                 ))}
             </Paper>
             <Box sx={{ width: "100%", mt: theme.spacing(1), display: "flex", justifyContent: "flex-end" }}>
-                <Button variant="contained" onClick={handleSubmit}>Submit</Button>
+                <Button variant="contained" onClick={handleSubmit}>
+                    Submit
+                </Button>
             </Box>
             <Snackbar open={snackBarOpen} autoHideDuration={6000} onClose={() => setSnackBarOpen(false)}>
                 <Alert onClose={() => setSnackBarOpen(false)} severity={snackBarSeverity}>

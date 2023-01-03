@@ -160,10 +160,6 @@ export const gradeToRankConversionTable = {
 };
 
 export const convertGradeToRank = (affiliation: Affiliation, grade: Grade, outputType: "full" | "short") => {
-    console.log("affiliation", affiliation);
-    console.log("grade", grade);
-    console.log("outputType", outputType);
-    console.log("affiliation list", gradeToRankConversionTable[affiliation]);
     const convertedRank = gradeToRankConversionTable[affiliation][grade];
     return convertedRank[outputType];
 };
