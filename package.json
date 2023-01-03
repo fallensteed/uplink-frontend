@@ -101,7 +101,8 @@
         "typescript": "^4.8.4"
     },
     "overrides": {
-        "nth-check": "2.1.1"
+        "nth-check": "2.1.1",
+        "json5": "2.2.3"
     },
     "proxy": "http://localhost:6000"
 }
