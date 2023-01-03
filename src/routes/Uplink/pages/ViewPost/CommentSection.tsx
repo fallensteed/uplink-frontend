@@ -1,7 +1,5 @@
 import AddCommentIcon from "@mui/icons-material/AddComment";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { Avatar, Box, Button, IconButton, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Button, TextField, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import SpriteIcon from "common/components/SpriteIcon";
 import moment from "moment";
@@ -9,7 +7,10 @@ import { FC, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "routes/Root";
 import { Comment, comment_postOne } from "routes/Uplink/api/comment/comment.api";
+import CommentVoting from "routes/Uplink/components/CommentVoting";
+import { updateVotes } from "routes/Uplink/functions/comments";
 import { formatCountVotes } from "routes/Uplink/functions/posts";
+import { User } from "../../../../common/api/user/user.api";
 
 interface CommentSectionProps {
     comment: Comment;
@@ -18,7 +19,7 @@ interface CommentSectionProps {
 }
 
 const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => {
-    const user = useContext(UserContext);
+    const user = useContext(UserContext) as User;
     const theme = useTheme();
     const { comment, getSubComments, getComments } = props;
     const [subCommentText, setSubCommentText] = useState<string>("");
@@ -40,6 +41,21 @@ const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => 
             getComments();
         }
     };
+
+    const handleChangeVote = async (change: "upVote" | "downVote" | "noVote") => {
+        const response = await updateVotes(
+            comment._id,
+            comment.upVotes as string[],
+            comment.downVotes as string[],
+            user._id,
+            change,
+        );
+        if (response === "success") getComments();
+    };
+
+    const userUpVoted = comment.upVotes?.includes(user._id) as boolean;
+    const userDownVoted = comment.downVotes?.includes(user._id) as boolean;
+    const voteCount = formatCountVotes(comment.upVotes?.length || 0, comment.downVotes?.length || 0);
 
     return (
         <Box key={comment._id} sx={{ ml: theme.spacing(2), mt: theme.spacing(1) }}>
@@ -73,17 +89,12 @@ const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => 
             <Typography sx={{ whiteSpace: "pre-line" }}>{comment.text}</Typography>
             <Box>
                 <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                    <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", mr: theme.spacing(1) }}>
-                        <IconButton size="small">
-                            <KeyboardArrowUpIcon />
-                        </IconButton>
-                        <Typography variant="body2">
-                            {formatCountVotes(comment.upVotes?.length || 0, comment.downVotes?.length || 0)}
-                        </Typography>
-                        <IconButton size="small">
-                            <KeyboardArrowDownIcon />
-                        </IconButton>
-                    </Box>
+                    <CommentVoting
+                        handleChangeVote={handleChangeVote}
+                        voteCount={voteCount}
+                        userUpVoted={userUpVoted}
+                        userDownVoted={userDownVoted}
+                    />
                     <Button
                         size="small"
                         sx={{ mr: theme.spacing(1) }}

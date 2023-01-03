@@ -6,14 +6,15 @@ import FrontPagePost from "./FrontPagePost";
 
 interface PostListProps {
     posts: PostPopulated[];
+    getPosts: () => Promise<void>;
 }
 
 const PostList: FC<PostListProps> = (props: PostListProps) => {
-    const { posts } = props;
+    const { posts, getPosts } = props;
     return (
         <Box>
             {posts.length ? (
-                posts.map((post) => <FrontPagePost post={post} key={post._id} />)
+                posts.map((post) => <FrontPagePost post={post} key={post._id} getPosts={getPosts} />)
             ) : (
                 <Card>
                     <CardContent sx={{ display: "flex", alignItems: "center" }}>

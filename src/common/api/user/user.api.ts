@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Affiliation, Grade } from "common/types/user.types";
 import { API_URL } from "../../../config/api";
 
 export interface User {
@@ -10,8 +11,8 @@ export interface User {
     middleInitial?: string;
     dodin: string;
     email: string;
-    affiliation: string;
-    rank: string;
+    affiliation: Affiliation;
+    rank: Grade;
     alias?: string;
     birthday?: string;
     admin: Admin;
@@ -38,5 +39,17 @@ export const user_self = async (): Promise<any> => {
 
 export const user_getByUsername = async (username: string): Promise<any> => {
     const response = await fetch(`${USER_URL}/${username}`);
+    return response.json();
+};
+
+export const user_patchByUserId = async (data: User): Promise<any> => {
+    const response = await fetch(`${USER_URL}/`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+    });
     return response.json();
 };
