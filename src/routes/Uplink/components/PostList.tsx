@@ -5,7 +5,7 @@ import { PostPopulated } from "../api/post/post.api";
 import FrontPagePost from "./FrontPagePost";
 
 interface PostListProps {
-    posts: PostPopulated[];
+    posts?: PostPopulated[];
     getPosts: () => Promise<void>;
 }
 
@@ -13,7 +13,7 @@ const PostList: FC<PostListProps> = (props: PostListProps) => {
     const { posts, getPosts } = props;
     return (
         <Box>
-            {posts.length ? (
+            {posts && posts.length ? (
                 posts.map((post) => <FrontPagePost post={post} key={post._id} getPosts={getPosts} />)
             ) : (
                 <Card>

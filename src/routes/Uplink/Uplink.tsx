@@ -5,7 +5,8 @@ import { Avatar, Box, Button, Card, CardContent, CircularProgress, Paper, Typogr
 import { useTheme } from "@mui/material/styles";
 import SpriteIcon from "common/components/SpriteIcon";
 import { FC, useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import useSnack from "../../common/components/SnackBar/ProvideSnack";
 import { UserContext } from "../Root";
 import { PostPopulated, post_getAll } from "./api/post/post.api";
 import PostList from "./components/PostList";
@@ -13,12 +14,18 @@ import PostList from "./components/PostList";
 const Uplink: FC = () => {
     const theme = useTheme();
     const user = useContext(UserContext);
+    const navigate = useNavigate();
+    const snack = useSnack();
 
     const [posts, setPosts] = useState<PostPopulated[] | null>(null);
 
     const getPosts = async () => {
         const response = await post_getAll();
-        if (response.data) setPosts(response.data);
+        if (response.data) {
+            setPosts(response.data);
+        } else {
+            snack("error", "Error populating posts.");
+        }
     };
 
     useEffect(() => {
@@ -47,8 +54,7 @@ const Uplink: FC = () => {
                             backgroundColor: "#fff",
                         },
                     }}
-                    component={Link}
-                    to="/submit"
+                    onClick={() => navigate("/submit")}
                 >
                     Add New Post
                 </Button>

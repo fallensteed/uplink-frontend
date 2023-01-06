@@ -3,6 +3,7 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom";
+import "core-js";
 import fetchMock from "jest-fetch-mock";
 jest.setTimeout(30000);
 fetchMock.enableMocks();

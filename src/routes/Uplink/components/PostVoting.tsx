@@ -27,6 +27,7 @@ const PostVoting: FC<PostVotingProps> = (props: PostVotingProps) => {
             }}
         >
             <IconButton
+                data-testid="up-vote-button"
                 size="small"
                 onClick={() => handleChangeVote(userUpVoted ? "noVote" : "upVote")}
                 sx={{
@@ -40,6 +41,7 @@ const PostVoting: FC<PostVotingProps> = (props: PostVotingProps) => {
             </IconButton>
             <Typography>{voteCount}</Typography>
             <IconButton
+                data-testid="down-vote-button"
                 size="small"
                 onClick={() => handleChangeVote(userDownVoted ? "noVote" : "downVote")}
                 sx={{

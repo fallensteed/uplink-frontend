@@ -1,5 +1,5 @@
 import { mockDeleteResponseSuccess, mockPatchResponseSuccess } from "../../../../common/api/responses/responses.mock";
-import { mockPost1 } from "../post/post.mock";
+import { mockPost1 } from "../../mocks/post.mock";
 import {
     comment_deleteById,
     comment_getAll,

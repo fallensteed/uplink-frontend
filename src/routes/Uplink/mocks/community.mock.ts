@@ -1,4 +1,4 @@
-import { Community } from "./community.api";
+import { Community } from "../api/community/community.api";
 
 export const mockCommunity1: Community = {
     _id: "636d597aa8f7c2408f4f6b26",

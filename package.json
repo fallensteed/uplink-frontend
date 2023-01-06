@@ -45,6 +45,7 @@
         "@fontsource/spartan": "^4.5.8",
         "@mui/icons-material": "^5.10.9",
         "@mui/material": "^5.10.12",
+        "core-js": "^3.27.1",
         "cypress": "^10.11.0",
         "formik": "^2.2.9",
         "lodash": "^4.17.21",

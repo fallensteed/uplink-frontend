@@ -65,6 +65,7 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                     {post.imageSrc ? (
                         <Box sx={{ height: 112, width: 112, m: theme.spacing(0.5) }}>
                             <Box
+                                data-testid="post-image"
                                 component="img"
                                 src={post.imageSrc}
                                 sx={{ height: "112px", width: "112px", objectFit: "cover" }}
@@ -119,7 +120,12 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                 </Box>
                 <Box sx={{ width: "100%" }}>
                     <Box sx={{ display: "flex", justifyContent: "flex-start", flexWrap: "wrap" }}>
-                        <Button size="small" sx={{ mr: theme.spacing(1) }} startIcon={<CommentIcon />}>
+                        <Button
+                            data-testid="comment-button"
+                            size="small"
+                            sx={{ mr: theme.spacing(1) }}
+                            startIcon={<CommentIcon />}
+                        >
                             {formatCountComments(post.commentCount || 0)}
                         </Button>
                         <ShareButton link={`${window.location.host}/c/${post.community.link}/p/${post.miniLink}`} />

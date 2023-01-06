@@ -1,5 +1,5 @@
 import { mockUser1, mockUser2 } from "../../../../common/api/user/user.mock";
-import { mockPost1 } from "../post/post.mock";
+import { mockPost1 } from "../../mocks/post.mock";
 import { Comment } from "./comment.api";
 
 export const mockComment1: Comment = {

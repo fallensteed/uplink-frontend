@@ -1,4 +1,5 @@
 import { mockDeleteResponseSuccess, mockPatchResponseSuccess } from "../../../../common/api/responses/responses.mock";
+import { mockCommunity1, mockCommunity1Update, mockCommunity2 } from "../../mocks/community.mock";
 import {
     community_deleteById,
     community_getAll,
@@ -6,7 +7,6 @@ import {
     community_patchById,
     community_postOne,
 } from "./community.api";
-import { mockCommunity1, mockCommunity1Update, mockCommunity2 } from "./community.mock";
 
 beforeEach(() => {
     fetchMock.resetMocks();
