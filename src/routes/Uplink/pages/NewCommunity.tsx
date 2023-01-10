@@ -207,7 +207,7 @@ const NewCommunity: FC = () => {
                     }}
                 >
                     <Typography variant="h6">Community Rules</Typography>
-                    <Button onClick={handleAddNewRule}>
+                    <Button onClick={handleAddNewRule} data-testid="add-rule-button">
                         <AddIcon />
                     </Button>
                 </Box>
