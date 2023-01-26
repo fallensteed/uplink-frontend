@@ -21,7 +21,10 @@ const UserFollowers: FC<UserFollowersProps> = (props: UserFollowersProps) => {
                 {followers ? (
                     followers.map((user) => (
                         <ListItem key={user._id}>
-                            <ListItemButton onClick={() => navigate(`../u/${user.uplinkUsername}`)}>
+                            <ListItemButton
+                                data-testid="link-to-user"
+                                onClick={() => navigate(`../u/${user.uplinkUsername}`)}
+                            >
                                 <ListItemAvatar>
                                     <Avatar sx={{ backgroundColor: "white", height: 24, width: 24, ml: 1 }}>
                                         <SpriteIcon seed={`${user.uplinkUsername}`} size={16} />

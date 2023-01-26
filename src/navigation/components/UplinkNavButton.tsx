@@ -122,12 +122,14 @@ const UplinkNavButton: FC<UplinkNavButtonProps> = (props: UplinkNavButtonProps) 
                 }}
                 endIcon={<KeyboardArrowDown />}
                 onClick={handleOpenMenu}
+                aria-label="navigation menu"
             >
                 {buttonDisplay(location.pathname)}
             </NavButton>
             <Menu id="navigation-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu}>
                 <MenuList dense sx={{ minWidth: 200, maxHeight: 300, "& ul": { p: 0 } }} subheader={<li />}>
                     <MenuItem
+                        data-testid="desktop-home-link"
                         onClick={() => {
                             navigate(`/home`);
                             handleCloseMenu();
@@ -159,6 +161,7 @@ const UplinkNavButton: FC<UplinkNavButtonProps> = (props: UplinkNavButtonProps) 
                             {communities ? (
                                 communities?.map((community) => (
                                     <MenuItem
+                                        data-testid={community.link}
                                         key={community._id}
                                         onClick={() => {
                                             navigate(`/c/${community.link}`);
@@ -191,12 +194,13 @@ const UplinkNavButton: FC<UplinkNavButtonProps> = (props: UplinkNavButtonProps) 
                             <ListSubheader sx={{ lineHeight: 2, background: theme.palette.common.white }}>
                                 Following
                             </ListSubheader>
-                            {following ? (
+                            {following && following.length ? (
                                 following?.map((user) => (
                                     <MenuItem
+                                        data-testid={user}
                                         key={user}
                                         onClick={() => {
-                                            navigate(`/c/${user}`);
+                                            navigate(`/u/${user}`);
                                             handleCloseMenu();
                                         }}
                                     >
@@ -226,26 +230,21 @@ const UplinkNavButton: FC<UplinkNavButtonProps> = (props: UplinkNavButtonProps) 
                             <ListSubheader sx={{ lineHeight: 2, background: theme.palette.common.white }}>
                                 Apps
                             </ListSubheader>
-                            {apps ? (
-                                apps
-                                    ?.filter((route) => route.displayInNavBar === true)
-                                    .map((app) => (
-                                        <MenuItem
-                                            key={app.shortName}
-                                            onClick={() => {
-                                                navigate(app.path);
-                                                handleCloseMenu();
-                                            }}
-                                        >
-                                            <ListItemIcon>{app.icon}</ListItemIcon>
-                                            {app.name}
-                                        </MenuItem>
-                                    ))
-                            ) : (
-                                <MenuItem disabled>
-                                    <ListItemText>You haven&apos;t followed any users yet!</ListItemText>
-                                </MenuItem>
-                            )}
+                            {apps
+                                .filter((route) => route.displayInNavBar === true)
+                                .map((app) => (
+                                    <MenuItem
+                                        data-testid={app.shortName}
+                                        key={app.shortName}
+                                        onClick={() => {
+                                            navigate(app.path);
+                                            handleCloseMenu();
+                                        }}
+                                    >
+                                        <ListItemIcon>{app.icon}</ListItemIcon>
+                                        {app.name}
+                                    </MenuItem>
+                                ))}
                         </ul>
                     </li>
                 </MenuList>

@@ -100,7 +100,7 @@ export const routeList: NavList[] = [
     },
 ];
 
-const routerChildren = routeList.map((route) => {
+export const routerChildren = routeList.map((route) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { name, shortName, icon, displayInNavBar, ...childRoute } = route;
     return childRoute;

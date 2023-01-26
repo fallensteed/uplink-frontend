@@ -35,6 +35,7 @@ const UserDisplay = () => {
             <Notifications count={0} />
             <Box sx={{ display: "flex", justifyContent: "space-around", flexDirection: "row", alignItems: "center" }}>
                 <Button
+                    data-testid="user-settings-button"
                     onClick={handleClick}
                     sx={{ color: theme.palette.common.white, textTransform: "none" }}
                     endIcon={<SpriteIcon seed={`${user?.uplinkUsername}`} size={24} />}

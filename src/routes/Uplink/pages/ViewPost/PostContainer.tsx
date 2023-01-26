@@ -88,6 +88,8 @@ const PostContainer: FC<PostContainerProps> = (props: PostContainerProps) => {
                                                 m: theme.spacing(0.5),
                                                 display: "block",
                                             }}
+                                            alt={post.imageSrc}
+                                            data-testid="post-image"
                                         />
                                     </Box>
                                 ) : null}
@@ -105,7 +107,13 @@ const PostContainer: FC<PostContainerProps> = (props: PostContainerProps) => {
                                     {post.detail}
                                 </Typography>
                                 {post.link ? (
-                                    <Typography variant="body1" component="a" href={post.link} target="_blank">
+                                    <Typography
+                                        variant="body1"
+                                        component="a"
+                                        href={post.link}
+                                        target="_blank"
+                                        data-testid="post-link"
+                                    >
                                         {removeHttp(post.link)}
                                     </Typography>
                                 ) : null}

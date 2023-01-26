@@ -7,8 +7,8 @@ export interface Comment {
     commentOn?: string;
     post: string;
     user: string;
-    upVotes?: string[];
-    downVotes?: string[];
+    upVotes: string[];
+    downVotes: string[];
     editHistory?: CommentEditHistory[];
     createdAt?: string;
 }

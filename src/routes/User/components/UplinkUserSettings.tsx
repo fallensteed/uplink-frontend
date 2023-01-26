@@ -20,7 +20,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 import useSnack from "common/components/SnackBar/ProvideSnack";
 import { convertGradeToRank } from "common/functions/rank";
-import { FC, useEffect, useReducer, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { UplinkUser, uplink_user_patch } from "routes/Uplink/api/user/uplink_user.api";
 import { useUser } from "../../../common/context/User/UserContext";
 
@@ -45,7 +45,7 @@ const UplinkUserSettings: FC = () => {
         } as UplinkUser;
         const response = await uplink_user_patch(data);
         if (response.data.modifiedCount === 1) {
-            snack("success", "Request for Verification Submitted");
+            snack("success", "Request for Verification Submitted.");
             user.getUplinkUser();
             // setVerificationStatus("requested");
         } else {
@@ -61,7 +61,7 @@ const UplinkUserSettings: FC = () => {
         } as UplinkUser;
         const response = await uplink_user_patch(data);
         if (response.data.modifiedCount === 1) {
-            snack("success", "Request for Verification Submitted");
+            snack("success", "Successfully changed.");
             setEditDefaultDisplay(false);
             user.getUplinkUser();
         } else {
@@ -76,20 +76,7 @@ const UplinkUserSettings: FC = () => {
     }, [user.uplink]);
 
     const displayVerificationStatus = () => {
-        if (verificationStatus === "not-requested") {
-            return (
-                <>
-                    <Typography variant="body1" color="error">
-                        Not Requested
-                    </Typography>
-                    <FormControlLabel
-                        control={<Checkbox onClick={() => setOpenVerificationDialog(true)} />}
-                        label="Request Verification"
-                        labelPlacement="start"
-                    />
-                </>
-            );
-        } else if (verificationStatus === "requested") {
+        if (verificationStatus === "requested") {
             return (
                 <>
                     <Typography variant="body1" color="blue">
@@ -106,7 +93,18 @@ const UplinkUserSettings: FC = () => {
                 </>
             );
         } else {
-            return null;
+            return (
+                <>
+                    <Typography variant="body1" color="error">
+                        Not Requested
+                    </Typography>
+                    <FormControlLabel
+                        control={<Checkbox onClick={() => setOpenVerificationDialog(true)} />}
+                        label="Request Verification"
+                        labelPlacement="start"
+                    />
+                </>
+            );
         }
     };
 
@@ -143,6 +141,7 @@ const UplinkUserSettings: FC = () => {
                             <Select
                                 onChange={(e) => setDefaultDisplay(e.target.value as "username" | "verified")}
                                 value={defaultDisplay}
+                                data-testid="select-default-display"
                             >
                                 <MenuItem value="username">Uplink Username</MenuItem>
                                 <MenuItem value="verified" disabled={Boolean(verificationStatus !== "verified")}>
@@ -174,6 +173,7 @@ const UplinkUserSettings: FC = () => {
                             onClick={() => {
                                 setEditDefaultDisplay(true);
                             }}
+                            data-testid="edit-default-display"
                         >
                             <EditIcon />
                         </IconButton>
@@ -188,6 +188,7 @@ const UplinkUserSettings: FC = () => {
                 id="verification-confirm"
                 open={openVerificationDialog}
                 onClose={() => setOpenVerificationDialog(false)}
+                data-testid="verification-dialog"
             >
                 <DialogTitle>Are you sure you want to verify your account?</DialogTitle>
                 <DialogContent>

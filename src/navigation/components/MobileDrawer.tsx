@@ -107,7 +107,7 @@ const MobileDrawer: FC<MobileDrawerProps> = (props: MobileDrawerProps) => {
                         >
                             Following
                         </ListSubheader>
-                        {following ? (
+                        {following && following.length ? (
                             following?.map((user) => (
                                 <ListItem key={user} disablePadding dense>
                                     <ListItemButton
@@ -136,29 +136,21 @@ const MobileDrawer: FC<MobileDrawerProps> = (props: MobileDrawerProps) => {
                         >
                             Apps
                         </ListSubheader>
-                        {apps ? (
-                            apps
-                                ?.filter((route) => route.displayInNavBar === true)
-                                .map((app) => (
-                                    <ListItem key={app.shortName} disablePadding dense>
-                                        <ListItemButton
-                                            onClick={() => {
-                                                navigate(app.path);
-                                                handleDrawerClose();
-                                            }}
-                                        >
-                                            <ListItemIcon>{app.icon}</ListItemIcon>
-                                            <ListItemText>{app.name}</ListItemText>
-                                        </ListItemButton>
-                                    </ListItem>
-                                ))
-                        ) : (
-                            <ListItem dense disablePadding>
-                                <ListItemButton disabled>
-                                    <ListItemText>You haven&apos;t joined any communities yet!</ListItemText>
-                                </ListItemButton>
-                            </ListItem>
-                        )}
+                        {apps
+                            .filter((route) => route.displayInNavBar === true)
+                            .map((app) => (
+                                <ListItem key={app.shortName} disablePadding dense>
+                                    <ListItemButton
+                                        onClick={() => {
+                                            navigate(app.path);
+                                            handleDrawerClose();
+                                        }}
+                                    >
+                                        <ListItemIcon>{app.icon}</ListItemIcon>
+                                        <ListItemText>{app.name}</ListItemText>
+                                    </ListItemButton>
+                                </ListItem>
+                            ))}
                     </List>
                 </Box>
             </Drawer>

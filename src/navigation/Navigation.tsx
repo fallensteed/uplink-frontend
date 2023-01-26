@@ -5,6 +5,7 @@ import ClassificationBar from "common/classification/ClassificationBar";
 import { FC, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "routes/Root";
+import { uplink_user_getFollowing } from "routes/Uplink/api/user/uplink_user.api";
 import { Community, community_getAllByUserId } from "../routes/Uplink/api/community/community.api";
 import MobileDrawer from "./components/MobileDrawer";
 import UplinkNavButton from "./components/UplinkNavButton";
@@ -17,6 +18,7 @@ const Navigation: FC = () => {
     const user = useContext(UserContext);
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [communities, setCommunities] = useState<Community[] | null>(null);
+    const [following, setFollowing] = useState<string[] | null>(null);
 
     const handleDrawerOpen = () => {
         setDrawerOpen(true);
@@ -35,8 +37,16 @@ const Navigation: FC = () => {
         if (response.data) setCommunities(response.data);
     };
 
+    const getFollowingList = async (userId: string) => {
+        const response = await uplink_user_getFollowing(userId);
+        if (response.data) setFollowing(response.data);
+    };
+
     useEffect(() => {
-        if (user) getCommunityList(user._id);
+        if (user) {
+            getCommunityList(user._id);
+            getFollowingList(user._id);
+        }
     }, [user]);
 
     return (
@@ -62,7 +72,7 @@ const Navigation: FC = () => {
                         UPLINK
                     </Typography>
                     <Box sx={{ display: { xs: "none", sm: "flex" }, flexGrow: 1, alignItems: "center" }}>
-                        <UplinkNavButton communities={communities} apps={routeList} />
+                        <UplinkNavButton communities={communities} apps={routeList} following={following} />
                         <Box sx={{ flexGrow: 1 }} />
                         <UserDisplay />
                     </Box>
@@ -73,6 +83,7 @@ const Navigation: FC = () => {
                 apps={routeList}
                 handleDrawerClose={handleDrawerClose}
                 drawerOpen={drawerOpen}
+                following={following}
             />
         </>
     );

@@ -6,6 +6,7 @@ import { FC, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Comment, comment_getAllByPost } from "routes/Uplink/api/comment/comment.api";
 import { PostPopulated, post_getByMiniLink } from "routes/Uplink/api/post/post.api";
+import useSnack from "../../../../common/components/SnackBar/ProvideSnack";
 import backgroundImage from "../../../../common/images/background_1.png";
 import { UserContext } from "./../../../Root";
 import { comment_postOne } from "./../../api/comment/comment.api";
@@ -19,19 +20,26 @@ const ViewPost: FC = () => {
     const location = useLocation();
     const theme = useTheme();
     const user = useContext(UserContext);
+    const snack = useSnack();
 
     const [post, setPost] = useState<PostPopulated | null>(null);
     const [comments, setComments] = useState<Comment[]>([]);
 
     const getPost = async () => {
         const response = await post_getByMiniLink(miniLink as string);
-        if (response.data) setPost(response.data);
+        if (response.data) {
+            setPost(response.data);
+        } else {
+            snack("error", "Error loading post data.");
+        }
     };
 
     const getComments = async () => {
         const response = await comment_getAllByPost(post?._id as string);
         if (response.data) {
             setComments(response.data);
+        } else {
+            snack("error", "Error loading comments.");
         }
     };
 
@@ -111,6 +119,9 @@ const ViewPost: FC = () => {
         </Box>
     ) : (
         <Container maxWidth="md" sx={{ mt: theme.spacing(2) }}>
+            <Typography display={"none"} data-testid="location">
+                {miniLink}
+            </Typography>
             <Card>
                 <CardContent
                     sx={{

@@ -1,6 +1,5 @@
 import AddIcon from "@mui/icons-material/Add";
 import {
-    Alert,
     AlertColor,
     Box,
     Button,
@@ -12,15 +11,15 @@ import {
     ListItem,
     ListItemText,
     Paper,
-    Snackbar,
     Switch,
     TextField,
     Typography,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import { useTheme } from "@mui/material/styles";
 import { ChangeEvent, FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useSnack from "../../../common/components/SnackBar/ProvideSnack";
 import { UserContext } from "../../Root";
 import { Community, CommunityRule, community_postOne } from "../api/community/community.api";
 
@@ -28,6 +27,7 @@ const NewCommunity: FC = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const user = useContext(UserContext);
+    const snack = useSnack();
 
     const [name, setName] = useState<string>("");
     const [nameChar, setNameChar] = useState<number>(0);
@@ -73,9 +73,7 @@ const NewCommunity: FC = () => {
 
     const handleSubmit = async () => {
         if (!name) {
-            setSnackBarMessage("Enter a Community Name");
-            setSnackBarSeverity("error");
-            setSnackBarOpen(true);
+            snack("error", "Enter a Community Name");
             return;
         }
         const data: Community = {} as Community;
@@ -88,14 +86,11 @@ const NewCommunity: FC = () => {
         if (rules.length) data["rules"] = rules;
         const response = await community_postOne(data);
         if (response.data._id) {
-            setSnackBarMessage("Your Community has been created!");
-            setSnackBarSeverity("success");
-            setSnackBarOpen(true);
+            snack("success", "Your Community has been created!");
             navigate(`/c/${link}`);
         } else {
-            setSnackBarMessage(`I think something went wrong`);
-            setSnackBarSeverity("error");
-            setSnackBarOpen(true);
+            snack("error", "I think something went wrong");
+            return;
         }
     };
 
@@ -249,11 +244,6 @@ const NewCommunity: FC = () => {
                     Submit
                 </Button>
             </Box>
-            <Snackbar open={snackBarOpen} autoHideDuration={6000} onClose={() => setSnackBarOpen(false)}>
-                <Alert onClose={() => setSnackBarOpen(false)} severity={snackBarSeverity}>
-                    {snackBarMessage}
-                </Alert>
-            </Snackbar>
         </Container>
     );
 };

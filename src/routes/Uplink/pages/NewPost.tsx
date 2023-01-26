@@ -1,6 +1,5 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
-    Alert,
     AlertColor,
     Box,
     Button,
@@ -14,12 +13,11 @@ import {
     Paper,
     Select,
     SelectChangeEvent,
-    Snackbar,
     TextField,
     Typography,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import { useTheme } from "@mui/material/styles";
 import { FC, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "routes/Root";
@@ -96,19 +94,19 @@ const NewPost: FC = () => {
         data["userCreatedNotifications"] = postNotifications;
         const response = await post_postOne(data);
         if (response.data.miniLink) {
-            setSnackBarMessage("Your Post has been created!");
-            setSnackBarSeverity("success");
-            setSnackBarOpen(true);
+            snack("success", "Your Post has been created!");
             navigate(`/c/${communityLink}/p/${response.data.miniLink}`);
         } else {
-            setSnackBarMessage(`I think something went wrong`);
-            setSnackBarSeverity("error");
-            setSnackBarOpen(true);
+            snack("error", "I think something went wrong");
+            return;
         }
     };
 
     return (
         <Box sx={{ minHeight: "calc(100% - 16px)", width: "100%", position: "relative", pt: theme.spacing(2) }}>
+            <Typography display="none" data-testid="location">
+                {communityLink}
+            </Typography>
             <Box sx={{ position: "absolute", top: theme.spacing(3), left: theme.spacing(3) }}>
                 <Fab variant="extended" color="primary" aria-label="back" onClick={() => navigate(-1)}>
                     <ArrowBackIcon sx={{ mr: theme.spacing(1) }} />
@@ -130,14 +128,16 @@ const NewPost: FC = () => {
                                     value={communityId as string}
                                     onChange={handleCommunityChange}
                                 >
-                                    {memberCommunities ? (
+                                    {memberCommunities && memberCommunities.length ? (
                                         memberCommunities.map((comm) => (
                                             <MenuItem key={comm._id} value={comm._id}>
                                                 c/{comm.link}
                                             </MenuItem>
                                         ))
                                     ) : (
-                                        <MenuItem disabled>No Communities Available</MenuItem>
+                                        <MenuItem data-testid="no-communities" disabled>
+                                            No Communities Available
+                                        </MenuItem>
                                     )}
                                 </Select>
                             </FormControl>
@@ -219,11 +219,6 @@ const NewPost: FC = () => {
                 <Typography variant="subtitle2" sx={{ mt: theme.spacing(0.5) }}>
                     * Required
                 </Typography>
-                <Snackbar open={snackBarOpen} autoHideDuration={6000} onClose={() => setSnackBarOpen(false)}>
-                    <Alert onClose={() => setSnackBarOpen(false)} severity={snackBarSeverity}>
-                        {snackBarMessage}
-                    </Alert>
-                </Snackbar>
             </Container>
         </Box>
     );

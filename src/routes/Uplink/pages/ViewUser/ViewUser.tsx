@@ -1,16 +1,15 @@
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import PushPinIcon from "@mui/icons-material/PushPin";
-import { Avatar, Box, Button, Card, CardContent, CircularProgress, Container, Paper, Typography } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { Box, Button, Card, CardContent, CircularProgress, Container, Paper, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import SpriteIcon from "common/components/SpriteIcon";
-import { FC, useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
+import useSnack from "common/components/SnackBar/ProvideSnack";
+import { FC, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import PostList from "routes/Uplink/components/PostList";
 import { User, user_getByUsername } from "../../../../common/api/user/user.api";
 import backgroundImage from "../../../../common/images/background_2.png";
-import { UserContext } from "../../../Root";
 import { Community } from "../../api/community/community.api";
 import { PostPopulated, post_getAllByUser } from "../../api/post/post.api";
 import { uplink_user_getMember, uplink_user_getModerator } from "../../api/user/uplink_user.api";
@@ -22,7 +21,7 @@ import UserProfile from "./UserProfile";
 
 const ViewUser: FC = () => {
     const theme = useTheme();
-    const user = useContext(UserContext);
+    const snack = useSnack();
     const { uplinkUsername } = useParams();
 
     const [posts, setPosts] = useState<PostPopulated[] | null>(null);
@@ -33,21 +32,25 @@ const ViewUser: FC = () => {
     const getUserPosts = async () => {
         const response = await post_getAllByUser(uplinkUsername as string);
         if (response.data) setPosts(response.data);
+        else snack("error", "Something went wrong loading post data.");
     };
 
     const getSelectedUser = async (username: string) => {
         const response = await user_getByUsername(username);
         if (response.data) setSelectedUser(response.data);
+        else snack("error", "Something went wrong loading user data.");
     };
 
     const getUserModerator = async (username: string) => {
         const response = await uplink_user_getModerator(username);
         if (response.data) setModerator(response.data);
+        else snack("error", "Something went wrong loading moderator data.");
     };
 
     const getUserMember = async (username: string) => {
         const response = await uplink_user_getMember(username);
         if (response.data) setMember(response.data);
+        else snack("error", "Something went wrong loading member data.");
     };
 
     useEffect(() => {
@@ -59,52 +62,28 @@ const ViewUser: FC = () => {
         }
     }, [uplinkUsername]);
 
-    return posts && selectedUser ? (
+    return selectedUser && posts ? (
         <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
             <Box component="img" src={backgroundImage} sx={{ height: 175, width: "100%", objectFit: "cover" }} />
             <Container maxWidth="lg" sx={{ mt: 4, height: "calc(100% - 32px)" }}>
                 <Grid container spacing={2} sx={{ height: "100%" }}>
                     <Grid md={7} xs={12} sx={{ height: "100%" }}>
                         <Box>
-                            <Paper sx={{ display: "flex", alignItems: "center", mb: theme.spacing(2) }}>
-                                <Avatar sx={{ backgroundColor: "white", height: 32, width: 32, ml: 1 }}>
-                                    <SpriteIcon seed={`${user?.uplinkUsername}`} size={24} />
-                                </Avatar>
-                                <Button
-                                    fullWidth
-                                    id="add-new-post-field"
-                                    variant="outlined"
-                                    sx={{
-                                        background: "#fff",
-                                        m: theme.spacing(1),
-                                        borderRadius: theme.spacing(0.5),
-                                        justifyContent: "flex-start",
-                                        cursor: "text",
-                                        textTransform: "none",
-                                        transition: "none",
-                                        "&:hover": {
-                                            backgroundColor: "#fff",
-                                        },
-                                    }}
-                                    component={Link}
-                                    to="/submit"
-                                >
-                                    Add New Post
-                                </Button>
-                            </Paper>
-                            <Paper sx={{ mb: theme.spacing(2) }}>
-                                <Button startIcon={<LightModeIcon />} sx={{ m: theme.spacing(1) }}>
-                                    Newest
-                                </Button>
-                                <Button startIcon={<AutoGraphIcon />} sx={{ m: theme.spacing(1) }}>
-                                    Top Rated
-                                </Button>
-                                <Button startIcon={<PushPinIcon />} sx={{ m: theme.spacing(1) }}>
-                                    Pinned
-                                </Button>
-                            </Paper>
-                            {posts ? (
-                                <PostList posts={posts} getPosts={getUserPosts} />
+                            {posts.length ? (
+                                <>
+                                    <Paper sx={{ mb: theme.spacing(2) }}>
+                                        <Button startIcon={<LightModeIcon />} sx={{ m: theme.spacing(1) }}>
+                                            Newest
+                                        </Button>
+                                        <Button startIcon={<AutoGraphIcon />} sx={{ m: theme.spacing(1) }}>
+                                            Top Rated
+                                        </Button>
+                                        <Button startIcon={<PushPinIcon />} sx={{ m: theme.spacing(1) }}>
+                                            Pinned
+                                        </Button>
+                                    </Paper>
+                                    <PostList posts={posts} getPosts={getUserPosts} />
+                                </>
                             ) : (
                                 <Card>
                                     <CardContent
@@ -115,8 +94,7 @@ const ViewUser: FC = () => {
                                             alignItems: "center",
                                         }}
                                     >
-                                        <Typography>Loading...</Typography>
-                                        <CircularProgress />
+                                        <Typography>There are no posts by this user.</Typography>
                                     </CardContent>
                                 </Card>
                             )}

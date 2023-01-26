@@ -11,6 +11,7 @@ import CommentVoting from "routes/Uplink/components/CommentVoting";
 import { updateVotes } from "routes/Uplink/functions/comments";
 import { formatCountVotes } from "routes/Uplink/functions/posts";
 import { User } from "../../../../common/api/user/user.api";
+import useSnack from "../../../../common/components/SnackBar/ProvideSnack";
 
 interface CommentSectionProps {
     comment: Comment;
@@ -21,6 +22,7 @@ interface CommentSectionProps {
 const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => {
     const user = useContext(UserContext) as User;
     const theme = useTheme();
+    const snack = useSnack();
     const { comment, getSubComments, getComments } = props;
     const [subCommentText, setSubCommentText] = useState<string>("");
     const [showTextField, setShowTextField] = useState<boolean>(false);
@@ -39,6 +41,8 @@ const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => 
             setSubCommentText("");
             setShowTextField(false);
             getComments();
+        } else {
+            snack("error", "Error adding comment.");
         }
     };
 
@@ -51,6 +55,7 @@ const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => 
             change,
         );
         if (response === "success") getComments();
+        else snack("error", "Error changing vote.");
     };
 
     const userUpVoted = comment.upVotes?.includes(user._id) as boolean;
@@ -117,14 +122,22 @@ const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => 
                         <TextField
                             multiline={true}
                             minRows={3}
+                            aria-label="Reply to Comment"
                             fullWidth
                             variant="filled"
                             onChange={(e) => setSubCommentText(e.target.value)}
                             value={subCommentText}
                             hiddenLabel
+                            data-testid="comment-reply"
                         />
                         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: theme.spacing(1) }}>
-                            <Button variant="contained" size="small" disabled={!subCommentText} onClick={handleSubmit}>
+                            <Button
+                                variant="contained"
+                                size="small"
+                                disabled={!subCommentText}
+                                onClick={handleSubmit}
+                                data-testid="comment-submit-reply"
+                            >
                                 Reply
                             </Button>
                         </Box>

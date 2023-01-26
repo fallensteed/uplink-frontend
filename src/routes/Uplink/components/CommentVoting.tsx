@@ -27,6 +27,7 @@ const CommentVoting: FC<CommentVotingProps> = (props: CommentVotingProps) => {
                     padding: 0,
                     mx: theme.spacing(0.5),
                 }}
+                data-testid="comment-upvote"
             >
                 <KeyboardArrowUpIcon />
             </IconButton>
@@ -40,6 +41,7 @@ const CommentVoting: FC<CommentVotingProps> = (props: CommentVotingProps) => {
                     padding: 0,
                     mx: theme.spacing(0.5),
                 }}
+                data-testid="comment-downvote"
             >
                 <KeyboardArrowDownIcon />
             </IconButton>

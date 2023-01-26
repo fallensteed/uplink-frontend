@@ -90,3 +90,25 @@ export const uplink_user_patch = async (data: UplinkUser): Promise<any> => {
     });
     return response.json();
 };
+
+export const uplink_user_getFollowers = async (userId: string): Promise<any> => {
+    const response = await fetch(`${UPLINK_USER_URL}/${userId}/followers`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+    });
+    return response.json();
+};
+
+export const uplink_user_getFollowing = async (userId: string): Promise<any> => {
+    const response = await fetch(`${UPLINK_USER_URL}/${userId}/following`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+    });
+    return response.json();
+};

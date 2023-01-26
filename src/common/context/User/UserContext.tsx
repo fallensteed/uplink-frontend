@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { UplinkUser, uplink_user_self_2 } from "../../../routes/Uplink/api/user/uplink_user.api";
 import { User, user_self } from "../../api/user/user.api";
 
@@ -20,6 +20,7 @@ const userProfileDefaultValue: User = {
     email: "",
     affiliation: "US Space Force",
     rank: "E-1",
+    alias: "",
     admin: {},
 };
 
@@ -30,7 +31,7 @@ const uplinkDefaultValue: UplinkUser = {
     default: "username",
 };
 
-const userContextDefaultValue = {
+export const userContextDefaultValue = {
     profile: userProfileDefaultValue,
     uplink: uplinkDefaultValue,
     isLoading: true,
@@ -51,7 +52,9 @@ const useProvideUser = () => {
     const getUserProfile = useCallback(() => {
         setIsLoading(true);
         user_self()
-            .then((response) => setProfile(response.data))
+            .then((response) => {
+                setProfile(response.data);
+            })
             .finally(() => {
                 return;
             });
@@ -60,7 +63,9 @@ const useProvideUser = () => {
     const getUplinkUser = useCallback(() => {
         setIsLoading(true);
         uplink_user_self_2()
-            .then((response) => setUplink(response.data))
+            .then((response) => {
+                setUplink(response.data);
+            })
             .finally(() => {
                 return;
             });

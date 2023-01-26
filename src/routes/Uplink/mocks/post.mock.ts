@@ -62,8 +62,6 @@ export const mockPost2Populated: PostPopulated = {
     _id: "636d5e94c030b925fbd7d4da",
     title: "test post 2",
     detail: "this is a test post that was created for mock data",
-    link: "https://www.supracoders.us",
-    imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDwO2hGTNvGOhlskhGZN3lhWOiTYL9-Yf_hA&usqp=CAU",
     tags: ["test"],
     community: mockCommunity1,
     draft: false,

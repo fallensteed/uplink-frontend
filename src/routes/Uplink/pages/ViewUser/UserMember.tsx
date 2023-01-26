@@ -21,7 +21,10 @@ const UserMember: FC<UserMemberProps> = (props: UserMemberProps) => {
                 {member ? (
                     member.map((community) => (
                         <ListItem key={community._id}>
-                            <ListItemButton onClick={() => navigate(`../c/${community.link}`)}>
+                            <ListItemButton
+                                data-testid="link-to-community"
+                                onClick={() => navigate(`../c/${community.link}`)}
+                            >
                                 <ListItemAvatar>
                                     <Avatar sx={{ backgroundColor: "white", height: 24, width: 24, ml: 1 }}>
                                         <SpriteIcon seed={`${community.link}`} size={16} />

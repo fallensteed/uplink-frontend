@@ -8,6 +8,13 @@ import NewCommunity from "./NewCommunity";
 
 let user: UserEvent;
 
+const mockUseNavigate = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+    ...jest.requireActual("react-router-dom"),
+    useNavigate: () => mockUseNavigate,
+}));
+
 const setup = () => {
     user = userEvent.setup();
     render(
@@ -24,7 +31,7 @@ const setupRules = () => {
     userEvent.click(addRuleButton);
 };
 
-beforeAll(() => fetchMock.resetMocks());
+beforeEach(() => fetchMock.resetMocks());
 
 test("change community name updates state and create community link", async () => {
     setup();
@@ -89,8 +96,35 @@ test("submit error, no community name", async () => {
 });
 
 test("submit with no error", async () => {
-    setup();
+    setupRules();
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockCommunity1 }));
+    const nameField = screen.getByLabelText("Community Name *");
+    const linkField = screen.getByLabelText("Community Link");
+    const aboutField = screen.getByLabelText("About this Community");
+    const ruleNameField = await screen.findByLabelText("Rule Name");
+    const ruleDetailField = await screen.findByLabelText("Rule Detail");
+    const officialCheck = screen.getByLabelText("Request as Official Community");
+    user.type(nameField, "test");
+    await waitFor(() => expect(nameField).toHaveValue("test"));
+    await waitFor(() => expect(linkField).toHaveValue("c/test"));
+    user.type(aboutField, "about");
+    await waitFor(() => expect(aboutField).toHaveValue("about"));
+    user.click(officialCheck);
+    await waitFor(() => expect(officialCheck).toBeChecked());
+    user.type(ruleNameField, "test");
+    await waitFor(() => expect(ruleNameField).toHaveValue("test"));
+    user.type(ruleDetailField, "test");
+    await waitFor(() => expect(ruleDetailField).toHaveValue("test"));
+    const submitButton = screen.getByText("Submit");
+    user.click(submitButton);
+    const successMsg = await screen.findByText("Your Community has been created!");
+    await waitFor(() => expect(successMsg).toBeInTheDocument());
+    await waitFor(() => expect(mockUseNavigate).toHaveBeenCalled());
+});
+
+test("submit with error", async () => {
+    setup();
+    fetchMock.mockResponseOnce(JSON.stringify({ data: { msg: "error" } }));
     const nameField = screen.getByLabelText("Community Name *");
     const linkField = screen.getByLabelText("Community Link");
     user.type(nameField, "test");
@@ -98,6 +132,6 @@ test("submit with no error", async () => {
     await waitFor(() => expect(linkField).toHaveValue("c/test"));
     const submitButton = screen.getByText("Submit");
     user.click(submitButton);
-    const successMsg = await screen.findByText("Your Community has been created!");
-    await waitFor(() => expect(successMsg).toBeInTheDocument());
+    const errorMsg = await screen.findByText("I think something went wrong");
+    await waitFor(() => expect(errorMsg).toBeInTheDocument());
 });
