@@ -33,11 +33,11 @@ const ProfileSettings: FC = () => {
             uplinkUsername: newUplinkUsername,
         } as User;
         const response = await user_patchByUserId(data);
-        if (response.data.modifiedCount === 1) {
+        if (response.data && response.data.modifiedCount === 1) {
             snack("success", "Profile Successfully Updated");
             setEditUplinkUsername(false);
         } else {
-            snack("error", `Error: ${response.message}`);
+            snack("error", "Something went wrong.");
         }
     };
 
@@ -47,11 +47,11 @@ const ProfileSettings: FC = () => {
             alias: newAlias,
         } as User;
         const response = await user_patchByUserId(data);
-        if (response.data.modifiedCount === 1) {
+        if (response.data && response.data.modifiedCount === 1) {
             snack("success", "Profile Successfully Updated");
             setEditAlias(false);
         } else {
-            snack("error", `Error: ${response.message}`);
+            snack("error", `Something went wrong.`);
         }
     };
 
@@ -100,6 +100,7 @@ const ProfileSettings: FC = () => {
                                 <Typography variant="body1">u/{user?.uplinkUsername}</Typography>
                                 <IconButton
                                     size="small"
+                                    data-testid="edit-username"
                                     onClick={() => {
                                         setEditUplinkUsername(true);
                                         setNewUplinkUsername(user.uplinkUsername);
@@ -147,6 +148,7 @@ const ProfileSettings: FC = () => {
                                 <Typography variant="body1">{user?.alias}</Typography>
                                 <IconButton
                                     size="small"
+                                    data-testid="edit-alias"
                                     onClick={() => {
                                         setEditAlias(true);
                                         setNewAlias(user?.alias || "");
