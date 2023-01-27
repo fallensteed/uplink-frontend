@@ -3,7 +3,7 @@ import { useTheme } from "@mui/material/styles";
 import { FC } from "react";
 
 interface CommunityAboutProps {
-    about: string | undefined;
+    about?: string;
 }
 
 const CommunityAbout: FC<CommunityAboutProps> = (props: CommunityAboutProps) => {

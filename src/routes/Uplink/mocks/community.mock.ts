@@ -1,4 +1,5 @@
-import { Community } from "../api/community/community.api";
+import { mockUser1 } from "common/api/user/user.mock";
+import { Community, CommunityPopulated } from "../api/community/community.api";
 
 export const mockCommunity1: Community = {
     _id: "636d597aa8f7c2408f4f6b26",
@@ -13,6 +14,57 @@ export const mockCommunity1: Community = {
             name: "Test Rule 1",
             detail: "This test rule is for mock data testing",
             order: 1,
+        },
+        {
+            name: "Test Rule 2",
+            detail: "This test rule is for mock data testing",
+            order: 2,
+        },
+    ],
+    pinnedPosts: [],
+};
+
+export const mockCommunity1Populated: CommunityPopulated = {
+    _id: "636d597aa8f7c2408f4f6b26",
+    name: "Test Community 1",
+    about: "This is a test community for mock data",
+    link: "TestCommunity1",
+    public: true,
+    members: [mockUser1],
+    moderators: [mockUser1],
+    rules: [
+        {
+            name: "Test Rule 1",
+            detail: "This test rule is for mock data testing",
+            order: 1,
+        },
+        {
+            name: "Test Rule 2",
+            detail: "This test rule is for mock data testing",
+            order: 2,
+        },
+    ],
+    pinnedPosts: [],
+};
+
+export const mockCommunity1PopulatedNonMember: CommunityPopulated = {
+    _id: "636d597aa8f7c2408f4f6b26",
+    name: "Test Community 1",
+    about: "This is a test community for mock data",
+    link: "TestCommunity1",
+    public: true,
+    members: [],
+    moderators: [mockUser1],
+    rules: [
+        {
+            name: "Test Rule 1",
+            detail: "This test rule is for mock data testing",
+            order: 1,
+        },
+        {
+            name: "Test Rule 2",
+            detail: "This test rule is for mock data testing",
+            order: 2,
         },
     ],
     pinnedPosts: [],

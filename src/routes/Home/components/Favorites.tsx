@@ -15,9 +15,9 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { FC } from "react";
 import SpaceForce36 from "../../../common/images/SpaceForce_36x36.png";
 
-const mockFavoriteCommunities = ["c/SpOC", "c/STARCOM", "c/SpaceForceMemes", "c/AllMemes", "c/astronauts"];
+export const mockFavoriteCommunities = ["c/SpOC", "c/STARCOM", "c/SpaceForceMemes", "c/AllMemes", "c/astronauts"];
 
-const mockFavoriteLinks = [
+export const mockFavoriteLinks = [
     "Space Force Portal",
     "Air Force Portal",
     "SpOC SharePoint",

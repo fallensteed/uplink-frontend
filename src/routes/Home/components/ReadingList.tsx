@@ -3,7 +3,7 @@ import { useTheme } from "@mui/material/styles";
 import Grid from "@mui/material/Unstable_Grid2";
 import { FC } from "react";
 
-const mockReadingList = [
+export const mockReadingList = [
     {
         name: "Guardian Ideal",
         link: "https://media.defense.gov/2021/Sep/21/2002858512/-1/-1/1/GUARDIAN%20IDEAL%20-%20FINAL.PDF",

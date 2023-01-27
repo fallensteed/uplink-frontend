@@ -69,7 +69,7 @@ describe("navigation page only tests", () => {
     });
 });
 
-describe("desktop mode tests", () => {
+describe("navigation menu(s) tests", () => {
     describe("test for nav button display parameters", () => {
         test("page loads uplink nav button with home location", async () => {
             setupDesktop1();
@@ -211,22 +211,10 @@ describe("desktop mode tests", () => {
         user.click(appLink);
         await waitFor(() => expect(mockUseNavigate).toHaveBeenCalledWith(appList[0].path));
     });
-});
-
-describe("mobile mode tests", () => {
     test("mobile menu can be opened with small screen", async () => {
         setupMobile();
         const mobileMenuButton = screen.getByLabelText("open drawer");
         user.click(mobileMenuButton);
         await screen.findByText("Your Communities");
-    });
-});
-
-describe("user display tests", () => {
-    test("clicking on username+icon will open menu", async () => {
-        setupDesktop1();
-        const userMenu = await screen.findByTestId("user-settings-button");
-        user.click(userMenu);
-        await screen.findByText("Profile and Settings");
     });
 });

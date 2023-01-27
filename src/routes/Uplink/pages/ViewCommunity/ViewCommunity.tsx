@@ -2,8 +2,9 @@ import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import PushPinIcon from "@mui/icons-material/PushPin";
 import { Avatar, Box, Button, Card, CardContent, CircularProgress, Container, Paper, Typography } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import { useTheme } from "@mui/material/styles";
+import useSnack from "common/components/SnackBar/ProvideSnack";
 import SpriteIcon from "common/components/SpriteIcon";
 import { FC, useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -22,6 +23,7 @@ import CommunityRules from "./CommunityRules";
 
 const ViewCommunity: FC = () => {
     const theme = useTheme();
+    const snack = useSnack();
     const user = useContext(UserContext);
     const { communityLink } = useParams();
 
@@ -32,11 +34,13 @@ const ViewCommunity: FC = () => {
     const getCommunityPosts = async () => {
         const response = await post_getAllByCommunity(communityLink as string);
         if (response.data) setPosts(response.data);
+        else snack("error", "Something went wrong loading community posts.");
     };
 
     const getCommunity = async (link: string) => {
         const response = await community_getByIdOrLink(link);
         if (response.data) setCommunity(response.data);
+        else snack("error", "Something went wrong loading community data.");
     };
 
     useEffect(() => {
@@ -54,6 +58,7 @@ const ViewCommunity: FC = () => {
             "remove",
         );
         if (response.data) getCommunity(community?._id as string);
+        else snack("error", "Something went wrong.");
     };
 
     const handleJoinCommunity = async () => {
@@ -64,6 +69,7 @@ const ViewCommunity: FC = () => {
             "add",
         );
         if (response.data) getCommunity(community?._id as string);
+        else snack("error", "Something went wrong.");
     };
 
     const handleButtonText = (text?: string) => {

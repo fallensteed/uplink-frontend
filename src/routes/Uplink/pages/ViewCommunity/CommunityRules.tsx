@@ -4,7 +4,7 @@ import { FC } from "react";
 import { CommunityRule } from "../../api/community/community.api";
 
 interface CommunityRulesProps {
-    rules: CommunityRule[] | undefined;
+    rules?: CommunityRule[];
 }
 
 const CommunityRules: FC<CommunityRulesProps> = (props: CommunityRulesProps) => {
