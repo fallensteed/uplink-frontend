@@ -5,6 +5,8 @@ USER node
 WORKDIR /home/node
 COPY --chown=node:node . .
 EXPOSE 8080
+
+RUN npm ci
 RUN npm run build
 
 FROM registry1.dso.mil/ironbank/opensource/nginx/nginx:1.23.1
