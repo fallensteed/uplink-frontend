@@ -64,101 +64,113 @@ const ProfileSettings: FC = () => {
                         Editable Profile Values
                     </Typography>
                     <Typography variant="body2">Uplink Username</Typography>
-                    <Container
-                        sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                        }}
-                    >
-                        {editUplinkUsername ? (
-                            <>
-                                <TextField
-                                    hiddenLabel
-                                    size="small"
-                                    variant="filled"
-                                    value={newUplinkUsername}
-                                    onChange={(e) => setNewUplinkUsername(e.target.value)}
-                                />
-                                <Box>
-                                    <Button
-                                        variant="outlined"
-                                        color="error"
-                                        sx={{ mr: theme.spacing(1) }}
-                                        onClick={() => setEditUplinkUsername(false)}
-                                    >
-                                        Cancel
-                                    </Button>
-                                    <Button variant="contained" onClick={handleSaveUplinkUsernameChange}>
-                                        Save
-                                    </Button>
-                                </Box>
-                            </>
-                        ) : (
-                            <>
-                                <Typography variant="body1">u/{user?.uplinkUsername}</Typography>
-                                <IconButton
-                                    size="small"
-                                    data-testid="edit-username"
-                                    onClick={() => {
-                                        setEditUplinkUsername(true);
-                                        setNewUplinkUsername(user.uplinkUsername);
-                                    }}
+                    {editUplinkUsername ? (
+                        <Container
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "flex-end",
+                            }}
+                        >
+                            <TextField
+                                hiddenLabel
+                                fullWidth
+                                size="small"
+                                variant="filled"
+                                value={newUplinkUsername}
+                                onChange={(e) => setNewUplinkUsername(e.target.value)}
+                            />
+                            <Box sx={{ mt: theme.spacing(1), mb: theme.spacing(1) }}>
+                                <Button
+                                    variant="outlined"
+                                    color="error"
+                                    sx={{ mr: theme.spacing(1) }}
+                                    onClick={() => setEditUplinkUsername(false)}
                                 >
-                                    <EditIcon />
-                                </IconButton>
-                            </>
-                        )}
-                    </Container>
+                                    Cancel
+                                </Button>
+                                <Button variant="contained" onClick={handleSaveUplinkUsernameChange}>
+                                    Save
+                                </Button>
+                            </Box>
+                        </Container>
+                    ) : (
+                        <Container
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Typography variant="body1">u/{user?.uplinkUsername}</Typography>
+                            <IconButton
+                                size="small"
+                                onClick={() => {
+                                    setEditUplinkUsername(true);
+                                    setNewUplinkUsername(user.uplinkUsername);
+                                }}
+                                data-testid="edit-username"
+                            >
+                                <EditIcon />
+                            </IconButton>
+                        </Container>
+                    )}
                     <Typography variant="body2">Alias/Call-Sign</Typography>
-                    <Container
-                        sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                        }}
-                    >
-                        {editAlias ? (
-                            <>
-                                <TextField
-                                    hiddenLabel
-                                    size="small"
-                                    variant="filled"
-                                    value={newAlias}
-                                    onChange={(e) => setNewAlias(e.target.value)}
-                                />
-                                <Box>
-                                    <Button
-                                        variant="outlined"
-                                        color="error"
-                                        sx={{ mr: theme.spacing(1) }}
-                                        onClick={() => setEditAlias(false)}
-                                    >
-                                        Cancel
-                                    </Button>
-                                    <Button variant="contained" onClick={handleSaveAliasChange}>
-                                        Save
-                                    </Button>
-                                </Box>
-                            </>
-                        ) : (
-                            <>
-                                <Typography variant="body1">{user?.alias}</Typography>
-                                <IconButton
-                                    size="small"
-                                    data-testid="edit-alias"
-                                    onClick={() => {
-                                        setEditAlias(true);
-                                        setNewAlias(user?.alias || "");
-                                    }}
+                    {editAlias ? (
+                        <Container
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "flex-end",
+                            }}
+                        >
+                            <TextField
+                                hiddenLabel
+                                fullWidth
+                                size="small"
+                                variant="filled"
+                                value={newAlias}
+                                onChange={(e) => setNewAlias(e.target.value)}
+                            />
+                            <Box sx={{ mt: theme.spacing(1), mb: theme.spacing(1) }}>
+                                <Button
+                                    variant="outlined"
+                                    color="error"
+                                    sx={{ mr: theme.spacing(1) }}
+                                    onClick={() => setEditAlias(false)}
                                 >
-                                    <EditIcon />
-                                </IconButton>
-                            </>
-                        )}
-                    </Container>
+                                    Cancel
+                                </Button>
+                                <Button variant="contained" onClick={handleSaveAliasChange}>
+                                    Save
+                                </Button>
+                            </Box>
+                        </Container>
+                    ) : (
+                        <Container
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Typography variant="body1">{user?.alias}</Typography>
+                            <IconButton
+                                size="small"
+                                data-testid="edit-alias"
+                                onClick={() => {
+                                    setEditAlias(true);
+                                    setNewAlias(user?.alias || "");
+                                }}
+                            >
+                                <EditIcon />
+                            </IconButton>
+                        </Container>
+                    )}
                 </Paper>
                 <Paper sx={{ p: theme.spacing(1), mt: theme.spacing(1) }}>
                     <Typography variant="h4" sx={{ textAlign: "center" }}>

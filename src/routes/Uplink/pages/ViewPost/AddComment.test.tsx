@@ -4,6 +4,7 @@ import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import AddComment from "./AddComment";
+import { socket } from "common/config/socket";
 
 let user: UserEvent;
 
@@ -29,6 +30,10 @@ const setup = () => {
 };
 
 beforeEach(() => fetchMock.resetMocks());
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("comment text can be added and calls handleAddComment function on submit", async () => {
     setup();

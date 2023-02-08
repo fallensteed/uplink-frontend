@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import ShareButton from "./ShareButton";
+import { socket } from "common/config/socket";
 
 const setup = () => {
     render(
@@ -16,6 +17,10 @@ Object.assign(navigator, {
     clipboard: {
         writeText: () => null,
     },
+});
+
+afterAll(() => {
+    socket.disconnect();
 });
 
 test("share button opens Popover on click", async () => {

@@ -53,7 +53,7 @@ const PostContainer: FC<PostContainerProps> = (props: PostContainerProps) => {
                     borderRadius: "0 4px 4px 0",
                     p: theme.spacing(1),
                     display: "flex",
-                    flexDirection: "row",
+                    flexDirection: { xs: "column", md: "row" },
                 }}
             >
                 <Box
@@ -71,7 +71,7 @@ const PostContainer: FC<PostContainerProps> = (props: PostContainerProps) => {
                             sx={{
                                 width: "100%",
                                 display: "flex",
-                                flexDirection: "row",
+                                flexDirection: { xs: "column", md: "row" },
                                 justifyContent: "space-between",
                             }}
                         >

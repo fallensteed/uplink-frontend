@@ -1,6 +1,5 @@
 import AddIcon from "@mui/icons-material/Add";
 import {
-    AlertColor,
     Box,
     Button,
     Checkbox,
@@ -36,9 +35,6 @@ const NewCommunity: FC = () => {
     const [publicToggle, setPublicToggle] = useState<boolean>(true);
     const [requestOfficial, setRequestOfficial] = useState<boolean>(false);
     const [rules, setRules] = useState<CommunityRule[]>([]);
-    const [snackBarMessage, setSnackBarMessage] = useState<string>("");
-    const [snackBarOpen, setSnackBarOpen] = useState<boolean>(false);
-    const [snackBarSeverity, setSnackBarSeverity] = useState<AlertColor>();
 
     const correctString = (text: string) => {
         // eslint-disable-next-line no-useless-escape
@@ -63,6 +59,7 @@ const NewCommunity: FC = () => {
         setRules(updatedRules);
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleUpdateRules = (index: number, fieldName: string, value: any) => {
         const updatedRules = [...rules];
         const ruleToUpdate = updatedRules[index];
@@ -96,7 +93,9 @@ const NewCommunity: FC = () => {
 
     return (
         <Container maxWidth="md">
-            <Typography variant="h4">Create a Community</Typography>
+            <Typography variant="h2" sx={{ mt: theme.spacing(2), mb: theme.spacing(1) }}>
+                Create a Community
+            </Typography>
             <Paper sx={{ p: theme.spacing(1), mb: theme.spacing(2) }}>
                 <Typography variant="h6">Community Creation Guidelines</Typography>
                 <Typography variant="body1">
@@ -162,7 +161,7 @@ const NewCommunity: FC = () => {
                             onChange={(e) => setAbout(e.target.value)}
                         />
                     </Grid2>
-                    <Grid2 xs={6}>
+                    <Grid2 xs={12} md={6}>
                         <FormControlLabel
                             control={
                                 <Switch
@@ -175,7 +174,7 @@ const NewCommunity: FC = () => {
                             label="Public Community"
                         />
                     </Grid2>
-                    <Grid2 xs={6}>
+                    <Grid2 xs={12} md={6}>
                         <FormControlLabel
                             control={
                                 <Checkbox

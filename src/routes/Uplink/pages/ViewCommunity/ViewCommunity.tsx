@@ -79,7 +79,11 @@ const ViewCommunity: FC = () => {
 
     return community ? (
         <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
-            <Box component="img" src={backgroundImage} sx={{ height: 175, width: "100%", objectFit: "cover" }} />
+            <Box
+                component="img"
+                src={backgroundImage}
+                sx={{ height: { xs: 125, md: 175 }, width: "100%", objectFit: "cover" }}
+            />
             <Box
                 sx={{
                     mr: theme.spacing(2),
@@ -87,6 +91,8 @@ const ViewCommunity: FC = () => {
                     backgroundColor: theme.palette.background.paper,
                     display: "flex",
                     flexDirection: "row",
+                    justifyContent: "space-evenly",
+                    flexWrap: "wrap",
                     alignItems: "center",
                 }}
             >
@@ -117,7 +123,7 @@ const ViewCommunity: FC = () => {
                             onClick={handleLeaveCommunity}
                             onMouseOver={() => handleButtonText("Leave")}
                             onMouseOut={() => handleButtonText()}
-                            sx={{ width: 100 }}
+                            sx={{ width: 100, mb: { xs: theme.spacing(1), md: "auto" } }}
                         >
                             {buttonText}
                         </Button>
@@ -127,7 +133,7 @@ const ViewCommunity: FC = () => {
                             variant="contained"
                             color="secondary"
                             onClick={handleJoinCommunity}
-                            sx={{ width: 100 }}
+                            sx={{ width: 100, mb: { xs: theme.spacing(1), md: "auto" } }}
                         >
                             Join
                         </Button>

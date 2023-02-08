@@ -65,26 +65,41 @@ const theme = createTheme({
             fontWeight: 700,
             fontSize: "2rem",
             lineHeight: 1.25,
+            "@media (max-width:600px)": {
+                fontSize: "1.325rem",
+            },
         },
         h3: {
             fontWeight: 400,
             fontSize: "2rem",
             lineHeight: 1.25,
+            "@media (max-width:600px)": {
+                fontSize: "1.325rem",
+            },
         },
         h4: {
             fontWeight: 700,
             fontSize: "1.5rem",
             lineHeight: 1.25,
+            "@media (max-width:600px)": {
+                fontSize: "1.25rem",
+            },
         },
         h5: {
             fontWeight: 400,
             fontSize: "1.5rem",
             lineHeight: 1.25,
+            "@media (max-width:600px)": {
+                fontSize: "1.25rem",
+            },
         },
         h6: {
             fontWeight: 700,
             fontSize: "1.25rem",
             lineHeight: 1.25,
+            "@media (max-width:600px)": {
+                fontSize: "1.125rem",
+            },
         },
         subtitle1: {
             fontSize: "1.25rem",

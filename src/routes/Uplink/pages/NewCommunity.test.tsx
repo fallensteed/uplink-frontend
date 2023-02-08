@@ -5,6 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1 } from "../mocks/community.mock";
 import NewCommunity from "./NewCommunity";
+import { socket } from "common/config/socket";
 
 let user: UserEvent;
 
@@ -32,6 +33,10 @@ const setupRules = () => {
 };
 
 beforeEach(() => fetchMock.resetMocks());
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("change community name updates state and create community link", async () => {
     setup();

@@ -3,6 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import { mockUser1 } from "../../../../common/api/user/user.mock";
 import UserProfile from "./UserProfile";
+import { socket } from "common/config/socket";
 
 const setup1 = () => {
     render(
@@ -20,6 +21,10 @@ const setup2 = () => {
         { wrapper: MemoryRouter },
     );
 };
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("loads user profile information with birthday and personal text", () => {
     setup1();

@@ -1,6 +1,5 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
-    AlertColor,
     Box,
     Button,
     Checkbox,
@@ -34,9 +33,6 @@ const NewPost: FC = () => {
     const [community, setCommunity] = useState<Community | null>(null);
     const [communityId, setCommunityId] = useState<string>("");
     const [memberCommunities, setMemberCommunities] = useState<Community[] | null>(null);
-    const [snackBarMessage, setSnackBarMessage] = useState<string>("");
-    const [snackBarOpen, setSnackBarOpen] = useState<boolean>(false);
-    const [snackBarSeverity, setSnackBarSeverity] = useState<AlertColor>();
     const [postTitle, setPostTitle] = useState<string>("");
     const [postText, setPostText] = useState<string>("");
     const [postLink, setPostLink] = useState<string>("");
@@ -107,7 +103,14 @@ const NewPost: FC = () => {
             <Typography display="none" data-testid="location">
                 {communityLink}
             </Typography>
-            <Box sx={{ position: "absolute", top: theme.spacing(3), left: theme.spacing(3) }}>
+            <Box
+                sx={{
+                    display: { xs: "none", lg: "block" },
+                    position: "absolute",
+                    top: theme.spacing(3),
+                    left: theme.spacing(3),
+                }}
+            >
                 <Fab variant="extended" color="primary" aria-label="back" onClick={() => navigate(-1)}>
                     <ArrowBackIcon sx={{ mr: theme.spacing(1) }} />
                     Back
@@ -189,6 +192,7 @@ const NewPost: FC = () => {
                     <Box
                         sx={{
                             display: "flex",
+                            flexDirection: { xs: "column", md: "row" },
                             justifyContent: "space-between",
                             alignItems: "center",
                             mt: theme.spacing(2),
@@ -206,7 +210,7 @@ const NewPost: FC = () => {
                                 label="Send me notifications on comments"
                             />
                         </Box>
-                        <Box>
+                        <Box sx={{ mt: { xs: theme.spacing(1), md: "auto" } }}>
                             <Button variant="outlined" sx={{ mr: theme.spacing(1) }} disabled>
                                 Save Draft
                             </Button>

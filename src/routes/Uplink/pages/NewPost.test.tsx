@@ -2,6 +2,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
+import { socket } from "common/config/socket";
 import { MemoryRouter, RouterProvider, createMemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1 } from "../mocks/community.mock";
@@ -45,16 +46,9 @@ const setupParams = () => {
     );
 };
 
-const setupEmpty = () => {
-    fetchMock.mockResponseOnce(JSON.stringify({ data: [] }));
-    user = userEvent.setup();
-    render(
-        <TestWrapper>
-            <NewPost />
-        </TestWrapper>,
-        { wrapper: MemoryRouter },
-    );
-};
+afterAll(() => {
+    socket.disconnect();
+});
 
 beforeEach(() => fetchMock.resetMocks());
 

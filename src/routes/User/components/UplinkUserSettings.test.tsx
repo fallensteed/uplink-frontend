@@ -10,6 +10,7 @@ import {
 } from "routes/Uplink/mocks/uplink_user.mock";
 import { TestWrapper } from "tests/Wrapper";
 import UplinkUserSettings from "./UplinkUserSettings";
+import { socket } from "common/config/socket";
 
 let user: UserEvent;
 
@@ -53,6 +54,10 @@ const setup3 = () => {
         </TestWrapper>,
     );
 };
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("loads", async () => {
     setup1();

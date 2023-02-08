@@ -5,6 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import { mockUser1 } from "./../../../../common/api/user/user.mock";
 import CommunityMods from "./CommunityMods";
+import { socket } from "common/config/socket";
 
 let user: UserEvent;
 const mockUseNavigate = jest.fn();
@@ -23,6 +24,10 @@ const setup = () => {
         { wrapper: MemoryRouter },
     );
 };
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("page displays moderators username", async () => {
     setup();

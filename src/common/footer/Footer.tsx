@@ -1,4 +1,5 @@
 import { Box, Typography, useTheme } from "@mui/material";
+import moment from "moment";
 import { FC } from "react";
 
 interface FooterProps {
@@ -24,7 +25,7 @@ const Footer: FC<FooterProps> = (props: FooterProps) => {
             }}
         >
             <Typography variant="body2" sx={{ ml: theme.spacing(1) }}>
-                Created by Supra Coders for the USSF &copy; 2022
+                Created by Supra Coders for the USSF &copy; {moment().format("YYYY")}
             </Typography>
             <Typography variant="body2">
                 Live Services: {props.connectionStatus ? "Connected" : "Disconnected"}{" "}

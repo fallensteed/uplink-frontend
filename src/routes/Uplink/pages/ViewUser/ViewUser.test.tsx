@@ -5,6 +5,7 @@ import { mockPost1 } from "routes/Uplink/mocks/post.mock";
 import ViewUser from "routes/Uplink/pages/ViewUser/ViewUser";
 import { TestWrapper } from "tests/Wrapper";
 import { mockUser1 } from "../../../../common/api/user/user.mock";
+import { socket } from "common/config/socket";
 
 beforeEach(() => fetchMock.resetMocks());
 
@@ -49,6 +50,10 @@ const setup3 = () => {
         </TestWrapper>,
     );
 };
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("when page initially loads, it shows loading screen", async () => {
     setup();

@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@mui/material/styles";
 import { SnackbarProvider } from "notistack";
-import { FC, ReactNode } from "react";
+import { ReactNode } from "react";
 import { UserContext } from "routes/Root";
 import { mockUser1 } from "../common/api/user/user.mock";
 import theme from "../config/theme";

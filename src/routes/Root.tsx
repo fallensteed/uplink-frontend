@@ -4,7 +4,7 @@ import LoadingScreen from "common/components/LoadingScreen/LoadingScreen";
 import { ProvideUser } from "common/context/User/UserContext";
 import theme from "config/theme";
 import { SnackbarProvider } from "notistack";
-import { createContext, FC, useEffect, useState } from "react";
+import { FC, createContext, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { User, user_self } from "../common/api/user/user.api";
 import { socket } from "../common/config/socket";
@@ -75,8 +75,8 @@ const Root: FC = () => {
                                 <Navigation />
                                 <Box
                                     sx={{
-                                        pt: "86px",
-                                        height: "calc(100% - 86px)",
+                                        pt: { xs: "78px", md: "86px" },
+                                        height: { xs: "calc(100% - 78px)", md: "calc(100% - 86px)" },
                                         width: "100%",
                                         pb: theme.spacing(4),
                                     }}

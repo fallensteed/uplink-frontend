@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import PostDetail from "./PostDetail";
+import { socket } from "common/config/socket";
 
 const setup1 = () => {
     render(
@@ -31,6 +32,10 @@ const setup2 = () => {
         { wrapper: MemoryRouter },
     );
 };
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("displays vertical without edited", () => {
     setup1();

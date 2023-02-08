@@ -1,7 +1,6 @@
 import { Backdrop, Box, CircularProgress, Container } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import Grid from "@mui/material/Unstable_Grid2";
-import { useUplinkUser } from "common/context/UplinkUser/UplinkUserContext";
+import { useTheme } from "@mui/material/styles";
 import { FC } from "react";
 import Uplink from "routes/Uplink/Uplink";
 import { useUser } from "../../common/context/User/UserContext";
@@ -15,7 +14,10 @@ const Home: FC = () => {
     const user = useUser();
 
     return !user.isLoading ? (
-        <Container maxWidth="lg" sx={{ mt: theme.spacing(4), height: "calc(100% - 32px)" }}>
+        <Container
+            maxWidth="lg"
+            sx={{ mt: { xs: theme.spacing(1), md: theme.spacing(4) }, height: { xs: "auto", md: "calc(100% - 32px)" } }}
+        >
             <Grid container spacing={2} sx={{ height: "100%" }}>
                 <Grid md={7} xs={12} sx={{ height: "100%" }}>
                     <Uplink />

@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import Favorites, { mockFavoriteCommunities, mockFavoriteLinks } from "./Favorites";
@@ -11,6 +12,10 @@ const setup = () => {
         { wrapper: MemoryRouter },
     );
 };
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("page loads favorite communities and links", () => {
     setup();

@@ -79,10 +79,15 @@ const ViewPost: FC = () => {
                 flexDirection: "column",
             }}
         >
-            <Box component="img" src={backgroundImage} sx={{ height: 75, width: "100%", objectFit: "cover" }} />
+            <Box
+                component="img"
+                src={backgroundImage}
+                sx={{ height: { xs: 0, sm: 75 }, width: "100%", objectFit: "cover" }}
+            />
             <Box
                 sx={{
                     mr: theme.spacing(2),
+                    pt: { xs: theme.spacing(1), sm: "auto" },
                     width: "100%",
                     backgroundColor: theme.palette.background.paper,
                     display: "flex",
@@ -105,7 +110,7 @@ const ViewPost: FC = () => {
                     <Typography variant="subtitle2">c/{post.community.link}</Typography>
                 </Box>
             </Box>
-            <Box sx={{ position: "absolute", top: 141, left: theme.spacing(3) }}>
+            <Box sx={{ display: { xs: "none", sm: "block" }, position: "absolute", top: 10, left: theme.spacing(3) }}>
                 <Fab variant="extended" color="primary" aria-label="back" onClick={() => navigate(-1)}>
                     <ArrowBackIcon sx={{ mr: theme.spacing(1) }} />
                     Back

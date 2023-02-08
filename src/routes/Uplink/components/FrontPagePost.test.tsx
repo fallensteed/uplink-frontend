@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import { mockPost1Populated } from "../mocks/post.mock";
 import FrontPagePost from "./FrontPagePost";
+import { socket } from "common/config/socket";
 
 const mockFn = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -24,6 +25,10 @@ const setup = () => {
         { wrapper: MemoryRouter },
     );
 };
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("displays the number of comments", () => {
     setup();

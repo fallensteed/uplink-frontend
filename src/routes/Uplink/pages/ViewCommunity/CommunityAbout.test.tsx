@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import CommunityAbout from "./CommunityAbout";
+import { socket } from "common/config/socket";
 
 const mockText = "test about text";
 
@@ -22,6 +23,10 @@ const setup2 = () => {
         { wrapper: MemoryRouter },
     );
 };
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("about text is displayed on the page if provided", () => {
     setup();

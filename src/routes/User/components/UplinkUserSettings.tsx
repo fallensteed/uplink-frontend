@@ -126,60 +126,65 @@ const UplinkUserSettings: FC = () => {
                 {displayVerificationStatus()}
             </Container>
             <Typography variant="body2">Default User Display</Typography>
-            <Container
-                sx={{
-                    mb: theme.spacing(1),
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                }}
-            >
-                {editDefaultDisplay ? (
-                    <>
-                        <FormControl variant="filled" size="small" hiddenLabel>
-                            <Select
-                                onChange={(e) => setDefaultDisplay(e.target.value as "username" | "verified")}
-                                value={defaultDisplay}
-                                data-testid="select-default-display"
-                            >
-                                <MenuItem value="username">Uplink Username</MenuItem>
-                                <MenuItem value="verified" disabled={Boolean(verificationStatus !== "verified")}>
-                                    Verified Account
-                                </MenuItem>
-                            </Select>
-                        </FormControl>
-                        <Box>
-                            <Button
-                                variant="outlined"
-                                color="error"
-                                sx={{ mr: theme.spacing(1) }}
-                                onClick={() => setEditDefaultDisplay(false)}
-                            >
-                                Cancel
-                            </Button>
-                            <Button variant="contained" onClick={handleChangeDefaultDisplay}>
-                                Save
-                            </Button>
-                        </Box>
-                    </>
-                ) : (
-                    <>
-                        <Typography variant="body1">
-                            {defaultDisplay === "username" ? "Uplink Username" : "Verified Display Name"}
-                        </Typography>
-                        <IconButton
-                            size="small"
-                            onClick={() => {
-                                setEditDefaultDisplay(true);
-                            }}
-                            data-testid="edit-default-display"
+            {editDefaultDisplay ? (
+                <Container
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "flex-end",
+                    }}
+                >
+                    <FormControl variant="filled" size="small" hiddenLabel fullWidth>
+                        <Select
+                            onChange={(e) => setDefaultDisplay(e.target.value as "username" | "verified")}
+                            value={defaultDisplay}
+                            data-testid="select-default-display"
                         >
-                            <EditIcon />
-                        </IconButton>
-                    </>
-                )}
-            </Container>
+                            <MenuItem value="username">Uplink Username</MenuItem>
+                            <MenuItem value="verified" disabled={Boolean(verificationStatus !== "verified")}>
+                                Verified Account
+                            </MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    <Box sx={{ mt: theme.spacing(1), mb: theme.spacing(1) }}>
+                        <Button
+                            variant="outlined"
+                            color="error"
+                            sx={{ mr: theme.spacing(1) }}
+                            onClick={() => setEditDefaultDisplay(false)}
+                        >
+                            Cancel
+                        </Button>
+                        <Button variant="contained" onClick={handleChangeDefaultDisplay}>
+                            Save
+                        </Button>
+                    </Box>
+                </Container>
+            ) : (
+                <Container
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                    }}
+                >
+                    <Typography variant="body1">
+                        {defaultDisplay === "username" ? "Uplink Username" : "Verified Display Name"}
+                    </Typography>
+                    <IconButton
+                        size="small"
+                        onClick={() => {
+                            setEditDefaultDisplay(true);
+                        }}
+                        data-testid="edit-default-display"
+                    >
+                        <EditIcon />
+                    </IconButton>
+                </Container>
+            )}
             <Typography variant="body2">Verified Display Name</Typography>
             <Container sx={{ mb: theme.spacing(1) }}>
                 <Typography variant="body1">{displayName}</Typography>

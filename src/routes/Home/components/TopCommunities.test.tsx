@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
+import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1, mockCommunity2 } from "./../../Uplink/mocks/community.mock";
@@ -26,6 +27,10 @@ const setup = () => {
 };
 
 beforeEach(() => fetchMock.resetMocks());
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("displays loading... while communities load.", () => {
     setup();

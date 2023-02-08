@@ -1,14 +1,12 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
+import { socket } from "common/config/socket";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import { mockComment1, mockComment2 } from "../../api/comment/comment.mock";
 import { mockCommunity1 } from "../../mocks/community.mock";
 import { mockPost1, mockPost1Populated } from "../../mocks/post.mock";
 import ViewPost from "./ViewPost";
-
-let user: UserEvent;
 
 const mockUseNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -32,10 +30,13 @@ const memoryRouter2 = createMemoryRouter(memoryRoute, {
 
 beforeEach(() => fetchMock.resetMocks());
 
+afterAll(() => {
+    socket.disconnect();
+});
+
 const setup = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockPost1Populated }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockComment1] }));
-    user = userEvent.setup();
     render(
         <TestWrapper>
             <RouterProvider router={memoryRouter} />
@@ -44,7 +45,6 @@ const setup = () => {
 };
 const setupPostError = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ message: "Error" }));
-    user = userEvent.setup();
     render(
         <TestWrapper>
             <RouterProvider router={memoryRouter} />
@@ -54,7 +54,6 @@ const setupPostError = () => {
 const setupCommentError = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockPost1Populated }));
     fetchMock.mockResponseOnce(JSON.stringify({ message: "Error" }));
-    user = userEvent.setup();
     render(
         <TestWrapper>
             <RouterProvider router={memoryRouter} />
@@ -64,7 +63,6 @@ const setupCommentError = () => {
 const setupHash = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockPost1Populated }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockComment1] }));
-    user = userEvent.setup();
     render(
         <TestWrapper>
             <RouterProvider router={memoryRouter2} />
@@ -98,8 +96,8 @@ test("add a comment", async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockComment1, mockComment2] }));
     const textField = await screen.findByLabelText("What are your thoughts?");
     userEvent.type(textField, mockComment2.text);
-    const commentButton = await screen.findByTestId("comment-button");
-    expect(commentButton).toBeEnabled();
+    const commentButton = screen.getByTestId("comment-button");
+    await waitFor(() => expect(commentButton).toBeEnabled());
     fireEvent.click(commentButton);
     const commentText = await screen.findByText(mockComment2.text);
     expect(commentText).toBeInTheDocument();

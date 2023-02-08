@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import Uplink from "./Uplink";
@@ -31,6 +32,10 @@ const setup2 = () => {
 };
 
 beforeEach(() => fetchMock.resetMocks());
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("page load loading... without posts", async () => {
     setup1();

@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "../../../tests/Wrapper";
 import { mockPost1Populated, mockPost2Populated } from "../mocks/post.mock";
@@ -18,6 +19,10 @@ const setup1 = () => {
 const setup2 = () => {
     render(<PostList getPosts={mockFn} />, { wrapper: MemoryRouter });
 };
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("Page renders posts", () => {
     setup1();

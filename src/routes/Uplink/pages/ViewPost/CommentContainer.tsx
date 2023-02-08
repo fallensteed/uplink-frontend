@@ -29,7 +29,11 @@ const CommentContainer: FC<CommentContainerProps> = (props: CommentContainerProp
     return comments && comments.length ? (
         <Paper
             id="comments"
-            sx={{ mt: theme.spacing(1), p: theme.spacing(2), backgroundColor: theme.palette.backgroundLight.main }}
+            sx={{
+                mt: theme.spacing(1),
+                p: { xs: theme.spacing(1), md: theme.spacing(2) },
+                backgroundColor: theme.palette.backgroundLight.main,
+            }}
         >
             {comments
                 .filter((comment) => !comment.commentOn)

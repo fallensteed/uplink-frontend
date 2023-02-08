@@ -7,6 +7,7 @@ import { mockPost1Populated, mockPost2Populated } from "routes/Uplink/mocks/post
 import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1PopulatedNonMember } from "./../../mocks/community.mock";
 import ViewCommunity from "./ViewCommunity";
+import { socket } from "common/config/socket";
 
 let user: UserEvent;
 
@@ -57,6 +58,10 @@ const setup3 = () => {
 };
 
 beforeEach(() => fetchMock.resetMocks());
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("when loading, loading screen is displayed", () => {
     setup1();

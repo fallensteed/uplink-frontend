@@ -1,4 +1,5 @@
 import AddCommentIcon from "@mui/icons-material/AddComment";
+import ReportIcon from "@mui/icons-material/Report";
 import { Avatar, Box, Button, TextField, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import SpriteIcon from "common/components/SpriteIcon";
@@ -63,7 +64,7 @@ const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => 
     const voteCount = formatCountVotes(comment.upVotes?.length || 0, comment.downVotes?.length || 0);
 
     return (
-        <Box key={comment._id} sx={{ ml: theme.spacing(2), mt: theme.spacing(1) }}>
+        <Box key={comment._id} sx={{ ml: { xs: theme.spacing(0.75), md: theme.spacing(2) }, mt: theme.spacing(1) }}>
             <Box sx={{ display: "flex", flexDirection: "row" }}>
                 <Avatar
                     sx={{
@@ -93,7 +94,7 @@ const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => 
             </Box>
             <Typography sx={{ whiteSpace: "pre-line" }}>{comment.text}</Typography>
             <Box>
-                <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                <Box sx={{ display: "flex", flexDirection: "row" }}>
                     <CommentVoting
                         handleChangeVote={handleChangeVote}
                         voteCount={voteCount}
@@ -102,16 +103,19 @@ const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => 
                     />
                     <Button
                         size="small"
-                        sx={{ mr: theme.spacing(1) }}
+                        sx={{ mr: theme.spacing(1), minWidth: "auto" }}
                         startIcon={<AddCommentIcon fontSize="small" />}
                         onClick={toggleReply}
                     >
                         Reply
                     </Button>
-                    <Button size="small" sx={{ mr: theme.spacing(1) }}>
-                        Favorite
-                    </Button>
-                    <Button size="small" sx={{ mr: theme.spacing(1) }} color="warning">
+                    <Button
+                        disabled
+                        size="small"
+                        sx={{ mr: theme.spacing(1), minWidth: "auto" }}
+                        color="warning"
+                        startIcon={<ReportIcon fontSize="small" />}
+                    >
                         Report
                     </Button>
                 </Box>

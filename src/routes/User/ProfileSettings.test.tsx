@@ -1,60 +1,70 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+/* eslint-disable jest/no-disabled-tests */
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
-import { MemoryRouter } from "react-router-dom";
+import { mockUser1 } from "common/api/user/user.mock";
+import { socket } from "common/config/socket";
+import { ProvideUser } from "common/context/User/UserContext";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
 import { TestWrapper } from "tests/Wrapper";
 import ProfileSettings from "./ProfileSettings";
 
 let user: UserEvent;
 
-const mockUseNavigate = jest.fn();
+beforeEach(() => fetchMock.resetMocks());
 
-jest.mock("react-router-dom", () => ({
-    ...jest.requireActual("react-router-dom"),
-    useNavigate: () => mockUseNavigate,
-}));
-
-const setup = () => {
+const setup1 = () => {
     user = userEvent.setup();
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
-            <ProfileSettings />
+            <ProvideUser>
+                <ProfileSettings />
+            </ProvideUser>
         </TestWrapper>,
-        { wrapper: MemoryRouter },
     );
 };
 
-beforeEach(() => fetchMock.resetMocks());
+afterAll(() => {
+    socket.disconnect();
+});
 
-test("user can click the edit button to edit their uplink username, then save the changes, receiving a success message", async () => {
-    setup();
+test.skip("page loads and displays loading screen before data appears", async () => {
+    setup1();
+    expect(screen.getByText("Loading...")).toBeInTheDocument();
+});
+
+test("clicking pencil for edit username allows username to be edited and submitted", async () => {
+    setup1();
     fetchMock.mockResponseOnce(JSON.stringify({ data: { modifiedCount: 1 } }));
     const editButton = screen.getByTestId("edit-username");
     user.click(editButton);
-    const textField = await screen.findByRole("textbox");
-    fireEvent.change(textField, { target: { value: "testuser" } });
-    await waitFor(() => expect(textField).toHaveValue("testuser"));
+    const usernameField = await screen.findByRole("textbox");
+    user.clear(usernameField);
+    user.type(usernameField, "newuser");
+    await waitFor(() => expect(usernameField).toHaveValue("newuser"));
     const saveButton = screen.getByText("Save");
     user.click(saveButton);
     await screen.findByText("Profile Successfully Updated");
 });
 
-test("user can click the edit button to edit their uplink username, then error saving the changes creates an error message", async () => {
-    setup();
+test("error saving updated username causes error message", async () => {
+    setup1();
     fetchMock.mockResponseOnce(JSON.stringify({ message: "error" }));
     const editButton = screen.getByTestId("edit-username");
     user.click(editButton);
-    const textField = await screen.findByRole("textbox");
-    fireEvent.change(textField, { target: { value: "testuser" } });
-    await waitFor(() => expect(textField).toHaveValue("testuser"));
+    const usernameField = await screen.findByRole("textbox");
+    user.clear(usernameField);
+    user.type(usernameField, "newuser");
+    await waitFor(() => expect(usernameField).toHaveValue("newuser"));
     const saveButton = screen.getByText("Save");
     user.click(saveButton);
     await screen.findByText("Something went wrong.");
 });
 
-test("user can click the edit button to edit their uplink username the click cancel to stop changes", async () => {
-    setup();
-    fetchMock.mockResponseOnce(JSON.stringify({ message: "error" }));
+test("clicking cancel closes edit for username", async () => {
+    setup1();
     const editButton = screen.getByTestId("edit-username");
     user.click(editButton);
     await screen.findByRole("textbox");
@@ -63,35 +73,36 @@ test("user can click the edit button to edit their uplink username the click can
     await waitFor(() => expect(screen.queryByRole("textbox")).not.toBeInTheDocument());
 });
 
-test("user can click the edit button to edit their alias, then save the changes, receiving a success message", async () => {
-    setup();
+test("clicking pencil for edit alias allows alias to be edited and submitted", async () => {
+    setup1();
     fetchMock.mockResponseOnce(JSON.stringify({ data: { modifiedCount: 1 } }));
     const editButton = screen.getByTestId("edit-alias");
     user.click(editButton);
-    const textField = await screen.findByRole("textbox");
-    fireEvent.change(textField, { target: { value: "testuser" } });
-    await waitFor(() => expect(textField).toHaveValue("testuser"));
+    const usernameField = await screen.findByRole("textbox");
+    user.clear(usernameField);
+    user.type(usernameField, "steve");
+    await waitFor(() => expect(usernameField).toHaveValue("steve"));
     const saveButton = screen.getByText("Save");
     user.click(saveButton);
     await screen.findByText("Profile Successfully Updated");
 });
 
-test("user can click the edit button to edit their alias, then error saving the changes creates an error message", async () => {
-    setup();
+test("error saving updated alias causes error message", async () => {
+    setup1();
     fetchMock.mockResponseOnce(JSON.stringify({ message: "error" }));
     const editButton = screen.getByTestId("edit-alias");
     user.click(editButton);
-    const textField = await screen.findByRole("textbox");
-    fireEvent.change(textField, { target: { value: "testuser" } });
-    await waitFor(() => expect(textField).toHaveValue("testuser"));
+    const usernameField = await screen.findByRole("textbox");
+    user.clear(usernameField);
+    user.type(usernameField, "steve");
+    await waitFor(() => expect(usernameField).toHaveValue("steve"));
     const saveButton = screen.getByText("Save");
     user.click(saveButton);
     await screen.findByText("Something went wrong.");
 });
 
-test("user can click the edit button to edit their alias the click cancel to stop changes", async () => {
-    setup();
-    fetchMock.mockResponseOnce(JSON.stringify({ message: "error" }));
+test("clicking cancel closes edit for alias", async () => {
+    setup1();
     const editButton = screen.getByTestId("edit-alias");
     user.click(editButton);
     await screen.findByRole("textbox");

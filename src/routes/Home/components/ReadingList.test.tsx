@@ -1,11 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
+import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import ReadingList, { mockReadingList } from "./ReadingList";
 
-let user: UserEvent;
 const mockUseNavigate = jest.fn();
 
 jest.mock("react-router-dom", () => ({
@@ -14,7 +12,6 @@ jest.mock("react-router-dom", () => ({
 }));
 
 const setup = () => {
-    user = userEvent.setup();
     render(
         <TestWrapper>
             <ReadingList />
@@ -24,6 +21,10 @@ const setup = () => {
 };
 
 beforeEach(() => fetchMock.resetMocks());
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("page loads all titles", () => {
     setup();

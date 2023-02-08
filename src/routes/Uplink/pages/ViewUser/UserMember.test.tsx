@@ -5,6 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1 } from "../../mocks/community.mock";
 import UserMember from "./UserMember";
+import { socket } from "common/config/socket";
 
 const mockUseNavigate = jest.fn();
 
@@ -33,6 +34,10 @@ const setup2 = () => {
         { wrapper: MemoryRouter },
     );
 };
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("loads follower information", () => {
     setup1();

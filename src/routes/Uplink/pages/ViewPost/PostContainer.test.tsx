@@ -5,6 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 import { mockPost1Populated, mockPost2Populated } from "routes/Uplink/mocks/post.mock";
 import { TestWrapper } from "tests/Wrapper";
 import PostContainer from "./PostContainer";
+import { socket } from "common/config/socket";
 
 let user: UserEvent;
 
@@ -38,6 +39,10 @@ const setup2 = () => {
 };
 
 beforeEach(() => fetchMock.resetMocks());
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("post can be voted on", async () => {
     setup1();

@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
+import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1 } from "../routes/Uplink/mocks/community.mock";
@@ -22,6 +23,10 @@ jest.mock("react-router-dom", () => ({
 const appList = routeList.filter((app) => app.displayInNavBar === true);
 
 beforeEach(() => fetchMock.resetMocks());
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 const setupDesktop1 = () => {
     user = userEvent.setup();

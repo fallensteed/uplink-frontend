@@ -61,9 +61,16 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                     alignItems: "center",
                 }}
             >
-                <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: { xs: "column", md: "row" },
+                        justifyContent: "space-between",
+                        width: "100%",
+                    }}
+                >
                     {post.imageSrc ? (
-                        <Box sx={{ height: 112, width: 112, m: theme.spacing(0.5) }}>
+                        <Box sx={{ height: 112, width: 112, m: { xs: "auto", md: theme.spacing(0.5) } }}>
                             <Box
                                 data-testid="post-image"
                                 component="img"
@@ -129,10 +136,10 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                             {formatCountComments(post.commentCount || 0)}
                         </Button>
                         <ShareButton link={`${window.location.host}/c/${post.community.link}/p/${post.miniLink}`} />
-                        <Button size="small" sx={{ mr: theme.spacing(1) }} startIcon={<StarBorderIcon />}>
+                        <Button disabled size="small" sx={{ mr: theme.spacing(1) }} startIcon={<StarBorderIcon />}>
                             Favorite
                         </Button>
-                        <Button size="small" sx={{ mr: theme.spacing(1) }} startIcon={<ReportIcon />}>
+                        <Button disabled size="small" sx={{ mr: theme.spacing(1) }} startIcon={<ReportIcon />}>
                             Report
                         </Button>
                     </Box>

@@ -5,6 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "../../../../tests/Wrapper";
 import { mockComment1, mockComment2 } from "../../api/comment/comment.mock";
 import CommentSection from "./CommentSection";
+import { socket } from "common/config/socket";
 
 let user: UserEvent;
 
@@ -33,6 +34,10 @@ const setup = () => {
 };
 
 beforeEach(() => fetchMock.resetMocks());
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("setup test", async () => {
     setup();

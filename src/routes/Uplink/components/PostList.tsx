@@ -17,8 +17,8 @@ const PostList: FC<PostListProps> = (props: PostListProps) => {
                 posts.map((post) => <FrontPagePost post={post} key={post._id} getPosts={getPosts} />)
             ) : (
                 <Card>
-                    <CardContent sx={{ display: "flex", alignItems: "center" }}>
-                        <Typography>Nothing to see here... Want to add a </Typography>
+                    <CardContent sx={{ display: "block", alignItems: "center", textAlign: "center" }}>
+                        <Typography sx={{ display: "inline-block" }}>Nothing to see here... Want to add a </Typography>
                         <Button component={Link} to="/submit/">
                             New Post?
                         </Button>

@@ -22,7 +22,7 @@ const PostVoting: FC<PostVotingProps> = (props: PostVotingProps) => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                minWidth: "54px",
+                minWidth: { xs: 36, md: 54 },
                 minHeight: "100px",
             }}
         >

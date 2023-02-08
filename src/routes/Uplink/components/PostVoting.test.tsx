@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import PostVoting from "./PostVoting";
+import { socket } from "common/config/socket";
 
 const mockFn = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -27,6 +28,10 @@ const setup3 = () => {
         <PostVoting handleChangeVote={mockHandleChangeVote} voteCount={1} userUpVoted={false} userDownVoted={true} />,
     );
 };
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("up vote button calls function with upVote when no userUpVoted", async () => {
     setup1();

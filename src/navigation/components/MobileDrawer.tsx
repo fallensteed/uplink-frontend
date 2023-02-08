@@ -44,7 +44,7 @@ const MobileDrawer: FC<MobileDrawerProps> = (props: MobileDrawerProps) => {
                 }}
                 sx={{
                     display: { xs: "block", sm: "none" },
-                    "& .MuiDrawer-paper": { boxSizing: "border-box", width: "80%" },
+                    "& .MuiDrawer-paper": { boxSizing: "border-box", width: "80%", backgroundColor: "#fff" },
                 }}
             >
                 <Box onClick={handleDrawerClose}>

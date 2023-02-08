@@ -21,8 +21,9 @@ const PostDetail: FC<PostDetailProps> = (props: PostDetailProps) => {
         <Box
             sx={{
                 display: "flex",
-                flexDirection: style === "vertical" ? "column" : "row",
-                width: style === "vertical" ? 175 : "auto",
+                mt: { xs: theme.spacing(1), md: "auto" },
+                flexFlow: { xs: "row wrap", md: "column nowrap" },
+                width: { xs: "auto", md: 175 },
             }}
         >
             <Typography

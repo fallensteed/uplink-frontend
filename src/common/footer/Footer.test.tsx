@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
+import moment from "moment";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "../../tests/Wrapper";
+import { socket } from "../config/socket";
 import Footer from "./Footer";
 
 const setup = () => {
@@ -20,6 +22,15 @@ const setup2 = () => {
         { wrapper: MemoryRouter },
     );
 };
+
+afterAll(() => {
+    socket.disconnect();
+});
+
+test("page displays year with copywrite", () => {
+    setup();
+    expect(screen.getByText(`Created by Supra Coders for the USSF © ${moment().format("YYYY")}`)).toBeInTheDocument();
+});
 
 test("page connection status shows connected when status true", () => {
     setup();

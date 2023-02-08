@@ -4,6 +4,7 @@ import { CommunityRule } from "routes/Uplink/api/community/community.api";
 import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1 } from "./../../mocks/community.mock";
 import CommunityRules from "./CommunityRules";
+import { socket } from "common/config/socket";
 
 const mockRules = mockCommunity1.rules as CommunityRule[];
 
@@ -24,6 +25,10 @@ const setup2 = () => {
         { wrapper: MemoryRouter },
     );
 };
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("if no rules are passed, nothing is displayed", () => {
     setup();

@@ -5,6 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 import { mockUser1 } from "./../../common/api/user/user.mock";
 import { TestWrapper } from "./../../tests/Wrapper";
 import UserDisplay from "./UserDisplay";
+import { socket } from "common/config/socket";
 
 let user: UserEvent;
 const mockUseNavigate = jest.fn();
@@ -25,6 +26,10 @@ const setup = () => {
 };
 
 beforeEach(() => fetchMock.resetMocks());
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 test("users can click on their username+icon and open a menu", async () => {
     setup();

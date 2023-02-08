@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { mockUplinkUser1 } from "../../../routes/Uplink/mocks/uplink_user.mock";
 import { mockUser1 } from "../../api/user/user.mock";
 import { useUser } from "./UserContext";
+import { socket } from "common/config/socket";
 
 const MockComponent = () => {
     const user = useUser();
@@ -18,6 +19,10 @@ const MockComponent = () => {
 };
 
 beforeEach(() => fetchMock.resetMocks());
+
+afterAll(() => {
+    socket.disconnect();
+});
 
 const setup = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
