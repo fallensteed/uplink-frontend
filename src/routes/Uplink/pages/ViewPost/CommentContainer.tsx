@@ -2,11 +2,11 @@ import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { useTheme } from "@mui/material/styles";
 import { FC } from "react";
-import { Comment } from "./../../api/comment/comment.api";
+import { CommentPopulated } from "./../../api/comment/comment.api";
 import CommentSection from "./CommentSection";
 
 interface CommentContainerProps {
-    comments: Comment[];
+    comments: CommentPopulated[];
     getComments: () => void;
 }
 
