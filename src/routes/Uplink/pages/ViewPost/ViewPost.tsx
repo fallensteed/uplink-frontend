@@ -4,7 +4,7 @@ import { useTheme } from "@mui/material/styles";
 import SpriteIcon from "common/components/SpriteIcon";
 import { FC, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Comment, comment_getAllByPost } from "routes/Uplink/api/comment/comment.api";
+import { Comment, CommentPopulated, comment_getAllByPost } from "routes/Uplink/api/comment/comment.api";
 import { PostPopulated, post_getByMiniLink } from "routes/Uplink/api/post/post.api";
 import useSnack from "../../../../common/components/SnackBar/ProvideSnack";
 import backgroundImage from "../../../../common/images/background_1.png";
@@ -23,7 +23,7 @@ const ViewPost: FC = () => {
     const snack = useSnack();
 
     const [post, setPost] = useState<PostPopulated | null>(null);
-    const [comments, setComments] = useState<Comment[]>([]);
+    const [comments, setComments] = useState<CommentPopulated[]>([]);
 
     const getPost = async () => {
         const response = await post_getByMiniLink(miniLink as string);

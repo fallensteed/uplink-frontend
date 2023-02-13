@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { User } from "common/api/user/user.api";
 import { API_URL } from "../../../../config/api";
 
 export interface Comment {
@@ -7,6 +8,18 @@ export interface Comment {
     commentOn?: string;
     post: string;
     user: string;
+    upVotes: string[];
+    downVotes: string[];
+    editHistory?: CommentEditHistory[];
+    createdAt?: string;
+}
+
+export interface CommentPopulated {
+    _id: string;
+    text: string;
+    commentOn?: string;
+    post: string;
+    user: User;
     upVotes: string[];
     downVotes: string[];
     editHistory?: CommentEditHistory[];

@@ -7,7 +7,7 @@ import moment from "moment";
 import { FC, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "routes/Root";
-import { Comment, comment_postOne } from "routes/Uplink/api/comment/comment.api";
+import { Comment, CommentPopulated, comment_postOne } from "routes/Uplink/api/comment/comment.api";
 import CommentVoting from "routes/Uplink/components/CommentVoting";
 import { updateVotes } from "routes/Uplink/functions/comments";
 import { formatCountVotes } from "routes/Uplink/functions/posts";
@@ -15,7 +15,7 @@ import { User } from "../../../../common/api/user/user.api";
 import useSnack from "../../../../common/components/SnackBar/ProvideSnack";
 
 interface CommentSectionProps {
-    comment: Comment;
+    comment: CommentPopulated;
     getSubComments: (commentId: string) => JSX.Element[] | undefined;
     getComments: () => void;
 }
@@ -74,19 +74,19 @@ const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => 
                         backgroundColor: theme.palette.common.white,
                     }}
                 >
-                    <SpriteIcon seed={user?.uplinkUsername as string} size={12} />
+                    <SpriteIcon seed={comment.user.uplinkUsername as string} size={12} />
                 </Avatar>
                 <Typography
                     variant="body2"
                     component={Link}
-                    to={`/u/${user?.uplinkUsername}`}
+                    to={`/u/${comment.user.uplinkUsername}`}
                     sx={{
                         textDecoration: "none",
                         color: theme.palette.text.primary,
                         "&:hover": { textDecoration: "underline" },
                     }}
                 >
-                    u/{user?.uplinkUsername}
+                    u/{comment.user.uplinkUsername}
                 </Typography>
                 <Typography variant="body2" sx={{ ml: theme.spacing(2), fontStyle: "italic" }}>
                     {moment(comment.createdAt).fromNow()}

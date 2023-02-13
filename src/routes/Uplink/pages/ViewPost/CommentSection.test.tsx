@@ -1,11 +1,16 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
+import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "../../../../tests/Wrapper";
-import { mockComment1, mockComment2 } from "../../api/comment/comment.mock";
+import {
+    mockComment1,
+    mockComment1Populated,
+    mockComment2,
+    mockComment2Populated,
+} from "../../api/comment/comment.mock";
 import CommentSection from "./CommentSection";
-import { socket } from "common/config/socket";
 
 let user: UserEvent;
 
@@ -27,7 +32,11 @@ const setup = () => {
     user = userEvent.setup();
     render(
         <TestWrapper>
-            <CommentSection comment={mockComment1} getSubComments={mockGetSubComments} getComments={mockGetComments} />
+            <CommentSection
+                comment={mockComment1Populated}
+                getSubComments={mockGetSubComments}
+                getComments={mockGetComments}
+            />
         </TestWrapper>,
         { wrapper: MemoryRouter },
     );
@@ -41,12 +50,12 @@ afterAll(() => {
 
 test("setup test", async () => {
     setup();
-    expect(screen.getByText(mockComment1.text)).toBeInTheDocument();
+    expect(screen.getByText(mockComment1Populated.text)).toBeInTheDocument();
 });
 
 test("add a reply", async () => {
     setup();
-    fetchMock.mockResponseOnce(JSON.stringify({ data: mockComment2 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockComment2Populated }));
     const mock = jest.spyOn(mockFn, "mock");
     const replyButton = screen.getByText("Reply");
     user.click(replyButton);
