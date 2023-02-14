@@ -1,13 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { API_URL } from "config/api";
-
-export interface UplinkUser {
-    _id: string;
-    userId: string;
-    verificationStatus: "not-requested" | "requested" | "denied" | "verified";
-    displayName?: string;
-    default: "username" | "verified";
-}
+import { UplinkUser } from "routes/Uplink/types/uplinkUser.interface";
 
 export const UPLINK_USER_URL = `${API_URL}/uplink/user`;
 

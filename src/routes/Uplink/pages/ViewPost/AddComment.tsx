@@ -32,10 +32,15 @@ const AddComment: FC<AddCommentProps> = (props: AddCommentProps) => {
                 label="What are your thoughts?"
                 onChange={handleTextChange}
                 value={commentText}
-                data-testid="comment-button"
             />
             <Box sx={{ display: "flex", justifyContent: "flex-end", mt: theme.spacing(1) }}>
-                <Button variant="contained" size="small" disabled={!commentText} onClick={handleSubmit}>
+                <Button
+                    variant="contained"
+                    size="small"
+                    data-testid="comment-submit-button"
+                    disabled={!commentText}
+                    onClick={handleSubmit}
+                >
                     Comment
                 </Button>
             </Box>

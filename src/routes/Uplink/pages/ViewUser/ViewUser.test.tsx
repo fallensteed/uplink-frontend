@@ -3,7 +3,7 @@ import { socket } from "common/config/socket";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { mockCommunity1 } from "routes/Uplink/mocks/community.mock";
 import { mockPost1 } from "routes/Uplink/mocks/post.mock";
-import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplinkUser.mock";
 import ViewUser from "routes/Uplink/pages/ViewUser/ViewUser";
 import { TestWrapper } from "tests/Wrapper";
 import { mockUser1 } from "../../../../common/api/user/user.mock";

@@ -9,7 +9,7 @@ import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1PopulatedNonMember } from "./../../mocks/community.mock";
 import ViewCommunity from "./ViewCommunity";
 import { mockUser1 } from "common/api/user/user.mock";
-import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplinkUser.mock";
 
 let user: UserEvent;
 

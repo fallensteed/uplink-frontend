@@ -3,7 +3,7 @@ import { mockUser1 } from "common/api/user/user.mock";
 import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { CommunityRule } from "routes/Uplink/api/community/community.api";
-import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplinkUser.mock";
 import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1 } from "./../../mocks/community.mock";
 import CommunityRules from "./CommunityRules";

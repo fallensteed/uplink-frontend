@@ -4,7 +4,7 @@ import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
 import { mockUser1 } from "common/api/user/user.mock";
 import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
-import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplinkUser.mock";
 import { TestWrapper } from "../../../../tests/Wrapper";
 import { mockComment1Populated, mockComment2Populated } from "../../api/comment/comment.mock";
 import CommentSection from "./CommentSection";

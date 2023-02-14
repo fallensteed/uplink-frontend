@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
+import { mockUser1 } from "common/api/user/user.mock";
 import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplinkUser.mock";
 import { TestWrapper } from "tests/Wrapper";
 import Favorites, { mockFavoriteCommunities, mockFavoriteLinks } from "./Favorites";
-import { mockUser1 } from "common/api/user/user.mock";
-import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
 
 const setup = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));

@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { UplinkUser, uplink_user_self_2 } from "../../../routes/Uplink/api/user/uplink_user.api";
+import { uplink_user_self_2 } from "routes/Uplink/api/user/uplink_user.api";
+import { UplinkUser } from "routes/Uplink/types/uplinkUser.interface";
 import { User, user_self } from "../../api/user/user.api";
 
 interface UserContextData {

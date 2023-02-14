@@ -6,7 +6,7 @@ import { TestWrapper } from "tests/Wrapper";
 import AddComment from "./AddComment";
 import { socket } from "common/config/socket";
 import { mockUser1 } from "common/api/user/user.mock";
-import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplinkUser.mock";
 
 let user: UserEvent;
 

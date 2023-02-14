@@ -6,7 +6,7 @@ import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1 } from "../routes/Uplink/mocks/community.mock";
-import { mockUplinkUser1, mockUplinkUser1Following } from "../routes/Uplink/mocks/uplink_user.mock";
+import { mockUplinkUser1, mockUplinkUser1Following } from "../routes/Uplink/mocks/uplinkUser.mock";
 import Navigation from "./Navigation";
 import { routeList } from "./pages";
 

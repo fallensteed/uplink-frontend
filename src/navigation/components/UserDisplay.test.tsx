@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
 import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
-import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplinkUser.mock";
 import { mockUser1 } from "./../../common/api/user/user.mock";
 import { TestWrapper } from "./../../tests/Wrapper";
 import UserDisplay from "./UserDisplay";

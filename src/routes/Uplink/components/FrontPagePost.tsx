@@ -1,6 +1,7 @@
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import CommentIcon from "@mui/icons-material/Comment";
 import ReportIcon from "@mui/icons-material/Report";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useUser } from "common/context/User/UserContext";
@@ -125,18 +126,29 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                 </Box>
                 <Box sx={{ width: "100%" }}>
                     <Box sx={{ display: "flex", justifyContent: "flex-start", flexWrap: "wrap" }}>
-                        <Button
+                        <Typography
+                            variant="body2"
                             data-testid="comment-button"
-                            size="small"
-                            sx={{ mr: theme.spacing(1) }}
-                            startIcon={<CommentIcon />}
+                            sx={{
+                                mr: theme.spacing(1),
+                                textTransform: "uppercase",
+                                display: "flex",
+                                alignItems: "center",
+                            }}
                         >
+                            <CommentIcon fontSize="small" sx={{ mr: theme.spacing(0.5) }} />{" "}
                             {formatCountComments(post.commentCount || 0)}
-                        </Button>
+                        </Typography>
                         <ShareButton link={`${window.location.host}/c/${post.community.link}/p/${post.miniLink}`} />
-                        <Button disabled size="small" sx={{ mr: theme.spacing(1) }} startIcon={<StarBorderIcon />}>
-                            Favorite
-                        </Button>
+                        {user.uplink.savedPosts?.includes(post._id) ? (
+                            <Button size="small" sx={{ mr: theme.spacing(1) }} startIcon={<BookmarkIcon />}>
+                                Saved
+                            </Button>
+                        ) : (
+                            <Button size="small" sx={{ mr: theme.spacing(1) }} startIcon={<BookmarkBorderIcon />}>
+                                Save
+                            </Button>
+                        )}
                         <Button disabled size="small" sx={{ mr: theme.spacing(1) }} startIcon={<ReportIcon />}>
                             Report
                         </Button>

@@ -7,7 +7,7 @@ import {
     mockUplinkUser1,
     mockUplinkUser1Requested,
     mockUplinkUser1Verified,
-} from "routes/Uplink/mocks/uplink_user.mock";
+} from "routes/Uplink/mocks/uplinkUser.mock";
 import { TestWrapper } from "tests/Wrapper";
 import UplinkUserSettings from "./UplinkUserSettings";
 

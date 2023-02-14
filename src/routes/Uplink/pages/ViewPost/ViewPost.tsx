@@ -1,6 +1,7 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Avatar, Box, Card, CardContent, CircularProgress, Container, Fab, Typography } from "@mui/material";
+import { Avatar, Box, Container, Fab, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import LoadingCard from "common/components/Loading/LoadingCard";
 import SpriteIcon from "common/components/SpriteIcon";
 import { useUser } from "common/context/User/UserContext";
 import { FC, useEffect, useState } from "react";
@@ -128,19 +129,7 @@ const ViewPost: FC = () => {
             <Typography display={"none"} data-testid="location">
                 {miniLink}
             </Typography>
-            <Card>
-                <CardContent
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
-                    <Typography>Loading...</Typography>
-                    <CircularProgress />
-                </CardContent>
-            </Card>
+            <LoadingCard />
         </Container>
     );
 };
