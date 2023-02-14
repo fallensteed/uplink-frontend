@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { socket } from "common/config/socket";
 import { ProvideUser, userContextDefaultValue } from "common/context/User/UserContext";
 import { MemoryRouter } from "react-router-dom";
-import { mockUplinkUser1 } from "../../../routes/Uplink/mocks/uplink_user.mock";
+import { mockUplinkUser1 } from "../../../routes/Uplink/mocks/uplinkUser.mock";
 import { mockUser1 } from "../../api/user/user.mock";
 import { useUser } from "./UserContext";
 

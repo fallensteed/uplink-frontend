@@ -1,13 +1,13 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
+import { mockUser1 } from "common/api/user/user.mock";
+import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1 } from "../mocks/community.mock";
+import { mockUplinkUser1 } from "../mocks/uplinkUser.mock";
 import NewCommunity from "./NewCommunity";
-import { socket } from "common/config/socket";
-import { mockUser1 } from "common/api/user/user.mock";
-import { mockUplinkUser1 } from "../mocks/uplink_user.mock";
 
 let user: UserEvent;
 

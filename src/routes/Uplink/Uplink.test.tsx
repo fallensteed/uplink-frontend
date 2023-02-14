@@ -5,7 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import Uplink from "./Uplink";
 import { mockPost1Populated } from "./mocks/post.mock";
-import { mockUplinkUser1 } from "./mocks/uplink_user.mock";
+import { mockUplinkUser1 } from "./mocks/uplinkUser.mock";
 
 const mockUseNavigate = jest.fn();
 

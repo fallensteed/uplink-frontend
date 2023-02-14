@@ -3,7 +3,7 @@ import { mockUser1 } from "common/api/user/user.mock";
 import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
-import { mockUplinkUser1 } from "../mocks/uplink_user.mock";
+import { mockUplinkUser1 } from "../mocks/uplinkUser.mock";
 import ShareButton from "./ShareButton";
 
 const setup = () => {

@@ -1,5 +1,6 @@
 import { mockUser1, mockUser2 } from "common/api/user/user.mock";
-import { UplinkUser } from "../api/user/uplink_user.api";
+import { UplinkUser } from "../types/uplinkUser.interface";
+import { mockPost1 } from "./post.mock";
 
 export const mockUplinkUser1: UplinkUser = {
     _id: "63b5cc4c6c951fb114245bcc",
@@ -7,6 +8,7 @@ export const mockUplinkUser1: UplinkUser = {
     verificationStatus: "not-requested",
     displayName: "jdoe",
     default: "username",
+    savedPosts: [mockPost1._id],
 };
 export const mockUplinkUser1Requested: UplinkUser = {
     _id: "63b5cc4c6c951fb114245bcc",

@@ -6,7 +6,7 @@ import {
     mockUplinkUser1Following,
     mockUplinkUser1Update,
     mockUplinkUser2,
-} from "../../mocks/uplink_user.mock";
+} from "../../mocks/uplinkUser.mock";
 import {
     uplink_user_getByUserId,
     uplink_user_getFollowing,

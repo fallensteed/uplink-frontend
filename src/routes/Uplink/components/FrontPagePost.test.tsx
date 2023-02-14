@@ -4,8 +4,8 @@ import { socket } from "common/config/socket";
 import { removeHttp } from "common/functions/links";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
-import { mockPost1Populated } from "../mocks/post.mock";
-import { mockUplinkUser1 } from "../mocks/uplink_user.mock";
+import { mockPost1Populated, mockPost2Populated } from "../mocks/post.mock";
+import { mockUplinkUser1 } from "../mocks/uplinkUser.mock";
 import FrontPagePost from "./FrontPagePost";
 
 const mockFn = {
@@ -25,6 +25,17 @@ const setup = () => {
     render(
         <TestWrapper>
             <FrontPagePost post={mockPost1Populated} getPosts={mockGetPosts} />
+        </TestWrapper>,
+        { wrapper: MemoryRouter },
+    );
+};
+
+const setup2 = () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
+    render(
+        <TestWrapper>
+            <FrontPagePost post={mockPost2Populated} getPosts={mockGetPosts} />
         </TestWrapper>,
         { wrapper: MemoryRouter },
     );
@@ -52,4 +63,14 @@ test("displays image when present", () => {
     setup();
     const image = screen.getByTestId("post-image");
     expect(image).toBeInTheDocument();
+});
+
+test("posts saved by user show 'saved' button", async () => {
+    setup();
+    await screen.findByText("Saved");
+});
+
+test("posts not saved by user show 'save' button", async () => {
+    setup2();
+    await screen.findByText("Save");
 });

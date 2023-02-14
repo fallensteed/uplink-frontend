@@ -21,7 +21,8 @@ import { useTheme } from "@mui/material/styles";
 import useSnack from "common/components/SnackBar/ProvideSnack";
 import { convertGradeToRank } from "common/functions/rank";
 import { FC, useEffect, useState } from "react";
-import { UplinkUser, uplink_user_patch } from "routes/Uplink/api/user/uplink_user.api";
+import { uplink_user_patch } from "routes/Uplink/api/user/uplink_user.api";
+import { UplinkUser } from "routes/Uplink/types/uplinkUser.interface";
 import { useUser } from "../../../common/context/User/UserContext";
 
 const UplinkUserSettings: FC = () => {

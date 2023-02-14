@@ -1,14 +1,14 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { mockUser1 } from "common/api/user/user.mock";
 import { socket } from "common/config/socket";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplinkUser.mock";
 import { TestWrapper } from "tests/Wrapper";
 import { mockComment1, mockComment2 } from "../../api/comment/comment.mock";
 import { mockCommunity1 } from "../../mocks/community.mock";
-import { mockPost1, mockPost1Populated } from "../../mocks/post.mock";
+import { mockPost1, mockPost1Populated, mockPost2, mockPost2Populated } from "../../mocks/post.mock";
 import ViewPost from "./ViewPost";
-import { mockUser1 } from "common/api/user/user.mock";
-import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
 
 const mockUseNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -26,7 +26,7 @@ const memoryRouter = createMemoryRouter(memoryRoute, {
 });
 
 const memoryRouter2 = createMemoryRouter(memoryRoute, {
-    initialEntries: ["/", `/c/${mockCommunity1.link}/p/${mockPost1.miniLink}#comments`],
+    initialEntries: ["/", `/c/${mockCommunity1.link}/p/${mockPost2.miniLink}`],
     initialIndex: 1,
 });
 
@@ -68,8 +68,8 @@ const setupCommentError = () => {
         </TestWrapper>,
     );
 };
-const setupHash = () => {
-    fetchMock.mockResponseOnce(JSON.stringify({ data: mockPost1Populated }));
+const setup2 = () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockPost2Populated }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockComment1] }));
@@ -106,7 +106,7 @@ test("add a comment", async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockComment1, mockComment2] }));
     const textField = await screen.findByLabelText("What are your thoughts?");
     userEvent.type(textField, mockComment2.text);
-    const commentButton = screen.getByTestId("comment-button");
+    const commentButton = screen.getByTestId("comment-submit-button");
     await waitFor(() => expect(commentButton).toBeEnabled());
     fireEvent.click(commentButton);
     const commentText = await screen.findByText(mockComment2.text);
@@ -126,7 +126,12 @@ test("error while getting comments triggers snack", async () => {
     expect(errorMsg).toBeInTheDocument();
 });
 
-test("scroll into view with #comments", async () => {
-    setupHash();
-    await waitFor(() => expect(scrollIntoViewMock).toHaveBeenCalled());
+test("posts that have been saved by user show 'saved'", async () => {
+    setup();
+    await screen.findByText("Saved");
+});
+
+test("post that hasn't been saved shows 'save' button", async () => {
+    setup2();
+    await screen.findByText("Save");
 });
