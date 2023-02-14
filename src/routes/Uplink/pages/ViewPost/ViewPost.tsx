@@ -2,13 +2,13 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Avatar, Box, Card, CardContent, CircularProgress, Container, Fab, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import SpriteIcon from "common/components/SpriteIcon";
-import { FC, useContext, useEffect, useState } from "react";
+import { useUser } from "common/context/User/UserContext";
+import { FC, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Comment, CommentPopulated, comment_getAllByPost } from "routes/Uplink/api/comment/comment.api";
 import { PostPopulated, post_getByMiniLink } from "routes/Uplink/api/post/post.api";
 import useSnack from "../../../../common/components/SnackBar/ProvideSnack";
 import backgroundImage from "../../../../common/images/background_1.png";
-import { UserContext } from "./../../../Root";
 import { comment_postOne } from "./../../api/comment/comment.api";
 import AddComment from "./AddComment";
 import CommentContainer from "./CommentContainer";
@@ -19,7 +19,7 @@ const ViewPost: FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const theme = useTheme();
-    const user = useContext(UserContext);
+    const user = useUser();
     const snack = useSnack();
 
     const [post, setPost] = useState<PostPopulated | null>(null);
@@ -48,7 +48,8 @@ const ViewPost: FC = () => {
         newComment["text"] = text;
         if (commentOn) newComment["commentOn"] = commentOn;
         newComment["post"] = post?._id as string;
-        newComment["user"] = user?._id as string;
+        newComment["user"] = user.profile._id;
+        newComment["upVotes"] = [user.profile._id];
         const response = await comment_postOne(newComment);
         if (response.data && response.data._id) {
             getPost();

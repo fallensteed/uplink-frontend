@@ -3,15 +3,14 @@ import ReportIcon from "@mui/icons-material/Report";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { useUser } from "common/context/User/UserContext";
 import { removeHttp } from "common/functions/links";
-import { FC, useContext } from "react";
+import { FC } from "react";
 import { PostPopulated } from "routes/Uplink/api/post/post.api";
 import PostDetail from "routes/Uplink/components/PostDetail";
 import PostVoting from "routes/Uplink/components/PostVoting";
 import ShareButton from "routes/Uplink/components/ShareButton";
 import { formatCountComments, formatCountVotes, updateVotes } from "routes/Uplink/functions/posts";
-import { User } from "../../../../common/api/user/user.api";
-import { UserContext } from "../../../Root";
 
 interface PostContainerProps {
     post: PostPopulated;
@@ -21,21 +20,21 @@ interface PostContainerProps {
 const PostContainer: FC<PostContainerProps> = (props: PostContainerProps) => {
     const { post, getPost } = props;
     const theme = useTheme();
-    const user = useContext(UserContext) as User;
+    const user = useUser();
 
     const handleChangeVote = async (change: "upVote" | "downVote" | "noVote") => {
         const response = await updateVotes(
             post._id,
             post.upVotes as string[],
             post.downVotes as string[],
-            user._id,
+            user.profile._id,
             change,
         );
         if (response === "success") getPost();
     };
 
-    const userUpVoted = post.upVotes?.includes(user._id) as boolean;
-    const userDownVoted = post.downVotes?.includes(user._id) as boolean;
+    const userUpVoted = post.upVotes?.includes(user.profile._id) as boolean;
+    const userDownVoted = post.downVotes?.includes(user.profile._id) as boolean;
     const voteCount = formatCountVotes(post.upVotes?.length || 0, post.downVotes?.length || 0);
 
     return (
@@ -119,7 +118,6 @@ const PostContainer: FC<PostContainerProps> = (props: PostContainerProps) => {
                                 ) : null}
                             </Box>
                             <PostDetail
-                                style="vertical"
                                 createdAt={post.createdAt}
                                 communityLink={post.community.link}
                                 username={post.userCreated.uplinkUsername}

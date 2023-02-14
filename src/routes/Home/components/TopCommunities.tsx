@@ -1,20 +1,10 @@
-import {
-    Avatar,
-    CardContent,
-    CircularProgress,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemButton,
-    ListItemText,
-    Paper,
-    Typography,
-} from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { Avatar, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Paper, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import { useTheme } from "@mui/material/styles";
 import SpriteIcon from "common/components/SpriteIcon";
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LoadingCard from "../../../common/components/Loading/LoadingCard";
 import { Community, community_getAll } from "../../Uplink/api/community/community.api";
 
 interface CommunityListItemProps {
@@ -102,17 +92,7 @@ const TopCommunities: FC = () => {
                     </Grid>
                 </Grid>
             ) : (
-                <CardContent
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
-                    <Typography>Loading...</Typography>
-                    <CircularProgress />
-                </CardContent>
+                <LoadingCard />
             )}
         </Paper>
     );

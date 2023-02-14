@@ -8,6 +8,8 @@ import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1 } from "../mocks/community.mock";
 import { mockPost1 } from "../mocks/post.mock";
 import NewPost from "./NewPost";
+import { mockUser1 } from "common/api/user/user.mock";
+import { mockUplinkUser1 } from "../mocks/uplink_user.mock";
 
 let user: UserEvent;
 
@@ -25,6 +27,8 @@ const memoryRouter = createMemoryRouter(memoryRoutes, {
 });
 
 const setup = () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockCommunity1] }));
     user = userEvent.setup();
     render(
@@ -36,6 +40,8 @@ const setup = () => {
 };
 
 const setupParams = () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockCommunity1] }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockCommunity1 }));
     user = userEvent.setup();

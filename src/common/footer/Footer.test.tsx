@@ -1,11 +1,15 @@
 import { render, screen } from "@testing-library/react";
+import { mockUser1 } from "common/api/user/user.mock";
 import moment from "moment";
 import { MemoryRouter } from "react-router-dom";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
 import { TestWrapper } from "../../tests/Wrapper";
 import { socket } from "../config/socket";
 import Footer from "./Footer";
 
 const setup = () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <Footer connectionStatus={true} />
@@ -15,6 +19,8 @@ const setup = () => {
 };
 
 const setup2 = () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <Footer connectionStatus={false} />
@@ -22,6 +28,8 @@ const setup2 = () => {
         { wrapper: MemoryRouter },
     );
 };
+
+beforeEach(() => fetchMock.resetMocks());
 
 afterAll(() => {
     socket.disconnect();

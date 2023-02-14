@@ -1,16 +1,16 @@
 import { Box, Button, List, ListItem, ListItemButton, ListItemText, Popover } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { MouseEvent, useContext, useState } from "react";
+import { useUser } from "common/context/User/UserContext";
+import { MouseEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SpriteIcon from "../../common/components/SpriteIcon";
-import { UserContext } from "../../routes/Root";
 import Messages from "./Messages";
 import Notifications from "./Notifications";
 
 const UserDisplay = () => {
     const theme = useTheme();
     const navigate = useNavigate();
-    const user = useContext(UserContext);
+    const user = useUser();
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -38,9 +38,9 @@ const UserDisplay = () => {
                     data-testid="user-settings-button"
                     onClick={handleClick}
                     sx={{ color: theme.palette.common.white, textTransform: "none" }}
-                    endIcon={<SpriteIcon seed={`${user?.uplinkUsername}`} size={24} />}
+                    endIcon={<SpriteIcon seed={`${user.profile.uplinkUsername}`} size={24} />}
                 >
-                    {user?.uplinkUsername}
+                    {user.profile.uplinkUsername}
                 </Button>
             </Box>
             <Popover

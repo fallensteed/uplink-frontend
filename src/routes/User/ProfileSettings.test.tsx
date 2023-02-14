@@ -4,7 +4,6 @@ import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
 import { mockUser1 } from "common/api/user/user.mock";
 import { socket } from "common/config/socket";
-import { ProvideUser } from "common/context/User/UserContext";
 import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
 import { TestWrapper } from "tests/Wrapper";
 import ProfileSettings from "./ProfileSettings";
@@ -19,9 +18,7 @@ const setup1 = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
-            <ProvideUser>
-                <ProfileSettings />
-            </ProvideUser>
+            <ProfileSettings />
         </TestWrapper>,
     );
 };
@@ -38,6 +35,7 @@ test.skip("page loads and displays loading screen before data appears", async ()
 test("clicking pencil for edit username allows username to be edited and submitted", async () => {
     setup1();
     fetchMock.mockResponseOnce(JSON.stringify({ data: { modifiedCount: 1 } }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
     const editButton = screen.getByTestId("edit-username");
     user.click(editButton);
     const usernameField = await screen.findByRole("textbox");
@@ -76,6 +74,7 @@ test("clicking cancel closes edit for username", async () => {
 test("clicking pencil for edit alias allows alias to be edited and submitted", async () => {
     setup1();
     fetchMock.mockResponseOnce(JSON.stringify({ data: { modifiedCount: 1 } }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
     const editButton = screen.getByTestId("edit-alias");
     user.click(editButton);
     const usernameField = await screen.findByRole("textbox");

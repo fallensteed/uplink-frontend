@@ -1,19 +1,20 @@
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import PushPinIcon from "@mui/icons-material/PushPin";
-import { Avatar, Box, Button, Card, CardContent, CircularProgress, Paper, Typography } from "@mui/material";
+import { Avatar, Box, Button, Paper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import SpriteIcon from "common/components/SpriteIcon";
-import { FC, useContext, useEffect, useState } from "react";
+import { useUser } from "common/context/User/UserContext";
+import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LoadingCard from "../../common/components/Loading/LoadingCard";
 import useSnack from "../../common/components/SnackBar/ProvideSnack";
-import { UserContext } from "../Root";
 import { PostPopulated, post_getAll } from "./api/post/post.api";
 import PostList from "./components/PostList";
 
 const Uplink: FC = () => {
     const theme = useTheme();
-    const user = useContext(UserContext);
+    const user = useUser();
     const navigate = useNavigate();
     const snack = useSnack();
 
@@ -36,7 +37,7 @@ const Uplink: FC = () => {
         <Box>
             <Paper sx={{ display: "flex", alignItems: "center", mb: theme.spacing(2) }}>
                 <Avatar sx={{ backgroundColor: "white", height: 32, width: 32, ml: 1 }}>
-                    <SpriteIcon seed={`${user?.uplinkUsername}`} size={24} />
+                    <SpriteIcon seed={`${user.profile.uplinkUsername}`} size={24} />
                 </Avatar>
                 <Button
                     fullWidth
@@ -70,23 +71,7 @@ const Uplink: FC = () => {
                     Pinned
                 </Button>
             </Paper>
-            {posts ? (
-                <PostList posts={posts} getPosts={getPosts} />
-            ) : (
-                <Card>
-                    <CardContent
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-                        <Typography>Loading...</Typography>
-                        <CircularProgress />
-                    </CardContent>
-                </Card>
-            )}
+            {posts ? <PostList posts={posts} getPosts={getPosts} /> : <LoadingCard />}
         </Box>
     );
 };

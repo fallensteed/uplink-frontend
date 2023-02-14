@@ -6,6 +6,8 @@ import { mockPost1Populated, mockPost2Populated } from "routes/Uplink/mocks/post
 import { TestWrapper } from "tests/Wrapper";
 import PostContainer from "./PostContainer";
 import { socket } from "common/config/socket";
+import { mockUser1 } from "common/api/user/user.mock";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
 
 let user: UserEvent;
 
@@ -20,6 +22,8 @@ const mockGetPost = async () => {
 
 const setup1 = () => {
     user = userEvent.setup();
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <PostContainer post={mockPost1Populated} getPost={mockGetPost} />
@@ -30,6 +34,8 @@ const setup1 = () => {
 
 const setup2 = () => {
     user = userEvent.setup();
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <PostContainer post={mockPost2Populated} getPost={mockGetPost} />

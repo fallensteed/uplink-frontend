@@ -5,6 +5,8 @@ import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import AddComment from "./AddComment";
 import { socket } from "common/config/socket";
+import { mockUser1 } from "common/api/user/user.mock";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
 
 let user: UserEvent;
 
@@ -21,6 +23,8 @@ const mockHandleAddComment = async (text: string) => {
 
 const setup = () => {
     user = userEvent.setup();
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <AddComment handleAddComment={mockHandleAddComment} />

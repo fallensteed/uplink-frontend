@@ -1,11 +1,12 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
+import { mockUser1 } from "common/api/user/user.mock";
 import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1 } from "../routes/Uplink/mocks/community.mock";
-import { mockUplinkUser1Following } from "../routes/Uplink/mocks/uplink_user.mock";
+import { mockUplinkUser1, mockUplinkUser1Following } from "../routes/Uplink/mocks/uplink_user.mock";
 import Navigation from "./Navigation";
 import { routeList } from "./pages";
 
@@ -30,6 +31,8 @@ afterAll(() => {
 
 const setupDesktop1 = () => {
     user = userEvent.setup();
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockCommunity1] }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1Following }));
     render(
@@ -41,6 +44,8 @@ const setupDesktop1 = () => {
 };
 const setupDesktop2 = () => {
     user = userEvent.setup();
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [] }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [] }));
     render(
@@ -53,6 +58,8 @@ const setupDesktop2 = () => {
 
 const setupMobile = () => {
     user = userEvent.setup();
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockCommunity1] }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1Following }));
     global.innerWidth = 599;

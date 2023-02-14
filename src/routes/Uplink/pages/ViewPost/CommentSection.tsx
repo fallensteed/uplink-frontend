@@ -3,15 +3,14 @@ import ReportIcon from "@mui/icons-material/Report";
 import { Avatar, Box, Button, TextField, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import SpriteIcon from "common/components/SpriteIcon";
+import { useUser } from "common/context/User/UserContext";
 import moment from "moment";
-import { FC, useContext, useState } from "react";
+import { FC, useState } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "routes/Root";
 import { Comment, CommentPopulated, comment_postOne } from "routes/Uplink/api/comment/comment.api";
 import CommentVoting from "routes/Uplink/components/CommentVoting";
 import { updateVotes } from "routes/Uplink/functions/comments";
 import { formatCountVotes } from "routes/Uplink/functions/posts";
-import { User } from "../../../../common/api/user/user.api";
 import useSnack from "../../../../common/components/SnackBar/ProvideSnack";
 
 interface CommentSectionProps {
@@ -21,7 +20,7 @@ interface CommentSectionProps {
 }
 
 const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => {
-    const user = useContext(UserContext) as User;
+    const user = useUser();
     const theme = useTheme();
     const snack = useSnack();
     const { comment, getSubComments, getComments } = props;
@@ -34,8 +33,9 @@ const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => 
         const reply: Comment = {
             commentOn: comment._id,
             text: subCommentText,
-            user: user?._id as string,
+            user: user.profile._id,
             post: comment.post,
+            upVotes: [user.profile._id],
         } as Comment;
         const response = await comment_postOne(reply);
         if (response.data) {
@@ -52,15 +52,15 @@ const CommentSection: FC<CommentSectionProps> = (props: CommentSectionProps) => 
             comment._id,
             comment.upVotes as string[],
             comment.downVotes as string[],
-            user._id,
+            user.profile._id,
             change,
         );
         if (response === "success") getComments();
         else snack("error", "Error changing vote.");
     };
 
-    const userUpVoted = comment.upVotes?.includes(user._id) as boolean;
-    const userDownVoted = comment.downVotes?.includes(user._id) as boolean;
+    const userUpVoted = comment.upVotes?.includes(user.profile._id) as boolean;
+    const userDownVoted = comment.downVotes?.includes(user.profile._id) as boolean;
     const voteCount = formatCountVotes(comment.upVotes?.length || 0, comment.downVotes?.length || 0);
 
     return (

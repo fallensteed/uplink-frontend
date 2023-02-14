@@ -1,39 +1,29 @@
 import EditIcon from "@mui/icons-material/Edit";
-import {
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CircularProgress,
-    Container,
-    IconButton,
-    Paper,
-    TextField,
-    Typography,
-} from "@mui/material";
+import { Box, Button, Container, IconButton, Paper, TextField, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { FC, useContext, useState } from "react";
+import { useUser } from "common/context/User/UserContext";
+import { FC, useState } from "react";
 import { User, user_patchByUserId } from "../../common/api/user/user.api";
 import useSnack from "../../common/components/SnackBar/ProvideSnack";
-import { UserContext } from "../Root";
 import UplinkUserSettings from "./components/UplinkUserSettings";
 
 const ProfileSettings: FC = () => {
     const snack = useSnack();
     const theme = useTheme();
-    const user = useContext(UserContext);
+    const user = useUser();
     const [editUplinkUsername, setEditUplinkUsername] = useState<boolean>(false);
-    const [newUplinkUsername, setNewUplinkUsername] = useState<string>(user?.uplinkUsername as string);
+    const [newUplinkUsername, setNewUplinkUsername] = useState<string>(user.profile.uplinkUsername as string);
     const [editAlias, setEditAlias] = useState<boolean>(false);
-    const [newAlias, setNewAlias] = useState<string>(user?.alias as string);
+    const [newAlias, setNewAlias] = useState<string>(user.profile.alias as string);
 
     const handleSaveUplinkUsernameChange = async () => {
         const data = {
-            _id: user?._id,
+            _id: user.profile._id,
             uplinkUsername: newUplinkUsername,
         } as User;
         const response = await user_patchByUserId(data);
         if (response.data && response.data.modifiedCount === 1) {
+            user.getUserProfile();
             snack("success", "Profile Successfully Updated");
             setEditUplinkUsername(false);
         } else {
@@ -43,11 +33,12 @@ const ProfileSettings: FC = () => {
 
     const handleSaveAliasChange = async () => {
         const data = {
-            _id: user?._id,
+            _id: user.profile._id,
             alias: newAlias,
         } as User;
         const response = await user_patchByUserId(data);
         if (response.data && response.data.modifiedCount === 1) {
+            user.getUserProfile();
             snack("success", "Profile Successfully Updated");
             setEditAlias(false);
         } else {
@@ -55,7 +46,7 @@ const ProfileSettings: FC = () => {
         }
     };
 
-    return user ? (
+    return (
         <Container maxWidth="lg" sx={{ display: "flex", flexFlow: "row wrap" }}>
             <Container maxWidth="sm" sx={{ mt: theme.spacing(2) }}>
                 <Typography variant="h2">Your Profile</Typography>
@@ -104,12 +95,12 @@ const ProfileSettings: FC = () => {
                                 alignItems: "center",
                             }}
                         >
-                            <Typography variant="body1">u/{user?.uplinkUsername}</Typography>
+                            <Typography variant="body1">u/{user.profile.uplinkUsername}</Typography>
                             <IconButton
                                 size="small"
                                 onClick={() => {
                                     setEditUplinkUsername(true);
-                                    setNewUplinkUsername(user.uplinkUsername);
+                                    setNewUplinkUsername(user.profile.uplinkUsername);
                                 }}
                                 data-testid="edit-username"
                             >
@@ -158,13 +149,13 @@ const ProfileSettings: FC = () => {
                                 alignItems: "center",
                             }}
                         >
-                            <Typography variant="body1">{user?.alias}</Typography>
+                            <Typography variant="body1">{user.profile.alias}</Typography>
                             <IconButton
                                 size="small"
                                 data-testid="edit-alias"
                                 onClick={() => {
                                     setEditAlias(true);
-                                    setNewAlias(user?.alias || "");
+                                    setNewAlias(user.profile.alias || "");
                                 }}
                             >
                                 <EditIcon />
@@ -180,49 +171,49 @@ const ProfileSettings: FC = () => {
                     <Typography variant="body2">Platform One Username</Typography>
                     <Container>
                         <Typography variant="body1" sx={{ py: theme.spacing(0.5) }}>
-                            {user?.p1Username}
+                            {user.profile.p1Username}
                         </Typography>
                     </Container>
                     <Typography variant="body2">First Name</Typography>
                     <Container>
                         <Typography variant="body1" sx={{ py: theme.spacing(0.5) }}>
-                            {user?.firstName}
+                            {user.profile.firstName}
                         </Typography>
                     </Container>
                     <Typography variant="body2">Middle Initial</Typography>
                     <Container>
                         <Typography variant="body1" sx={{ py: theme.spacing(0.5) }}>
-                            {user?.middleInitial || "N/A"}
+                            {user.profile.middleInitial || "N/A"}
                         </Typography>
                     </Container>
                     <Typography variant="body2">Last Name</Typography>
                     <Container>
                         <Typography variant="body1" sx={{ py: theme.spacing(0.5) }}>
-                            {user?.lastName}
+                            {user.profile.lastName}
                         </Typography>
                     </Container>
                     <Typography variant="body2">DoD ID Number</Typography>
                     <Container>
                         <Typography variant="body1" sx={{ py: theme.spacing(0.5) }}>
-                            {user?.dodin}
+                            {user.profile.dodin}
                         </Typography>
                     </Container>
                     <Typography variant="body2">Official Email</Typography>
                     <Container>
                         <Typography variant="body1" sx={{ py: theme.spacing(0.5) }}>
-                            {user?.email}
+                            {user.profile.email}
                         </Typography>
                     </Container>
                     <Typography variant="body2">Affiliation</Typography>
                     <Container>
                         <Typography variant="body1" sx={{ py: theme.spacing(0.5) }}>
-                            {user?.affiliation}
+                            {user.profile.affiliation}
                         </Typography>
                     </Container>
                     <Typography variant="body2">Rank</Typography>
                     <Container>
                         <Typography variant="body1" sx={{ py: theme.spacing(0.5) }}>
-                            {user?.rank}
+                            {user.profile.rank}
                         </Typography>
                     </Container>
                 </Paper>
@@ -232,20 +223,6 @@ const ProfileSettings: FC = () => {
                 <UplinkUserSettings />
             </Container>
         </Container>
-    ) : (
-        <Card>
-            <CardContent
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
-                <Typography>Loading...</Typography>
-                <CircularProgress />
-            </CardContent>
-        </Card>
     );
 };
 

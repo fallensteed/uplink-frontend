@@ -31,7 +31,7 @@ const Footer: FC<FooterProps> = (props: FooterProps) => {
                 Live Services: {props.connectionStatus ? "Connected" : "Disconnected"}{" "}
             </Typography>
             <Typography variant="body2" sx={{ mr: theme.spacing(1) }}>
-                UPLINK v0.0.1
+                Uplink v0.1.0
             </Typography>
         </Box>
     );

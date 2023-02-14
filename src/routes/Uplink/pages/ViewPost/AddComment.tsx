@@ -1,7 +1,7 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { ChangeEvent, FC, useContext, useState } from "react";
-import { UserContext } from "./../../../Root";
+import { useUser } from "common/context/User/UserContext";
+import { ChangeEvent, FC, useState } from "react";
 
 interface AddCommentProps {
     handleAddComment: (text: string) => void;
@@ -9,7 +9,7 @@ interface AddCommentProps {
 
 const AddComment: FC<AddCommentProps> = (props: AddCommentProps) => {
     const theme = useTheme();
-    const user = useContext(UserContext);
+    const user = useUser();
     const { handleAddComment } = props;
 
     const [commentText, setCommentText] = useState<string>("");
@@ -23,7 +23,7 @@ const AddComment: FC<AddCommentProps> = (props: AddCommentProps) => {
 
     return (
         <Paper sx={{ p: theme.spacing(1) }}>
-            <Typography variant="body2">Comment as {user?.uplinkUsername}</Typography>
+            <Typography variant="body2">Comment as {user.profile.uplinkUsername}</Typography>
             <TextField
                 multiline={true}
                 minRows={3}

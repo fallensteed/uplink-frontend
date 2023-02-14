@@ -2,7 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
 import { mockUser1 } from "common/api/user/user.mock";
-import { ProvideUser } from "common/context/User/UserContext";
+import { socket } from "common/config/socket";
 import {
     mockUplinkUser1,
     mockUplinkUser1Requested,
@@ -10,7 +10,6 @@ import {
 } from "routes/Uplink/mocks/uplink_user.mock";
 import { TestWrapper } from "tests/Wrapper";
 import UplinkUserSettings from "./UplinkUserSettings";
-import { socket } from "common/config/socket";
 
 let user: UserEvent;
 
@@ -22,9 +21,7 @@ const setup1 = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
-            <ProvideUser>
-                <UplinkUserSettings />
-            </ProvideUser>
+            <UplinkUserSettings />
         </TestWrapper>,
     );
 };
@@ -35,9 +32,7 @@ const setup2 = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1Requested }));
     render(
         <TestWrapper>
-            <ProvideUser>
-                <UplinkUserSettings />
-            </ProvideUser>
+            <UplinkUserSettings />
         </TestWrapper>,
     );
 };
@@ -48,9 +43,7 @@ const setup3 = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1Verified }));
     render(
         <TestWrapper>
-            <ProvideUser>
-                <UplinkUserSettings />
-            </ProvideUser>
+            <UplinkUserSettings />
         </TestWrapper>,
     );
 };
