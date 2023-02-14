@@ -1,15 +1,12 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
+import { mockUser1 } from "common/api/user/user.mock";
 import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
 import { TestWrapper } from "../../../../tests/Wrapper";
-import {
-    mockComment1,
-    mockComment1Populated,
-    mockComment2,
-    mockComment2Populated,
-} from "../../api/comment/comment.mock";
+import { mockComment1Populated, mockComment2Populated } from "../../api/comment/comment.mock";
 import CommentSection from "./CommentSection";
 
 let user: UserEvent;
@@ -30,6 +27,8 @@ const mockGetSubComments = (commentId: string) => {
 
 const setup = () => {
     user = userEvent.setup();
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <CommentSection

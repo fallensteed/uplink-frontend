@@ -10,11 +10,10 @@ interface PostDetailProps {
     communityLink: string;
     username: string;
     edited?: boolean;
-    style: "vertical" | "horizontal";
 }
 
 const PostDetail: FC<PostDetailProps> = (props: PostDetailProps) => {
-    const { createdAt, communityLink, username, edited, style } = props;
+    const { createdAt, communityLink, username, edited } = props;
     const theme = useTheme();
 
     return (

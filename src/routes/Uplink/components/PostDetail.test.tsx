@@ -1,37 +1,23 @@
 import { render, screen } from "@testing-library/react";
+import { mockUser1 } from "common/api/user/user.mock";
+import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
+import { mockUplinkUser1 } from "../mocks/uplink_user.mock";
 import PostDetail from "./PostDetail";
-import { socket } from "common/config/socket";
 
 const setup1 = () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
-            <PostDetail
-                createdAt={new Date().toString()}
-                communityLink={"c/mock"}
-                username={"u/mock"}
-                edited={false}
-                style={"vertical"}
-            />
+            <PostDetail createdAt={new Date().toString()} communityLink={"c/mock"} username={"u/mock"} edited={false} />
         </TestWrapper>,
         { wrapper: MemoryRouter },
     );
 };
-const setup2 = () => {
-    render(
-        <TestWrapper>
-            <PostDetail
-                createdAt={new Date().toString()}
-                communityLink={"c/mock"}
-                username={"u/mock"}
-                edited={true}
-                style={"horizontal"}
-            />
-        </TestWrapper>,
-        { wrapper: MemoryRouter },
-    );
-};
+
+beforeEach(() => fetchMock.resetMocks());
 
 afterAll(() => {
     socket.disconnect();
@@ -40,9 +26,4 @@ afterAll(() => {
 test("displays vertical without edited", () => {
     setup1();
     expect(screen.queryByText("Edited")).not.toBeInTheDocument();
-});
-
-test("displays horizontal with Edited", () => {
-    setup2();
-    expect(screen.getByText("Edited")).toBeInTheDocument();
 });

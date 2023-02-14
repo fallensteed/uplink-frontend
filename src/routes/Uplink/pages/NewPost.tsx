@@ -17,16 +17,16 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { useTheme } from "@mui/material/styles";
-import { FC, useContext, useEffect, useState } from "react";
+import { useUser } from "common/context/User/UserContext";
+import { FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { UserContext } from "routes/Root";
 import useSnack from "../../../common/components/SnackBar/ProvideSnack";
 import { Community, community_getAllByUserId, community_getByIdOrLink } from "../api/community/community.api";
 import { Post, post_postOne } from "../api/post/post.api";
 
 const NewPost: FC = () => {
     const theme = useTheme();
-    const user = useContext(UserContext);
+    const user = useUser();
     const { communityLink } = useParams();
     const navigate = useNavigate();
     const snack = useSnack();
@@ -48,10 +48,9 @@ const NewPost: FC = () => {
     };
 
     const getMemberCommunities = async () => {
-        if (user) {
-            const response = await community_getAllByUserId(user._id);
-            if (response.data) setMemberCommunities(response.data);
-        }
+        const response = await community_getAllByUserId(user.profile._id);
+        if (response.data) setMemberCommunities(response.data);
+        else snack("error", "Something went wrong.");
     };
 
     const handleCommunityChange = (event: SelectChangeEvent) => {
@@ -63,7 +62,7 @@ const NewPost: FC = () => {
     }, [communityLink]);
 
     useEffect(() => {
-        getMemberCommunities();
+        if (!user.isLoading) getMemberCommunities();
     }, [user]);
 
     const handleSubmitPost = async () => {
@@ -86,7 +85,8 @@ const NewPost: FC = () => {
         if (postLink) data["link"] = postLink;
         if (postImage) data["imageSrc"] = postImage;
         data["draft"] = false;
-        data["userCreated"] = user?._id as string;
+        data["userCreated"] = user.profile._id;
+        data["upVotes"] = [user.profile._id];
         data["userCreatedNotifications"] = postNotifications;
         const response = await post_postOne(data);
         if (response.data.miniLink) {

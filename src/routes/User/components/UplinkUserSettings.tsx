@@ -46,7 +46,7 @@ const UplinkUserSettings: FC = () => {
         const response = await uplink_user_patch(data);
         if (response.data.modifiedCount === 1) {
             snack("success", "Request for Verification Submitted.");
-            user.getUplinkUser();
+            user.getUserProfile();
             // setVerificationStatus("requested");
         } else {
             snack("error", "Something went wrong.");
@@ -63,7 +63,7 @@ const UplinkUserSettings: FC = () => {
         if (response.data.modifiedCount === 1) {
             snack("success", "Successfully changed.");
             setEditDefaultDisplay(false);
-            user.getUplinkUser();
+            user.getUserProfile();
         } else {
             snack("error", "Something went wrong.");
         }

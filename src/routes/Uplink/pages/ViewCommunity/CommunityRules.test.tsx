@@ -1,14 +1,18 @@
 import { render, screen } from "@testing-library/react";
+import { mockUser1 } from "common/api/user/user.mock";
+import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { CommunityRule } from "routes/Uplink/api/community/community.api";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
 import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1 } from "./../../mocks/community.mock";
 import CommunityRules from "./CommunityRules";
-import { socket } from "common/config/socket";
 
 const mockRules = mockCommunity1.rules as CommunityRule[];
 
 const setup = () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <CommunityRules />
@@ -18,6 +22,8 @@ const setup = () => {
 };
 
 const setup2 = () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <CommunityRules rules={mockRules} />
@@ -25,6 +31,8 @@ const setup2 = () => {
         { wrapper: MemoryRouter },
     );
 };
+
+beforeEach(() => fetchMock.resetMocks());
 
 afterAll(() => {
     socket.disconnect();

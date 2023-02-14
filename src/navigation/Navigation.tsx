@@ -2,9 +2,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import ClassificationBar from "common/classification/ClassificationBar";
-import { FC, useContext, useEffect, useState } from "react";
+import { useUser } from "common/context/User/UserContext";
+import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "routes/Root";
 import { uplink_user_getFollowing } from "routes/Uplink/api/user/uplink_user.api";
 import { Community, community_getAllByUserId } from "../routes/Uplink/api/community/community.api";
 import MobileDrawer from "./components/MobileDrawer";
@@ -15,7 +15,7 @@ import { routeList } from "./pages";
 const Navigation: FC = () => {
     const theme = useTheme();
     const navigate = useNavigate();
-    const user = useContext(UserContext);
+    const user = useUser();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [communities, setCommunities] = useState<Community[] | null>(null);
     const [following, setFollowing] = useState<string[] | null>(null);
@@ -43,9 +43,9 @@ const Navigation: FC = () => {
     };
 
     useEffect(() => {
-        if (user) {
-            getCommunityList(user._id);
-            getFollowingList(user._id);
+        if (!user.isLoading) {
+            getCommunityList(user.profile._id);
+            getFollowingList(user.profile._id);
         }
     }, [user]);
 

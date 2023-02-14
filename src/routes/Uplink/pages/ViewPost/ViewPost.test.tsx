@@ -7,6 +7,8 @@ import { mockComment1, mockComment2 } from "../../api/comment/comment.mock";
 import { mockCommunity1 } from "../../mocks/community.mock";
 import { mockPost1, mockPost1Populated } from "../../mocks/post.mock";
 import ViewPost from "./ViewPost";
+import { mockUser1 } from "common/api/user/user.mock";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
 
 const mockUseNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -36,6 +38,8 @@ afterAll(() => {
 
 const setup = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockPost1Populated }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockComment1] }));
     render(
         <TestWrapper>
@@ -45,6 +49,8 @@ const setup = () => {
 };
 const setupPostError = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ message: "Error" }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <RouterProvider router={memoryRouter} />
@@ -53,6 +59,8 @@ const setupPostError = () => {
 };
 const setupCommentError = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockPost1Populated }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     fetchMock.mockResponseOnce(JSON.stringify({ message: "Error" }));
     render(
         <TestWrapper>
@@ -62,6 +70,8 @@ const setupCommentError = () => {
 };
 const setupHash = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockPost1Populated }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockComment1] }));
     render(
         <TestWrapper>

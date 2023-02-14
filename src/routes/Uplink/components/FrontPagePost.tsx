@@ -3,11 +3,10 @@ import ReportIcon from "@mui/icons-material/Report";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { useUser } from "common/context/User/UserContext";
 import { removeHttp } from "common/functions/links";
-import { FC, useContext } from "react";
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { User } from "../../../common/api/user/user.api";
-import { UserContext } from "../../Root";
 import { PostPopulated } from "../api/post/post.api";
 import { formatCountComments, formatCountVotes, updateVotes } from "../functions/posts";
 import PostDetail from "./PostDetail";
@@ -21,7 +20,7 @@ interface FrontPagePostProps {
 
 const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
     const { post, getPosts } = props;
-    const user = useContext(UserContext) as User;
+    const user = useUser();
     const theme = useTheme();
     const navigate = useNavigate();
 
@@ -30,14 +29,14 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
             post._id,
             post.upVotes as string[],
             post.downVotes as string[],
-            user._id,
+            user.profile._id,
             change,
         );
         if (response === "success") getPosts();
     };
 
-    const userUpVoted = post.upVotes?.includes(user._id) as boolean;
-    const userDownVoted = post.downVotes?.includes(user._id) as boolean;
+    const userUpVoted = post.upVotes?.includes(user.profile._id) as boolean;
+    const userDownVoted = post.downVotes?.includes(user.profile._id) as boolean;
     const voteCount = formatCountVotes(post.upVotes?.length || 0, post.downVotes?.length || 0);
 
     return (
@@ -119,7 +118,6 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                         </Box>
                     </Box>
                     <PostDetail
-                        style="vertical"
                         createdAt={post.createdAt}
                         communityLink={post.community.link}
                         username={post.userCreated.uplinkUsername}

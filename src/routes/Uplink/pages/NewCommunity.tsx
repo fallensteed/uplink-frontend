@@ -16,16 +16,16 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { useTheme } from "@mui/material/styles";
-import { ChangeEvent, FC, useContext, useState } from "react";
+import { useUser } from "common/context/User/UserContext";
+import { ChangeEvent, FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useSnack from "../../../common/components/SnackBar/ProvideSnack";
-import { UserContext } from "../../Root";
 import { Community, CommunityRule, community_postOne } from "../api/community/community.api";
 
 const NewCommunity: FC = () => {
     const theme = useTheme();
     const navigate = useNavigate();
-    const user = useContext(UserContext);
+    const user = useUser();
     const snack = useSnack();
 
     const [name, setName] = useState<string>("");
@@ -78,8 +78,8 @@ const NewCommunity: FC = () => {
         if (about) data["about"] = about;
         data["link"] = link;
         data["public"] = publicToggle;
-        data["members"] = [user?._id as string];
-        data["moderators"] = [user?._id as string];
+        data["members"] = [user.profile._id];
+        data["moderators"] = [user.profile._id];
         if (rules.length) data["rules"] = rules;
         const response = await community_postOne(data);
         if (response.data._id) {

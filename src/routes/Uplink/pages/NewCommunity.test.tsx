@@ -6,6 +6,8 @@ import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1 } from "../mocks/community.mock";
 import NewCommunity from "./NewCommunity";
 import { socket } from "common/config/socket";
+import { mockUser1 } from "common/api/user/user.mock";
+import { mockUplinkUser1 } from "../mocks/uplink_user.mock";
 
 let user: UserEvent;
 
@@ -18,6 +20,8 @@ jest.mock("react-router-dom", () => ({
 
 const setup = () => {
     user = userEvent.setup();
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <NewCommunity />

@@ -2,7 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
 import { mockUser1 } from "common/api/user/user.mock";
-import { ProvideUser } from "common/context/User/UserContext";
+import { socket } from "common/config/socket";
 import {
     mockUplinkUser1,
     mockUplinkUser1Requested,
@@ -10,7 +10,6 @@ import {
 } from "routes/Uplink/mocks/uplink_user.mock";
 import { TestWrapper } from "tests/Wrapper";
 import UplinkUserSettings from "./UplinkUserSettings";
-import { socket } from "common/config/socket";
 
 let user: UserEvent;
 
@@ -22,9 +21,7 @@ const setup1 = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
-            <ProvideUser>
-                <UplinkUserSettings />
-            </ProvideUser>
+            <UplinkUserSettings />
         </TestWrapper>,
     );
 };
@@ -35,9 +32,7 @@ const setup2 = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1Requested }));
     render(
         <TestWrapper>
-            <ProvideUser>
-                <UplinkUserSettings />
-            </ProvideUser>
+            <UplinkUserSettings />
         </TestWrapper>,
     );
 };
@@ -48,9 +43,7 @@ const setup3 = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1Verified }));
     render(
         <TestWrapper>
-            <ProvideUser>
-                <UplinkUserSettings />
-            </ProvideUser>
+            <UplinkUserSettings />
         </TestWrapper>,
     );
 };
@@ -97,6 +90,7 @@ describe("dropdown actions for default user display", () => {
     test("if user is verified, they can click verified and submit change successfully", async () => {
         setup3();
         fetchMock.mockResponseOnce(JSON.stringify({ data: { modifiedCount: 1 } }));
+        fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
         fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1Verified }));
         const editButton = screen.getByTestId("edit-default-display");
         user.click(editButton);
@@ -150,6 +144,7 @@ describe("submitting for verification", () => {
     test("clicking checkbox, opens dialog box, submits for verification successfully", async () => {
         setup1();
         fetchMock.mockResponseOnce(JSON.stringify({ data: { modifiedCount: 1 } }));
+        fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
         fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1Verified }));
         const verificationStatus = screen.getByText("Not Requested");
         expect(verificationStatus).toBeInTheDocument();
@@ -163,6 +158,7 @@ describe("submitting for verification", () => {
     test("clicking checkbox, opens dialog box, cancel closes box", async () => {
         setup1();
         fetchMock.mockResponseOnce(JSON.stringify({ data: { modifiedCount: 1 } }));
+        fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
         fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1Verified }));
         const verificationStatus = screen.getByText("Not Requested");
         expect(verificationStatus).toBeInTheDocument();

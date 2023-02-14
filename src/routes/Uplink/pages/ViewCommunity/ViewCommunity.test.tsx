@@ -1,13 +1,15 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { UserEvent } from "@testing-library/user-event/dist/types/setup/setup";
+import { socket } from "common/config/socket";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { mockCommunity1, mockCommunity1Populated } from "routes/Uplink/mocks/community.mock";
 import { mockPost1Populated, mockPost2Populated } from "routes/Uplink/mocks/post.mock";
 import { TestWrapper } from "tests/Wrapper";
 import { mockCommunity1PopulatedNonMember } from "./../../mocks/community.mock";
 import ViewCommunity from "./ViewCommunity";
-import { socket } from "common/config/socket";
+import { mockUser1 } from "common/api/user/user.mock";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
 
 let user: UserEvent;
 
@@ -27,6 +29,8 @@ const memoryRouter = createMemoryRouter(memoryRoutes, {
 const setup1 = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockCommunity1Populated }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockPost1Populated, mockPost2Populated] }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     user = userEvent.setup();
     render(
         <TestWrapper>
@@ -38,6 +42,8 @@ const setup1 = () => {
 const setup2 = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockCommunity1PopulatedNonMember }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockPost1Populated, mockPost2Populated] }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     user = userEvent.setup();
     render(
         <TestWrapper>
@@ -49,6 +55,8 @@ const setup2 = () => {
 const setup3 = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ message: "error" }));
     fetchMock.mockResponseOnce(JSON.stringify({ message: "error" }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     user = userEvent.setup();
     render(
         <TestWrapper>

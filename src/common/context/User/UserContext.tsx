@@ -7,7 +7,6 @@ interface UserContextData {
     uplink: UplinkUser;
     isLoading: boolean;
     getUserProfile: () => void;
-    getUplinkUser: () => void;
 }
 
 const userProfileDefaultValue: User = {
@@ -36,7 +35,6 @@ export const userContextDefaultValue = {
     uplink: uplinkDefaultValue,
     isLoading: true,
     getUserProfile: () => null,
-    getUplinkUser: () => null,
 };
 
 const useProvideUser = () => {
@@ -46,7 +44,6 @@ const useProvideUser = () => {
 
     const getData = () => {
         getUserProfile();
-        getUplinkUser();
     };
 
     const getUserProfile = useCallback(() => {
@@ -55,21 +52,15 @@ const useProvideUser = () => {
             .then((response) => {
                 setProfile(response.data);
             })
-            .finally(() => {
-                return;
-            });
-    }, [setProfile]);
-
-    const getUplinkUser = useCallback(() => {
-        setIsLoading(true);
-        uplink_user_self_2()
-            .then((response) => {
-                setUplink(response.data);
+            .then(() => {
+                uplink_user_self_2().then((response2) => {
+                    setUplink(response2.data);
+                });
             })
             .finally(() => {
                 return;
             });
-    }, [setUplink]);
+    }, [setProfile]);
 
     useEffect(() => getData(), []);
 
@@ -78,8 +69,8 @@ const useProvideUser = () => {
     }, [profile, uplink]);
 
     return useMemo(
-        () => ({ profile, uplink, isLoading, getUserProfile, getUplinkUser }),
-        [profile, uplink, isLoading, getUserProfile, getUplinkUser],
+        () => ({ profile, uplink, isLoading, getUserProfile }),
+        [profile, uplink, isLoading, getUserProfile],
     );
 };
 

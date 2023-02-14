@@ -1,11 +1,12 @@
 import { render, screen } from "@testing-library/react";
+import { socket } from "common/config/socket";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { mockCommunity1 } from "routes/Uplink/mocks/community.mock";
 import { mockPost1 } from "routes/Uplink/mocks/post.mock";
+import { mockUplinkUser1 } from "routes/Uplink/mocks/uplink_user.mock";
 import ViewUser from "routes/Uplink/pages/ViewUser/ViewUser";
 import { TestWrapper } from "tests/Wrapper";
 import { mockUser1 } from "../../../../common/api/user/user.mock";
-import { socket } from "common/config/socket";
 
 beforeEach(() => fetchMock.resetMocks());
 
@@ -20,6 +21,9 @@ const setup = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockPost1] }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockCommunity1] }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockCommunity1] }));
+
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <RouterProvider router={memoryRouter} />
@@ -32,6 +36,9 @@ const setup2 = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: [] }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [] }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: [] }));
+
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <RouterProvider router={memoryRouter} />
@@ -44,6 +51,9 @@ const setup3 = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ message: "Error" }));
     fetchMock.mockResponseOnce(JSON.stringify({ message: "Error" }));
     fetchMock.mockResponseOnce(JSON.stringify({ message: "Error" }));
+
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <RouterProvider router={memoryRouter} />

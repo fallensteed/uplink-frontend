@@ -6,11 +6,12 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { useTheme } from "@mui/material/styles";
 import useSnack from "common/components/SnackBar/ProvideSnack";
 import SpriteIcon from "common/components/SpriteIcon";
-import { FC, useContext, useEffect, useState } from "react";
+import { useUser } from "common/context/User/UserContext";
+import { FC, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import PostList from "routes/Uplink/components/PostList";
+import LoadingCard from "../../../../common/components/Loading/LoadingCard";
 import backgroundImage from "../../../../common/images/background_1.png";
-import { UserContext } from "../../../Root";
 import {
     CommunityPopulated,
     community_adjustMembership,
@@ -24,7 +25,7 @@ import CommunityRules from "./CommunityRules";
 const ViewCommunity: FC = () => {
     const theme = useTheme();
     const snack = useSnack();
-    const user = useContext(UserContext);
+    const user = useUser();
     const { communityLink } = useParams();
 
     const [posts, setPosts] = useState<PostPopulated[] | null>(null);
@@ -53,7 +54,7 @@ const ViewCommunity: FC = () => {
     const handleLeaveCommunity = async () => {
         const response = await community_adjustMembership(
             community?._id as string,
-            user?._id as string,
+            user.profile._id,
             "members",
             "remove",
         );
@@ -62,12 +63,7 @@ const ViewCommunity: FC = () => {
     };
 
     const handleJoinCommunity = async () => {
-        const response = await community_adjustMembership(
-            community?._id as string,
-            user?._id as string,
-            "members",
-            "add",
-        );
+        const response = await community_adjustMembership(community?._id as string, user.profile._id, "members", "add");
         if (response.data) getCommunity(community?._id as string);
         else snack("error", "Something went wrong.");
     };
@@ -115,7 +111,7 @@ const ViewCommunity: FC = () => {
                         mr: theme.spacing(2),
                     }}
                 >
-                    {community.members?.filter((member) => member._id === user?._id).length ? (
+                    {community.members?.filter((member) => member._id === user.profile._id).length ? (
                         <Button
                             size="small"
                             variant="outlined"
@@ -146,7 +142,7 @@ const ViewCommunity: FC = () => {
                         <Box>
                             <Paper sx={{ display: "flex", alignItems: "center", mb: theme.spacing(2) }}>
                                 <Avatar sx={{ backgroundColor: "white", height: 32, width: 32, ml: 1 }}>
-                                    <SpriteIcon seed={`${user?.uplinkUsername}`} size={24} />
+                                    <SpriteIcon seed={`${user.profile.uplinkUsername}`} size={24} />
                                 </Avatar>
                                 <Button
                                     fullWidth
@@ -216,19 +212,7 @@ const ViewCommunity: FC = () => {
             </Container>
         </Box>
     ) : (
-        <Card>
-            <CardContent
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
-                <Typography>Loading...</Typography>
-                <CircularProgress />
-            </CardContent>
-        </Card>
+        <LoadingCard />
     );
 };
 

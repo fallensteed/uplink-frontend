@@ -1,9 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { mockUser1 } from "common/api/user/user.mock";
 import { socket } from "common/config/socket";
 import { MemoryRouter } from "react-router-dom";
 import { TestWrapper } from "tests/Wrapper";
 import Uplink from "./Uplink";
 import { mockPost1Populated } from "./mocks/post.mock";
+import { mockUplinkUser1 } from "./mocks/uplink_user.mock";
 
 const mockUseNavigate = jest.fn();
 
@@ -14,6 +16,8 @@ jest.mock("react-router-dom", () => ({
 
 const setup1 = () => {
     fetchMock.mockResponseOnce(JSON.stringify({}));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <Uplink />
@@ -23,6 +27,8 @@ const setup1 = () => {
 };
 const setup2 = () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: [mockPost1Populated] }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     render(
         <TestWrapper>
             <Uplink />
