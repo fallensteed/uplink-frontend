@@ -36,6 +36,7 @@ test("clicking pencil for edit username allows username to be edited and submitt
     setup1();
     fetchMock.mockResponseOnce(JSON.stringify({ data: { modifiedCount: 1 } }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     const editButton = screen.getByTestId("edit-username");
     user.click(editButton);
     const usernameField = await screen.findByRole("textbox");
@@ -75,6 +76,7 @@ test("clicking pencil for edit alias allows alias to be edited and submitted", a
     setup1();
     fetchMock.mockResponseOnce(JSON.stringify({ data: { modifiedCount: 1 } }));
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
+    fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1 }));
     const editButton = screen.getByTestId("edit-alias");
     user.click(editButton);
     const usernameField = await screen.findByRole("textbox");

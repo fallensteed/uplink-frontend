@@ -90,6 +90,7 @@ describe("dropdown actions for default user display", () => {
     test("if user is verified, they can click verified and submit change successfully", async () => {
         setup3();
         fetchMock.mockResponseOnce(JSON.stringify({ data: { modifiedCount: 1 } }));
+        fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
         fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1Verified }));
         const editButton = screen.getByTestId("edit-default-display");
         user.click(editButton);
@@ -143,6 +144,7 @@ describe("submitting for verification", () => {
     test("clicking checkbox, opens dialog box, submits for verification successfully", async () => {
         setup1();
         fetchMock.mockResponseOnce(JSON.stringify({ data: { modifiedCount: 1 } }));
+        fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
         fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1Verified }));
         const verificationStatus = screen.getByText("Not Requested");
         expect(verificationStatus).toBeInTheDocument();
@@ -156,6 +158,7 @@ describe("submitting for verification", () => {
     test("clicking checkbox, opens dialog box, cancel closes box", async () => {
         setup1();
         fetchMock.mockResponseOnce(JSON.stringify({ data: { modifiedCount: 1 } }));
+        fetchMock.mockResponseOnce(JSON.stringify({ data: mockUser1 }));
         fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1Verified }));
         const verificationStatus = screen.getByText("Not Requested");
         expect(verificationStatus).toBeInTheDocument();

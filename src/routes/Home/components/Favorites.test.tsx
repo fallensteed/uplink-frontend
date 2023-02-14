@@ -17,7 +17,7 @@ const setup = () => {
     );
 };
 
-beforeEach(() => fetchMock.resetMocks())
+beforeEach(() => fetchMock.resetMocks());
 
 afterAll(() => {
     socket.disconnect();
