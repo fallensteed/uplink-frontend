@@ -105,3 +105,14 @@ export const uplink_user_getFollowing = async (userId: string): Promise<any> => 
     });
     return response.json();
 };
+
+export const uplink_user_getSavedPosts = async (userId: string): Promise<any> => {
+    const response = await fetch(`${UPLINK_USER_URL}/${userId}/savedPosts`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+    });
+    return response.json();
+};

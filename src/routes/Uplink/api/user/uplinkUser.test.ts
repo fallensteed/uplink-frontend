@@ -1,3 +1,4 @@
+import { mockPost1 } from "routes/Uplink/mocks/post.mock";
 import { mockUser1 } from "../../../../common/api/user/user.mock";
 import { mockCommunity1 } from "../../mocks/community.mock";
 import {
@@ -12,6 +13,7 @@ import {
     uplink_user_getFollowing,
     uplink_user_getMember,
     uplink_user_getModerator,
+    uplink_user_getSavedPosts,
     uplink_user_patch,
     uplink_user_postOne,
     uplink_user_self,
@@ -72,4 +74,10 @@ test("uplink_user_getFollowing", async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ data: mockUplinkUser1Following }));
     const response = await uplink_user_getFollowing(mockUser1._id);
     expect(response).toEqual({ data: mockUplinkUser1Following });
+});
+
+test("uplink_user_getSavedPosts", async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ data: [mockPost1] }));
+    const response = await uplink_user_getSavedPosts(mockUser1._id);
+    expect(response).toEqual({ data: [mockPost1] });
 });
