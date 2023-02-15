@@ -16,7 +16,7 @@ import {
     uplink_user_postOne,
     uplink_user_self,
     uplink_user_self_2,
-} from "./uplink_user.api";
+} from "./uplinkUser.api";
 
 beforeEach(() => fetchMock.resetMocks());
 

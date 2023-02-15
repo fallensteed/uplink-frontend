@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { uplink_user_self_2 } from "routes/Uplink/api/user/uplink_user.api";
+import { uplink_user_self_2 } from "routes/Uplink/api/user/uplinkUser.api";
 import { UplinkUser } from "routes/Uplink/types/uplinkUser.interface";
 import { User, user_self } from "../../api/user/user.api";
 
@@ -8,6 +8,7 @@ interface UserContextData {
     uplink: UplinkUser;
     isLoading: boolean;
     getUserProfile: () => void;
+    updateUserProfile: () => void;
 }
 
 const userProfileDefaultValue: User = {
@@ -36,6 +37,7 @@ export const userContextDefaultValue = {
     uplink: uplinkDefaultValue,
     isLoading: true,
     getUserProfile: () => null,
+    updateUserProfile: () => null,
 };
 
 const useProvideUser = () => {
@@ -61,7 +63,22 @@ const useProvideUser = () => {
             .finally(() => {
                 return;
             });
-    }, [setProfile]);
+    }, [setProfile, setUplink]);
+
+    const updateUserProfile = useCallback(() => {
+        user_self()
+            .then((response) => {
+                setProfile(response.data);
+            })
+            .then(() => {
+                uplink_user_self_2().then((response2) => {
+                    setUplink(response2.data);
+                });
+            })
+            .finally(() => {
+                return;
+            });
+    }, [setProfile, setUplink]);
 
     useEffect(() => getData(), []);
 
@@ -70,8 +87,8 @@ const useProvideUser = () => {
     }, [profile, uplink]);
 
     return useMemo(
-        () => ({ profile, uplink, isLoading, getUserProfile }),
-        [profile, uplink, isLoading, getUserProfile],
+        () => ({ profile, uplink, isLoading, getUserProfile, updateUserProfile }),
+        [profile, uplink, isLoading, getUserProfile, updateUserProfile],
     );
 };
 

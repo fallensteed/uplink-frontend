@@ -4,8 +4,8 @@ export interface UplinkUser {
     verificationStatus: "not-requested" | "requested" | "denied" | "verified";
     displayName?: string;
     default: "username" | "verified";
-    followers?: [string];
-    savedPosts?: [string];
-    favCommunities?: [string];
-    favUsers?: [string];
+    followers?: string[];
+    savedPosts?: string[];
+    favCommunities?: string[];
+    favUsers?: string[];
 }
