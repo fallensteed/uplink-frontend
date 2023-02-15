@@ -12,7 +12,7 @@ import { User, user_getByUsername } from "../../../../common/api/user/user.api";
 import backgroundImage from "../../../../common/images/background_2.png";
 import { Community } from "../../api/community/community.api";
 import { PostPopulated, post_getAllByUser } from "../../api/post/post.api";
-import { uplink_user_getMember, uplink_user_getModerator } from "../../api/user/uplink_user.api";
+import { uplink_user_getMember, uplink_user_getModerator } from "../../api/user/uplinkUser.api";
 import UserFollowers from "./UserFollowers";
 import UserFollowing from "./UserFollowing";
 import UserMember from "./UserMember";

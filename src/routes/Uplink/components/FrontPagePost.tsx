@@ -8,8 +8,10 @@ import { useUser } from "common/context/User/UserContext";
 import { removeHttp } from "common/functions/links";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import useSnack from "../../../common/components/SnackBar/ProvideSnack";
 import { PostPopulated } from "../api/post/post.api";
 import { formatCountComments, formatCountVotes, updateVotes } from "../functions/posts";
+import { savePost, unsavePost } from "../functions/savedPosts";
 import PostDetail from "./PostDetail";
 import PostVoting from "./PostVoting";
 import ShareButton from "./ShareButton";
@@ -22,6 +24,7 @@ interface FrontPagePostProps {
 const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
     const { post, getPosts } = props;
     const user = useUser();
+    const snack = useSnack();
     const theme = useTheme();
     const navigate = useNavigate();
 
@@ -34,6 +37,26 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
             change,
         );
         if (response === "success") getPosts();
+    };
+
+    const handleSavePost = async () => {
+        const response = await savePost(user.uplink._id, user.uplink.savedPosts, post._id);
+        if (response.data && response.data.modifiedCount === 1) {
+            user.updateUserProfile();
+            snack("success", "Post saved.");
+        } else {
+            snack("error", "Something went wrong.");
+        }
+    };
+
+    const handleUnsavePost = async () => {
+        const response = await unsavePost(user.uplink._id, user.uplink.savedPosts, post._id);
+        if (response.data && response.data.modifiedCount === 1) {
+            user.updateUserProfile();
+            snack("success", "Removed saved post.");
+        } else {
+            snack("error", "Something went wrong.");
+        }
     };
 
     const userUpVoted = post.upVotes?.includes(user.profile._id) as boolean;
@@ -141,11 +164,21 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
                         </Typography>
                         <ShareButton link={`${window.location.host}/c/${post.community.link}/p/${post.miniLink}`} />
                         {user.uplink.savedPosts?.includes(post._id) ? (
-                            <Button size="small" sx={{ mr: theme.spacing(1) }} startIcon={<BookmarkIcon />}>
+                            <Button
+                                size="small"
+                                sx={{ mr: theme.spacing(1) }}
+                                onClick={handleUnsavePost}
+                                startIcon={<BookmarkIcon />}
+                            >
                                 Saved
                             </Button>
                         ) : (
-                            <Button size="small" sx={{ mr: theme.spacing(1) }} startIcon={<BookmarkBorderIcon />}>
+                            <Button
+                                size="small"
+                                sx={{ mr: theme.spacing(1) }}
+                                onClick={handleSavePost}
+                                startIcon={<BookmarkBorderIcon />}
+                            >
                                 Save
                             </Button>
                         )}

@@ -5,7 +5,7 @@ import ClassificationBar from "common/classification/ClassificationBar";
 import { useUser } from "common/context/User/UserContext";
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { uplink_user_getFollowing } from "routes/Uplink/api/user/uplink_user.api";
+import { uplink_user_getFollowing } from "routes/Uplink/api/user/uplinkUser.api";
 import { Community, community_getAllByUserId } from "../routes/Uplink/api/community/community.api";
 import MobileDrawer from "./components/MobileDrawer";
 import UplinkNavButton from "./components/UplinkNavButton";
