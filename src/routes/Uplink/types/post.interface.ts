@@ -44,3 +44,29 @@ export interface PostEditHistory {
     detail: string;
     updatedAt: string;
 }
+
+export interface PostSendRequest {
+    type?: PostRequestType;
+    sort?: PostRequestSort;
+    page?: number;
+    id?: string;
+    limit?: number;
+}
+
+export type PostRequestType = "community" | "saved" | "user" | "username" | null;
+export type PostRequestSort = "newest" | "rating" | null;
+
+export interface PostReceiveRequest {
+    data: {
+        docs: [PostPopulated];
+        totalDocs: number;
+        limit: number;
+        totalPages: number;
+        page: number;
+        pagingCounter: number;
+        hasPrevPage: boolean;
+        hasNextPage: boolean;
+        prevPage: number | null;
+        nextPage: number | null;
+    };
+}

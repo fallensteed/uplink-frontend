@@ -30,7 +30,7 @@ export const mockCommunity1Populated: CommunityPopulated = {
     about: "This is a test community for mock data",
     link: "TestCommunity1",
     public: true,
-    members: [mockUser1],
+    members: [mockUser1._id],
     moderators: [mockUser1],
     rules: [
         {

@@ -7,7 +7,7 @@ import { useUser } from "common/context/User/UserContext";
 import { FC, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Comment, CommentPopulated, comment_getAllByPost } from "routes/Uplink/api/comment/comment.api";
-import { PostPopulated, post_getByMiniLink } from "routes/Uplink/api/post/post.api";
+import { PostPopulated, post_getOnePost } from "routes/Uplink/api/post/post.api";
 import useSnack from "../../../../common/components/SnackBar/ProvideSnack";
 import backgroundImage from "../../../../common/images/background_1.png";
 import { comment_postOne } from "./../../api/comment/comment.api";
@@ -27,7 +27,7 @@ const ViewPost: FC = () => {
     const [comments, setComments] = useState<CommentPopulated[]>([]);
 
     const getPost = async () => {
-        const response = await post_getByMiniLink(miniLink as string);
+        const response = await post_getOnePost(undefined, miniLink as string);
         if (response.data) {
             setPost(response.data);
         } else {

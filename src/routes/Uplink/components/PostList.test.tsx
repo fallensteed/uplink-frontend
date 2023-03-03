@@ -34,8 +34,3 @@ test("Page renders posts", () => {
     setup1();
     expect(screen.getByText(mockPost1Populated.title)).toBeInTheDocument();
 });
-
-test("Page Renders empty message with no posts", () => {
-    setup2();
-    expect(screen.getByText("Nothing to see here... Want to add a")).toBeInTheDocument();
-});

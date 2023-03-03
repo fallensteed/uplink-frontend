@@ -18,7 +18,7 @@ import ShareButton from "./ShareButton";
 
 interface FrontPagePostProps {
     post: PostPopulated;
-    getPosts: () => Promise<void>;
+    getPosts: (id: string) => Promise<void>;
 }
 
 const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
@@ -36,7 +36,7 @@ const FrontPagePost: FC<FrontPagePostProps> = (props: FrontPagePostProps) => {
             user.profile._id,
             change,
         );
-        if (response === "success") getPosts();
+        if (response === "success") getPosts(post._id);
     };
 
     const handleSavePost = async () => {

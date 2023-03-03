@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { User } from "common/api/user/user.api";
 import { API_URL } from "../../../../config/api";
+import { PostReceiveRequest, PostSendRequest } from "../../types/post.interface";
 import { Community } from "../community/community.api";
 
 export interface Post {
@@ -48,6 +49,32 @@ export interface PostEditHistory {
 }
 
 export const UPLINK_POST_URL = `${API_URL}/uplink/post`;
+
+export const post_getRequest = async (request?: PostSendRequest): Promise<PostReceiveRequest> => {
+    const queryString = new URLSearchParams(request as Record<string, string>).toString();
+    const response = await fetch(`${UPLINK_POST_URL}/request/?${queryString}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+    });
+    return response.json();
+};
+
+export const post_getOnePost = async (id?: string, link?: string): Promise<{ data: PostPopulated }> => {
+    let queryString = "";
+    if (id) queryString = `id=${id}`;
+    if (link) queryString = `link=${link}`;
+    const response = await fetch(`${UPLINK_POST_URL}/?${queryString}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store, no-cache, must-revalidate",
+        },
+    });
+    return response.json();
+};
 
 export const post_getAll = async (): Promise<any> => {
     const response = await fetch(`${UPLINK_POST_URL}/`, {

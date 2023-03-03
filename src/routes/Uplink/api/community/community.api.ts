@@ -22,7 +22,7 @@ export interface CommunityPopulated {
     about?: string;
     link: string;
     public: boolean;
-    members: User[];
+    members: string[];
     moderators: User[];
     rules?: CommunityRule[];
     pinnedPosts?: PostPopulated[];
