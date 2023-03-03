@@ -1,4 +1,4 @@
-import { mockUser1, mockUser2 } from "common/api/user/user.mock";
+import { mockUser1, mockUser2, mockUser3 } from "common/api/user/user.mock";
 import { UplinkUser } from "../types/uplinkUser.interface";
 import { mockPost1 } from "./post.mock";
 
@@ -35,5 +35,12 @@ export const mockUplinkUser1Update: UplinkUser = {
     _id: "63b5cc4c6c951fb114245bcc",
     verificationStatus: "requested",
 } as UplinkUser;
+export const mockUplinkUser3: UplinkUser = {
+    _id: "",
+    userId: mockUser3._id,
+    verificationStatus: "not-requested",
+    displayName: "the_real_jane",
+    default: "username",
+};
 export const mockUplinkUser1Followers = [mockUser2.uplinkUsername];
 export const mockUplinkUser1Following = [mockUser2.uplinkUsername];

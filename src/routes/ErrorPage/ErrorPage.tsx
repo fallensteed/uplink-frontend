@@ -31,7 +31,7 @@ const ErrorPage: FC = () => {
                     Sorry, an unexpected error has occurred.
                 </Typography>
                 <Typography sx={{ pb: 2 }} variant="subtitle1">
-                    {error.statusText || error.message}
+                    {error ? error.statusText || error.message : null}
                 </Typography>
                 <Button startIcon={<ArrowBackIcon />} color="inherit" onClick={() => navigate(-1)}>
                     Try Going Back

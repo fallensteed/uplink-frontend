@@ -39,7 +39,7 @@ const PostVoting: FC<PostVotingProps> = (props: PostVotingProps) => {
             >
                 <KeyboardArrowUpIcon />
             </IconButton>
-            <Typography>{voteCount}</Typography>
+            <Typography data-testid="vote-count">{voteCount}</Typography>
             <IconButton
                 data-testid="down-vote-button"
                 size="small"
